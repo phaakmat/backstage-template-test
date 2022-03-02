@@ -1,0 +1,31 @@
+apiVersion: backstage.io/v1beta2
+kind: Template
+metadata:
+  name: Backstage-template-test
+  description: Templating test
+spec:
+  type: template-test
+  parameters:
+    - title: What is the test value?
+      description: Enter the test value.
+      type: string
+      required:
+        - theValue
+      properties:
+        testValue:
+          type: string
+          title: Test value
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the component
+          ui:field: OwnerPicker
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      input:
+        url: ./template
+        values:
+          testValue: ${{ parameters.testValue }}
+          owner: ${{ parameters.owner }}
+          
