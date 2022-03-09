@@ -16,6 +16,9 @@ spec:
         testValue:
           type: string
           title: Test value
+    - title: Owner
+      description: Owner
+      properties:        
         owner:
           title: Owner
           type: string
