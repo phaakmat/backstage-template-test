@@ -9,7 +9,7 @@ spec:
   parameters:
     - title: What is the test value?
       description: Enter the test value.
-      type: string
+      type: object
       required:
         - testValue
       properties:
