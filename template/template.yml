@@ -6,7 +6,7 @@ metadata:
   title: Test Action template
   description: scaffolder v1beta3 template demo
 spec:
-  owner: backstage/techdocs-core
+  owner: test
   type: service
 
   # these are the steps which are rendered in the frontend with the form input
@@ -43,13 +43,6 @@ spec:
         url: ./template
         values:
           name: ${{ parameters.name }}
-
-    - id: fetch-docs
-      name: Fetch Docs
-      action: fetch:plain
-      input:
-        targetPath: ./community
-        url: https://github.com/backstage/community/tree/main/backstage-community-sessions
 
     - id: publish
       name: Publish

@@ -1,9 +1,10 @@
-apiVersion: backstage.io/v1beta2
+apiVersion: backstage.io/v1beta3
 kind: Template
 metadata:
   name: Backstage-template-test
   description: Templating test
 spec:
+  owner: Team Platform
   type: template-test
   parameters:
     - title: What is the test value?
@@ -23,6 +24,7 @@ spec:
   steps:
     - id: fetch-base
       name: Fetch Base
+      action: fetch:template
       input:
         url: ./template
         values:
