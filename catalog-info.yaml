@@ -10,7 +10,7 @@ spec:
       description: Enter the test value.
       type: string
       required:
-        - theValue
+        - testValue
       properties:
         testValue:
           type: string
