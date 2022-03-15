@@ -24,13 +24,7 @@ spec:
           type: string
           description: Owner of the component
           ui:field: OwnerPicker
-    - title: Repo
-      description: Repository
-      properties:
-        repoUrl:
-          title: Repository location
-          type: string
-          ui:field: RepoUrlPicker
+
   steps:
     - id: fetch-base
       name: Fetch Base
