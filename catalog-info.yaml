@@ -40,10 +40,10 @@ spec:
         values:
           testValue: ${{ parameters.testValue }}
           owner: ${{ parameters.owner }}
+  
     - id: publish
       name: Publish
       action: publish:github
       input:
-        allowedHosts: ['github.com']
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: 'github.com?owner=phaakmat&repo=backstage-template-test.{{ parameters.testValue }}'
 
