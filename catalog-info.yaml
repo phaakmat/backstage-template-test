@@ -24,6 +24,13 @@ spec:
           type: string
           description: Owner of the component
           ui:field: OwnerPicker
+    - title: Repo
+      description: Repository
+      properties:
+        repoUrl:
+          title: Repository location
+          type: string
+          ui:field: RepoUrlPicker
   steps:
     - id: fetch-base
       name: Fetch Base
@@ -33,8 +40,10 @@ spec:
         values:
           testValue: ${{ parameters.testValue }}
           owner: ${{ parameters.owner }}
-    # - id: publish
-    #   name: Publish
-    #   action: publish:github
-    #   input:
-    #     repoUrl: https://www.github.com/pascalhaakmat/
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        repoUrl: ${{ parameters.repoUrl }}
+
