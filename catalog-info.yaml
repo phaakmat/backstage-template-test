@@ -24,7 +24,23 @@ spec:
           type: string
           description: Owner of the component
           ui:field: OwnerPicker
-
+    - title: Choose a location
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repository Location
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            # Here's the option you can pass to the RepoUrlPicker
+            requestUserCredentials:
+              secretsKey: USER_OAUTH_TOKEN
+              additionalScopes:
+                github:
+                  - workflow:write
+            allowedHosts:
+              - github.com
   steps:
     - id: fetch-base
       name: Fetch Base
@@ -39,5 +55,6 @@ spec:
       name: Publish
       action: publish:github
       input:
+        allowedHosts: ['github.com']
         repoUrl: 'github.com?owner=phaakmat&repo=backstage-template-test.${{ parameters.testValue }}'
-
+        token: ${{ secrets.USER_OAUTH_TOKEN }}
