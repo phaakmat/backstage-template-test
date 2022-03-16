@@ -39,5 +39,5 @@ spec:
       name: Publish
       action: publish:github
       input:
-        repoUrl: 'github.com?owner=phaakmat&repo=backstage-template-test.{{ parameters.testValue }}'
+        repoUrl: 'github.com?owner=phaakmat&repo=backstage-template-test.${{ parameters.testValue }}'
 
