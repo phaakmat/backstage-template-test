@@ -56,5 +56,6 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
+        description: THhs is ${{ parameters.testValue }}
         repoUrl: ${{ parameters.repoUrl }} # 'github.com?owner=phaakmat&repo=backstage-template-test.${{ parameters.testValue }}'
         token: ${{ secrets.USER_OAUTH_TOKEN }}
