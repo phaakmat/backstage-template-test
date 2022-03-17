@@ -55,7 +55,7 @@ spec:
           owner: ${{ parameters.owner }}
       output:
         repoName: '${{ parameters.name }}.funda.io'
-        
+
     - id: publish
       name: Publish
       action: publish:github
@@ -71,8 +71,8 @@ spec:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
         catalogInfoPath: ./catalog-info.yaml
 
-    # outputs
-    output:
-      repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-      remoteUrl: ${{ steps.publish.output.remoteUrl }}
-      entityRef: ${{ steps.register.output.entityRef }}
+  # outputs
+  output:
+    repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+    remoteUrl: ${{ steps.publish.output.remoteUrl }}
+    entityRef: ${{ steps.register.output.entityRef }}
