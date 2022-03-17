@@ -56,6 +56,11 @@ spec:
       output:
         repoName: '${{ parameters.name }}.funda.io'
 
+    - id: debug
+      name: Debug
+      action: debug:log
+      message: ${{ steps.fetch-base.output.repoName }}
+
     - id: publish
       name: Publish
       action: publish:github
