@@ -49,17 +49,20 @@ spec:
       input:
         url: ./template
         values:
-          testValue: ${{ parameters.testValue }}
+          name: ${{ parameters.name }}
+          repoName: '${{ parameters.name }}.funda.io'
+          description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
-  
+      output:
+        repoName: '${{ parameters.name }}.funda.io'
+        
     - id: publish
       name: Publish
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: THhs is ${{ parameters.testValue }}
-        repoUrl: ${{ parameters.repoUrl }} # 'github.com?owner=phaakmat&repo=backstage-template-test.${{ parameters.testValue }}'
-        token: ${{ secrets.USER_OAUTH_TOKEN }}
+        description: ${{ steps.fetch-base.output.repoName }}
+        repoUrl: 'github.com?owner=phaakmat&repo=${{ steps.fetch-base.output.repoName }}'
 
     - id: register
       name: Register
