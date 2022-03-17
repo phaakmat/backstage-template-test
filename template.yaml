@@ -53,13 +53,6 @@ spec:
           repoName: '${{ parameters.name }}.funda.io'
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
-      output:
-        repoName: '${{ parameters.name }}.funda.io'
-
-    - id: debug
-      name: Debug
-      action: debug:log
-      message: ${{ steps.fetch-base.output.repoName }}
 
     - id: publish
       name: Publish
@@ -67,7 +60,7 @@ spec:
       input:
         allowedHosts: ['github.com']
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=phaakmat&repo=${{ steps.fetch-base.output.repoName }}'
+        repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
 
     - id: register
       name: Register
