@@ -27,9 +27,3 @@ steps:
     command: 'test'
 #    projects: ${{ values.name }}.sln
 
-
-
-
-- template: nuget-package/build-publish-dotnet.yaml@templates
-  parameters: 
-    defaultBranchName : master
