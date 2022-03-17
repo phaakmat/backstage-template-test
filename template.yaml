@@ -1,0 +1,75 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: dotnet-feature-api
+  title: .NET 6.0 Feature API
+  description: Create a .NET 6.0 Feature API
+spec:
+  owner: Team Platform
+  type: api
+  parameters:
+    - title: Enter values
+      required:
+        - name
+        - description
+        - owner
+      properties:
+        name:
+          title: Name
+          type: string
+          pattern: ^[a-z][a-z0-9]+$
+          description: Unique name of the Feature API. Should be a single word.
+          minLength: 5
+          maxLength: 30
+          ui:autoFocus: true
+        description:
+          title: Description
+          type: string
+          description: Description of the Feature API.
+          minLength: 5
+          maxLength: 300
+          ui:options:
+            rows: 3
+          ui:widget: textarea
+        owner:
+          title: Owner
+          type: string
+          description: Owner of the package
+          ui:field: OwnerPicker
+          ui:widget: select
+          ui:options:
+            allowedKinds:
+              - Group
+
+  # scaffolding steps
+  steps:
+    - id: fetch-base
+      name: Fetch Base
+      action: fetch:template
+      input:
+        url: ./template
+        values:
+          testValue: ${{ parameters.testValue }}
+          owner: ${{ parameters.owner }}
+  
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: THhs is ${{ parameters.testValue }}
+        repoUrl: ${{ parameters.repoUrl }} # 'github.com?owner=phaakmat&repo=backstage-template-test.${{ parameters.testValue }}'
+        token: ${{ secrets.USER_OAUTH_TOKEN }}
+
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: ./catalog-info.yaml
+
+    # outputs
+    output:
+      repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+      remoteUrl: ${{ steps.publish.output.remoteUrl }}
+      entityRef: ${{ steps.register.output.entityRef }}
