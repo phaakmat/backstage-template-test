@@ -1,0 +1,35 @@
+trigger:
+  paths:
+    exclude:
+    - docs/*
+    - azure-pipelines-docs.yml
+
+resources:
+  repositories:
+    - repository: templates
+      type: github
+      name: fundarealestate/funda-azdo-templates
+      endpoint: fundarealestate
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: DotNetCoreCli@2
+  displayName: 'Build'
+  inputs:
+    command: 'build'
+#    projects: ${{ values.name }}.sln
+
+- task: DotNetCoreCli@2
+  displayName: 'Run tests'
+  inputs:
+    command: 'test'
+#    projects: ${{ values.name }}.sln
+
+
+
+
+- template: nuget-package/build-publish-dotnet.yaml@templates
+  parameters: 
+    defaultBranchName : master

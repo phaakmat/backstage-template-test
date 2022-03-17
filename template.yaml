@@ -47,7 +47,7 @@ spec:
       name: Fetch Template
       action: fetch:template
       input:
-        url: ./template
+        url: './template'
         values:
           name: ${{ parameters.name }}
           repoName: '${{ parameters.name }}.funda.io'
@@ -68,6 +68,13 @@ spec:
       action: catalog:register
       input:
         catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
+
+    - id: azdevops-pipeline-creator
+      name: Create AzureDevOps Pipeline
+      action: azdevops-pipeline-creator
+      input:
+        owner: ${{ parameters.owner }}
+        name: '${{ parameters.name }}.funda.io'
 
   # outputs
   output:
