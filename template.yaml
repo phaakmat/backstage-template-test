@@ -44,7 +44,7 @@ spec:
   # scaffolding steps
   steps:
     - id: fetch-base
-      name: Fetch Base
+      name: Fetch Template
       action: fetch:template
       input:
         url: ./template
@@ -55,19 +55,19 @@ spec:
           owner: ${{ parameters.owner }}
 
     - id: publish
-      name: Publish
+      name: Publish to GitHub
       action: publish:github
+      defaultBranch: main
       input:
         allowedHosts: ['github.com']
         description: ${{ parameters.description }}
         repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
 
     - id: register
-      name: Register
+      name: Register with Backstage
       action: catalog:register
       input:
-        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: './catalog-info.yaml'
+        catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/main/catalog-info.yaml'
 
   # outputs
   output:
