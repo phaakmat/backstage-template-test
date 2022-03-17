@@ -61,7 +61,7 @@ spec:
       action: publish:github
       input:
         allowedHosts: ['github.com']
-        description: ${{ steps.fetch-base.output.repoName }}
+        description: ${{ parameters.description }}
         repoUrl: 'github.com?owner=phaakmat&repo=${{ steps.fetch-base.output.repoName }}'
 
     - id: register
@@ -69,7 +69,7 @@ spec:
       action: catalog:register
       input:
         repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-        catalogInfoPath: ./catalog-info.yaml
+        catalogInfoPath: './catalog-info.yaml'
 
   # outputs
   output:
