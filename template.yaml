@@ -97,7 +97,7 @@ spec:
       input:
         description: ${{ parameters.description }}
         repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
-        branchName: main
+        branchName: catalog-info
         title: "Update catalog-info.yaml"
 
     - id: register
