@@ -4,6 +4,10 @@ metadata:
   name: dotnet-feature-api
   title: .NET 6.0 Feature API
   description: Create a .NET 6.0 Feature API
+  tags:
+    - service
+    - template
+    - feature-api
 spec:
   owner: Team Platform
   type: api
