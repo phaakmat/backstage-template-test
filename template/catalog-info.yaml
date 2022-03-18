@@ -10,7 +10,7 @@ metadata:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: '${{ parameters.name }}.funda.io'
     dev.azure.com/project: ${{ parameters.owner }}
-    dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | string }}
+    dev.azure.com/build-definition: ${{ default(steps.azdevops.output.buildPipelineId, '') | string }}
 spec:
   type: api
   lifecycle: experimental
