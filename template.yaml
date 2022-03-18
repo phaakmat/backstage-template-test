@@ -88,11 +88,11 @@ spec:
               github.com/project-slug: ${{ parameters.repoName }}
               dev.azure.com/project: ${{ parameters.owner }}
               dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | string }}
-              spec:
-                type: api
-                lifecycle: experimental
-                owner: ${{ values.owner }}
-                name: ${{ values.name }}
+          spec:
+            type: api
+            lifecycle: experimental
+            owner: ${{ values.owner }}
+            name: ${{ values.name }}
 
     - id: makepr
       name: Make PR
