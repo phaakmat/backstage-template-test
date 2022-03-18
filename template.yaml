@@ -63,18 +63,47 @@ spec:
         description: ${{ parameters.description }}
         repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
 
-    - id: register
-      name: Register with Backstage
-      action: catalog:register
-      input:
-        catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
-
     - id: azdevops
       name: Create AzureDevOps Pipeline
       action: azdevops-pipeline-creator
       input:
         owner: ${{ parameters.owner }}
         name: '${{ parameters.name }}.funda.io'
+
+    - id: updateCatalogInfo
+      name: Update catalog-info.yaml with AZ Pipeline info
+      action: catalog:write
+      input:
+        entity:
+          apiVersion: backstage.io/v1alpha1
+          kind: Component
+          metadata:
+            name: ${{ values.name }}
+            description: ${{ values.description }}
+            annotations:
+              backstage.io/techdocs-ref: dir:.
+              github.com/project-slug: ${{ values.repoName }}
+              dev.azure.com/project: ${{ values.owner }}
+              dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId }}
+              spec:
+                type: api
+                lifecycle: experimental
+                owner: ${{ values.owner }}
+                name: ${{ values.name }}
+
+    - id: Update catalog-info
+      action: publish:github:pull-request
+      input:
+        description: ${{ parameters.description }}
+        repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
+        branchName: main
+        title: "Update catalog-info.yaml"
+
+    - id: register
+      name: Register with Backstage
+      action: catalog:register
+      input:
+        catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
 
     - id: debug
       name: Debug Pipeline Outputs
