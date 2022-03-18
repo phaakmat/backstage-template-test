@@ -19,7 +19,7 @@ spec:
           title: Name
           type: string
           pattern: ^[a-z][a-z0-9]+$
-          description: Unique name of the Feature API. Should be a single word and start with a letter.
+          description: Unique name of the Feature API. Should be a single lowercase word and start with a letter.
           minLength: 5
           maxLength: 30
           ui:autoFocus: true
@@ -81,25 +81,7 @@ spec:
       action: catalog:write
       input:
         entity:
-          apiVersion: backstage.io/v1alpha1
-          kind: Component
-          metadata:
-            name: ${{ parameters.name }}
-            description: ${{ parameters.description }}
-            links:
-              - title: Open build pipeline
-                url: ${{ steps.azdevops.output.pipelineUrl }}
-            annotations:
-              backstage.io/techdocs-ref: dir:.
-              github.com/project-slug: '${{ parameters.name }}.funda.io'
-              dev.azure.com/project: ${{ parameters.owner }}
-              dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | string }}
-          spec:
-            type: api
-            lifecycle: experimental
-            owner: ${{ parameters.owner }}
-            name: ${{ parameters.name }}
-
+          $yaml: template/catalog-info.yaml
     - id: makepr
       name: Create GitHub Pull Request
       action: publish:github:pull-request
