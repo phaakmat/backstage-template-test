@@ -5,12 +5,12 @@ metadata:
   description: ${{ parameters.description or values.description }}
   links:
     - title: Open build pipeline
-      url: ${{ steps.azdevops.output.pipelineUrl }}
+      url: ${{ steps.azdevops.output.pipelineUrl or '' }}
   annotations:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: '${{ parameters.name or values.name }}.funda.io'
     dev.azure.com/project: ${{ parameters.owner }}
-    dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | default('') | string }}
+    dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId or '' | string }}
 spec:
   type: api
   lifecycle: experimental
