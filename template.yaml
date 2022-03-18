@@ -87,7 +87,7 @@ spec:
               backstage.io/techdocs-ref: dir:.
               github.com/project-slug: ${{ parameters.repoName }}
               dev.azure.com/project: ${{ parameters.owner }}
-              dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | yaml_encode }}
+              dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | string }}
               spec:
                 type: api
                 lifecycle: experimental
@@ -117,14 +117,11 @@ spec:
 
   # outputs
   output:
-    repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
-    remoteUrl: ${{ steps.publish.output.remoteUrl }}
-    entityRef: ${{ steps.register.output.entityRef }}
-    pipelineUrl: ${{ steps.azdevops.output.pipelineUrl}}
     links:
-      - title: Test link
-        url: "https://www.google.com"
-      - title: Open build pipeline
-        url: ${{ steps.azdevops.output.pipelineUrl }}
-      - title: Open docs pipeline
-        url: ${{ steps.azdevops.output.docsPipelineUrl }}
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+      - title: Finish PR
+        url: ${{ steps.makepr.output.remoteUrl }}
