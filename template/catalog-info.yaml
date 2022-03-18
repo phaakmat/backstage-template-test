@@ -5,6 +5,7 @@ metadata:
   description: ${{ values.description }}
   annotations:
     backstage.io/techdocs-ref: dir:.
+    github.com/project-slug: ${{ values.repoName }}
 spec:
   type: api
   lifecycle: experimental
