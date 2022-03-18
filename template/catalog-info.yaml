@@ -1,18 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
-  name: ${{ parameters.name }}
-  description: ${{ parameters.description }}
+  name: ${{ parameters.name or values.name }}
+  description: ${{ parameters.description or values.description }}
   links:
     - title: Open build pipeline
       url: ${{ steps.azdevops.output.pipelineUrl }}
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: '${{ parameters.name }}.funda.io'
+    github.com/project-slug: '${{ parameters.name or values.name }}.funda.io'
     dev.azure.com/project: ${{ parameters.owner }}
     dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | default('') | string }}
 spec:
   type: api
   lifecycle: experimental
-  owner: ${{ parameters.owner }}
-  name: ${{ parameters.name }}
+  owner: ${{ parameters.owner or values.owner }}
+  name: ${{ parameters.name or values.name }}
