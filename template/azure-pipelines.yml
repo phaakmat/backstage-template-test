@@ -19,11 +19,11 @@ steps:
   displayName: 'Build'
   inputs:
     command: 'build'
-#    projects: ${{ values.name }}.sln
+    projects: ${{ values.name }}.sln
 
 - task: DotNetCoreCli@2
   displayName: 'Run tests'
   inputs:
     command: 'test'
-#    projects: ${{ values.name }}.sln
+    projects: ${{ values.name }}.sln
 
