@@ -84,7 +84,7 @@ spec:
               backstage.io/techdocs-ref: dir:.
               github.com/project-slug: ${{ parameters.repoName }}
               dev.azure.com/project: ${{ parameters.owner }}
-              dev.azure.com/build-definition: "${{ steps.azdevops.output.buildPipelineId }}"
+              dev.azure.com/build-definition: '${{ steps.azdevops.output.buildPipelineId }}'
               spec:
                 type: api
                 lifecycle: experimental
