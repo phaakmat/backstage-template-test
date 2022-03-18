@@ -84,6 +84,6 @@ spec:
     pipelineUrl: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl}}
     links:
       - title: Open build pipeline
-        url: '${{ steps.azdevops-pipeline-creator.output.pipelineUrl }}'
+        url: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl }}
       - title: Open docs pipeline
-        url: '${{ steps.azdevops-pipeline-creator.output.docsPipelineUrl }}'
+        url: ${{ steps.azdevops-pipeline-creator.output.docsPipelineUrl }}
