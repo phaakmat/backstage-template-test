@@ -64,6 +64,11 @@ spec:
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
 
+    - id: debug
+      action: debug:log
+      input:
+        message: 'github.com?owner=${{ parameters.organization }}&repo=${{ parameters.name }}.funda.io'
+
     - id: publish
       name: Create GitHub Repository
       action: publish:github
