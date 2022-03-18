@@ -91,7 +91,8 @@ spec:
                 owner: ${{ values.owner }}
                 name: ${{ values.name }}
 
-    - id: Update catalog-info
+    - id: makepr
+      name: Make PR
       action: publish:github:pull-request
       input:
         description: ${{ parameters.description }}
