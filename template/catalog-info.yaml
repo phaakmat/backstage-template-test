@@ -6,8 +6,6 @@ metadata:
   annotations:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: ${{ values.repoName }}
-    dev.azure.com/project: ${{ values.owner }}
-    dev.azure.com/build-definition: "1"
 spec:
   type: api
   lifecycle: experimental

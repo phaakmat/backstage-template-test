@@ -13,12 +13,13 @@ spec:
         - name
         - description
         - owner
+        - organization
       properties:
         name:
           title: Name
           type: string
           pattern: ^[a-z][a-z0-9]+$
-          description: Unique name of the Feature API. Should be a single word.
+          description: Unique name of the Feature API. Should be a single word and start with a letter.
           minLength: 5
           maxLength: 30
           ui:autoFocus: true
@@ -40,6 +41,11 @@ spec:
           ui:options:
             allowedKinds:
               - Group
+        organization:
+          title: GitHub organization
+          description: The organization / owner in GitHub
+          type: string
+          default: fundarealestate
 
   # scaffolding steps
   steps:
@@ -61,7 +67,7 @@ spec:
         allowedHosts: ['github.com']
         defaultBranch: main
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
+        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=${{ parameters.name }}.funda.io'
 
     - id: azdevops
       name: Create Azure DevOps Pipeline
@@ -85,7 +91,7 @@ spec:
                 url: ${{ steps.azdevops.output.pipelineUrl }}
             annotations:
               backstage.io/techdocs-ref: dir:.
-              github.com/project-slug: ${{ parameters.repoName }}
+              github.com/project-slug: '${{ parameters.name }}.funda.io'
               dev.azure.com/project: ${{ parameters.owner }}
               dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId | string }}
           spec:
@@ -99,7 +105,7 @@ spec:
       action: publish:github:pull-request
       input:
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
+        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=${{ parameters.name }}.funda.io'
         branchName: catalog-info
         title: "Update catalog-info.yaml"
 

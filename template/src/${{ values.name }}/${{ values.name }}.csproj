@@ -12,6 +12,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Funda.Extensions.Hosting" Version="4.3.2" />
+    <PackageReference Include="Funda.Extensions.Messaging" Version="5.1.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 

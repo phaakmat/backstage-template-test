@@ -4,5 +4,5 @@ ${{ values.description }}
 
 # Owner
 
-${{ values.owner }}
+This codebase is owned by ${{ values.owner }}
 

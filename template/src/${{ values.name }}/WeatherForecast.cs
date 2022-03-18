@@ -1,4 +1,4 @@
-namespace src;
+namespace ${{ values.name }};
 
 public class WeatherForecast
 {
