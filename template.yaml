@@ -57,9 +57,9 @@ spec:
     - id: publish
       name: Publish to GitHub
       action: publish:github
-      defaultBranch: main
       input:
         allowedHosts: ['github.com']
+        defaultBranch: main
         description: ${{ parameters.description }}
         repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
 
@@ -78,12 +78,12 @@ spec:
           apiVersion: backstage.io/v1alpha1
           kind: Component
           metadata:
-            name: ${{ values.name }}
-            description: ${{ values.description }}
+            name: ${{ parameters.name }}
+            description: ${{ parameters.description }}
             annotations:
               backstage.io/techdocs-ref: dir:.
-              github.com/project-slug: ${{ values.repoName }}
-              dev.azure.com/project: ${{ values.owner }}
+              github.com/project-slug: ${{ parameters.repoName }}
+              dev.azure.com/project: ${{ parameters.owner }}
               dev.azure.com/build-definition: ${{ steps.azdevops.output.buildPipelineId }}
               spec:
                 type: api
