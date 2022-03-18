@@ -4,12 +4,12 @@ trigger:
     - docs/*
     - azure-pipelines-docs.yml
 
-resources:
-  repositories:
-    - repository: templates
-      type: github
-      name: fundarealestate/funda-azdo-templates
-      endpoint: fundarealestate
+# resources:
+#   repositories:
+#     - repository: templates
+#       type: github
+#       name: fundarealestate/funda-azdo-templates
+#       endpoint: fundarealestate
 
 pool:
   vmImage: ubuntu-latest
