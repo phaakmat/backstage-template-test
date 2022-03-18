@@ -69,7 +69,7 @@ spec:
       input:
         catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
 
-    - id: azdevops-pipeline
+    - id: azdevops
       name: Create AzureDevOps Pipeline
       action: azdevops-pipeline-creator
       input:
@@ -80,18 +80,18 @@ spec:
       name: Debug Pipeline Outputs
       action: debug:log
       input:
-        message: "pipelineUrl=${{ steps.azdevops-pipeline.output.pipelineUrl }}"
+        message: "pipelineUrl=${{ steps.azdevops.output.pipelineUrl }}"
 
   # outputs
   output:
     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
     remoteUrl: ${{ steps.publish.output.remoteUrl }}
     entityRef: ${{ steps.register.output.entityRef }}
-    pipelineUrl: ${{ steps.azdevops-pipeline.output.pipelineUrl}}
+    pipelineUrl: ${{ steps.azdevops.output.pipelineUrl}}
     links:
       - title: Test link
         url: "https://www.google.com"
       - title: Open build pipeline
-        url: ${{ steps.azdevops-pipeline.output.pipelineUrl }}
+        url: ${{ steps.azdevops.output.pipelineUrl }}
       - title: Open docs pipeline
-        url: ${{ steps.azdevops-pipeline.output.docsPipelineUrl }}
+        url: ${{ steps.azdevops.output.docsPipelineUrl }}
