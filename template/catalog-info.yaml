@@ -5,7 +5,7 @@ metadata:
   description: ${{ parameters.description or values.description }}
   links:
     - title: Open build pipeline
-      url: ${{ steps.azdevops.output.pipelineUrl or '' }}
+      url: ${{ steps.azdevops.output.pipelineUrl | default('') | string }}
   annotations:
     backstage.io/techdocs-ref: dir:.
     github.com/project-slug: '${{ parameters.name or values.name }}.funda.io'
