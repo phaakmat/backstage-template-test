@@ -55,7 +55,7 @@ spec:
           owner: ${{ parameters.owner }}
 
     - id: publish
-      name: Publish to GitHub
+      name: Create GitHub Repository
       action: publish:github
       input:
         allowedHosts: ['github.com']
@@ -64,14 +64,14 @@ spec:
         repoUrl: 'github.com?owner=phaakmat&repo=${{ parameters.name }}.funda.io'
 
     - id: azdevops
-      name: Create AzureDevOps Pipeline
+      name: Create Azure DevOps Pipeline
       action: azdevops-pipeline-creator
       input:
         owner: ${{ parameters.owner }}
         name: '${{ parameters.name }}.funda.io'
 
     - id: updateCatalogInfo
-      name: Update catalog-info.yaml with AZ Pipeline info
+      name: Update Catalog Entity Descriptor
       action: catalog:write
       input:
         entity:
@@ -95,7 +95,7 @@ spec:
             name: ${{ parameters.name }}
 
     - id: makepr
-      name: Make PR
+      name: Create GitHub Pull Request
       action: publish:github:pull-request
       input:
         description: ${{ parameters.description }}
@@ -104,24 +104,16 @@ spec:
         title: "Update catalog-info.yaml"
 
     - id: register
-      name: Register with Backstage
+      name: Register with Software Catalog
       action: catalog:register
       input:
         catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
 
-    - id: debug
-      name: Debug Pipeline Outputs
-      action: debug:log
-      input:
-        message: "pipelineUrl=${{ steps.azdevops.output.pipelineUrl }}"
-
   # outputs
   output:
     links:
-      - title: Repository
-        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Approve PR for Catalog Entity Descriptor
+        url: ${{ steps.makepr.output.remoteUrl }}
       - title: Open in catalog
         icon: catalog
         entityRef: ${{ steps.register.output.entityRef }}
-      - title: Finish PR
-        url: ${{ steps.makepr.output.remoteUrl }}
