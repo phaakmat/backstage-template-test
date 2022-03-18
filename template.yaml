@@ -69,7 +69,7 @@ spec:
       input:
         catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
 
-    - id: azdevops-pipeline-creator
+    - id: azdevops-pipeline
       name: Create AzureDevOps Pipeline
       action: azdevops-pipeline-creator
       input:
@@ -81,11 +81,11 @@ spec:
     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
     remoteUrl: ${{ steps.publish.output.remoteUrl }}
     entityRef: ${{ steps.register.output.entityRef }}
-    pipelineUrl: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl}}
+    pipelineUrl: ${{ steps.azdevops-pipeline.output.pipelineUrl}}
     links:
       - title: Test link
         url: "https://www.google.com"
       - title: Open build pipeline
-        url: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl }}
+        url: ${{ steps.azdevops-pipeline.output.pipelineUrl }}
       - title: Open docs pipeline
-        url: ${{ steps.azdevops-pipeline-creator.output.docsPipelineUrl }}
+        url: ${{ steps.azdevops-pipeline.output.docsPipelineUrl }}
