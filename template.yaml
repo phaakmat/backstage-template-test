@@ -76,6 +76,12 @@ spec:
         owner: ${{ parameters.owner }}
         name: '${{ parameters.name }}.funda.io'
 
+    - id: debug
+      name: Debug Pipeline Outputs
+      action: debug:log
+      input:
+        message: "pipelineUrl=${{ steps.azdevops-pipeline.output.pipelineUrl }}"
+
   # outputs
   output:
     repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
