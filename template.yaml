@@ -43,6 +43,13 @@ spec:
 
   # scaffolding steps
   steps:
+    - id: azdevops-pipeline-creator
+      name: Create AzureDevOps Pipeline
+      action: azdevops-pipeline-creator
+      input:
+        owner: ${{ parameters.owner }}
+        name: '${{ parameters.name }}.funda.io'
+
     - id: fetch-base
       name: Fetch Template
       action: fetch:template
@@ -69,12 +76,6 @@ spec:
       input:
         catalogInfoUrl: '${{ steps.publish.output.repoContentsUrl }}/catalog-info.yaml'
 
-    - id: azdevops-pipeline-creator
-      name: Create AzureDevOps Pipeline
-      action: azdevops-pipeline-creator
-      input:
-        owner: ${{ parameters.owner }}
-        name: '${{ parameters.name }}.funda.io'
 
   # outputs
   output:
@@ -83,6 +84,8 @@ spec:
     entityRef: ${{ steps.register.output.entityRef }}
     pipelineUrl: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl}}
     links:
+      - title: Test linking
+        url: "https://www.google.com"
       - title: Open build pipeline
         url: ${{ steps.azdevops-pipeline-creator.output.pipelineUrl }}
       - title: Open docs pipeline
