@@ -1,19 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.UnitTests\\${{ values.name }}.UnitTests.csproj": {}
+    "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.Domain.UnitTests\\${{ values.name }}.Domain.UnitTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.UnitTests\\${{ values.name }}.UnitTests.csproj": {
+    "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.Domain.UnitTests\\${{ values.name }}.Domain.UnitTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.UnitTests\\${{ values.name }}.UnitTests.csproj",
-        "projectName": "${{ values.name }}.UnitTests",
-        "projectPath": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.UnitTests\\${{ values.name }}.UnitTests.csproj",
+        "projectUniqueName": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.Domain.UnitTests\\${{ values.name }}.Domain.UnitTests.csproj",
+        "projectName": "${{ values.name }}.Domain.UnitTests",
+        "projectPath": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.Domain.UnitTests\\${{ values.name }}.Domain.UnitTests.csproj",
         "packagesPath": "C:\\Users\\pascalhaakmat\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.UnitTests\\obj\\",
+        "outputPath": "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\tests\\${{ values.name }}.Domain.UnitTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
+          "C:\\Users\\pascalhaakmat\\source\\repos\\backstage-template-test\\template\\NuGet.Config",
           "C:\\Users\\pascalhaakmat\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -21,10 +22,9 @@
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {},
-          "https://artifacts.funda.nl/artifactory/api/nuget/prereleases": {},
-          "https://artifacts.funda.nl/artifactory/api/nuget/releases": {}
+          "https://artifacts.funda.nl/artifactory/api/nuget/v3/prereleases": {},
+          "https://artifacts.funda.nl/artifactory/api/nuget/v3/releases": {}
         },
         "frameworks": {
           "net6.0": {

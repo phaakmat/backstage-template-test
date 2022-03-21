@@ -22,8 +22,8 @@ spec:
         name:
           title: Name
           type: string
-          pattern: ^[a-z][a-z0-9]+$
-          description: Unique name of the Feature API. Should be a single lowercase word and start with a letter.
+          pattern: ^[A-Z][a-zA-Z0-9]+$
+          description: Unique name of the Feature API. Must be PascalCase. First character must be [A-Z], other chars alphanumerical.
           minLength: 5
           maxLength: 30
           ui:autoFocus: true
@@ -59,11 +59,13 @@ spec:
       input:
         url: './template'
         values:
-          namespace: ${{ parameters.name }}
           name: ${{ parameters.name }}
-          repoName: '${{ parameters.name }}.funda.io'
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
+          repoName: 'Funda.${{ parameters.name }}'
+          namespacePrefix: 'Funda.${{ parameters.name }}'
+          fileNamePrefix: 'Funda.${{ parameters.name }}'
+          dirNamePrefix: 'FUnda.${{ parameters.name }}'
 
     - id: publish
       name: Create GitHub Repository

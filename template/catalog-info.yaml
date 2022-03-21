@@ -10,7 +10,7 @@ metadata:
       url: ${{ steps.azdevops.output.pipelineUrl | default('http://dummy.invalid/') | string }}
   annotations:
     backstage.io/techdocs-ref: dir:.
-    github.com/project-slug: '${{ parameters.name or values.name }}.funda.io'
+    github.com/project-slug: 'Funda.${{ parameters.name or values.name }}'
 spec:
   type: api
   lifecycle: experimental
