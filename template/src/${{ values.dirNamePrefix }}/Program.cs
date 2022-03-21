@@ -1,3 +1,5 @@
+using Funda.Extensions.DateTimeProvider;
+using Funda.Extensions.HealthChecks;
 using Funda.Extensions.Hosting;
 using Funda.Extensions.Messaging.Configuration;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
@@ -22,6 +24,8 @@ builder.Services.AddFundaMetrics(
     prefix: builder.Configuration["Statsd:Prefix"],
     environmentName: builder.Configuration["Statsd:EnvironmentName"]));
 
+builder.Services.AddFundaDateTimeProvider();
+
 builder.Services.AddFundaMessaging();
 
 var app = builder.Build();
@@ -38,5 +42,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseFundaHealthChecks();
 
 app.Run();
