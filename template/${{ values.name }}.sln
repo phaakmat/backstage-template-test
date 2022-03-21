@@ -16,9 +16,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A8EFEF79
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.UnitTests", "tests\${{ values.name }}.UnitTests\${{ values.name }}.UnitTests.csproj", "{BBDCD223-0133-45B3-9DE9-D35CE348EE0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.Domain", "${{ values.name }}.Domain\${{ values.name }}.Domain.csproj", "{B49EC669-ACDB-46C6-8087-E32F2A25EDE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.Domain", "src\${{ values.name }}.Domain\${{ values.name }}.Domain.csproj", "{B49EC669-ACDB-46C6-8087-E32F2A25EDE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.Domain.UnitTests", "${{ values.name }}.Domain.UnitTests\${{ values.name }}.Domain.UnitTests.csproj", "{7E06DB77-221B-41A5-8717-6B5514304955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.Domain.UnitTests", "tests\${{ values.name }}.Domain.UnitTests\${{ values.name }}.Domain.UnitTests.csproj", "{7E06DB77-221B-41A5-8717-6B5514304955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
