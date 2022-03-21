@@ -66,6 +66,7 @@ spec:
           namespacePrefix: 'Funda.${{ parameters.name }}'
           fileNamePrefix: 'Funda.${{ parameters.name }}'
           dirNamePrefix: 'Funda.${{ parameters.name }}'
+          applicationName: 'Funda.${{ parameters.name }}'
 
     - id: publish
       name: Create GitHub Repository
