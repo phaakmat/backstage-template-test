@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <!-- Package Settings -->
   <PropertyGroup>
-    <PackageId>${{values.name}}</PackageId>
+    <PackageId>${{values.applicationName}}</PackageId>
     <Description>${{values.description}}</Description>
   </PropertyGroup>
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>${{ values.namespacePrefix }}</RootNamespace>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>

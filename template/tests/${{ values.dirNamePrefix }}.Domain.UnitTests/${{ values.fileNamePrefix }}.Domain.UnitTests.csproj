@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
-    <RootNamespace>____values.name___.Domain.UnitTests</RootNamespace>
+    <RootNamespace>${{ values.namespacePrefix }}.Domain.UnitTests</RootNamespace>
     <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
