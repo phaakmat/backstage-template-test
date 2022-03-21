@@ -65,7 +65,7 @@ spec:
           repoName: 'Funda.${{ parameters.name }}'
           namespacePrefix: 'Funda.${{ parameters.name }}'
           fileNamePrefix: 'Funda.${{ parameters.name }}'
-          dirNamePrefix: 'FUnda.${{ parameters.name }}'
+          dirNamePrefix: 'Funda.${{ parameters.name }}'
 
     - id: publish
       name: Create GitHub Repository
@@ -74,14 +74,14 @@ spec:
         allowedHosts: ['github.com']
         defaultBranch: main
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=${{ parameters.name }}.funda.io'
+        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=Funda.${{ parameters.name }}'
 
     - id: azdevops
       name: Create Azure DevOps Pipeline
       action: azdevops-pipeline-creator
       input:
         owner: ${{ parameters.owner }}
-        name: '${{ parameters.name }}.funda.io'
+        name: 'Funda.${{ parameters.name }}'
 
     - id: updateCatalogInfo
       name: Update Catalog Entity Descriptor
@@ -89,12 +89,13 @@ spec:
       input:
         entity:
           $yaml: template/catalog-info.yaml
+
     - id: makepr
       name: Create GitHub Pull Request
       action: publish:github:pull-request
       input:
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=${{ parameters.name }}.funda.io'
+        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=Funda.${{ parameters.name }}'
         branchName: catalog-info
         title: "Update catalog-info.yaml"
 
