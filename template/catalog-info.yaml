@@ -3,6 +3,8 @@ kind: Component
 metadata:
   name: ${{ parameters.name or values.name }}
   description: ${{ parameters.description or values.description }}
+  tags:
+    - service
   links:
     - title: Open build pipeline
       url: ${{ steps.azdevops.output.pipelineUrl | default('http://dummy.invalid/') | string }}
