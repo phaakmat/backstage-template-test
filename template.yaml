@@ -59,6 +59,7 @@ spec:
       input:
         url: './template'
         values:
+          namespace: ${{ parameters.name }}
           name: ${{ parameters.name }}
           repoName: '${{ parameters.name }}.funda.io'
           description: ${{ parameters.description }}
