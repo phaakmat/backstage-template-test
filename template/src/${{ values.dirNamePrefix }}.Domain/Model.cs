@@ -1,4 +1,4 @@
-namespace ${{ values.namespace }};
+namespace ${{ values.namespacePrefix }}.Domain;
 
 public class Model : IModel
 {

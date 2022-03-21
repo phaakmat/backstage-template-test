@@ -1,5 +1,7 @@
 using Funda.Extensions.Messaging.Configuration;
 
+namespace ${{ values.namespacePrefix }};
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -9,12 +11,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddFundaMetrics("${{ values.applicationName }}",
-config => config.AddDogstatsd(
-                    hostname: Configuration["Statsd:Hostname"],
-                    port: int.Parse(Configuration["Statsd:Port"]),
-                    prefix: Configuration["Statsd:Prefix"],
-                    environmentName: Configuration["Statsd:EnvironmentName"])))
+builder.Services.AddFundaMetrics(
+    "${{ values.applicationName }}",
+    config => config.AddDogstatsd(
+    hostname: Configuration["Statsd:Hostname"],
+    port: int.Parse(Configuration["Statsd:Port"]),
+    prefix: Configuration["Statsd:Prefix"],
+    environmentName: Configuration["Statsd:EnvironmentName"]));
 
 builder.Services.AddFundaMessaging();
 

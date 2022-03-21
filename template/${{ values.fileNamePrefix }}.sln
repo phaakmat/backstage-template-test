@@ -18,7 +18,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.fileNamePrefix }
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.fileNamePrefix }}.Domain", "src\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj", "{B49EC669-ACDB-46C6-8087-E32F2A25EDE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.name }}.Domain.UnitTests", "tests\${{ values.dirNamePrefix }}.Domain.UnitTests\${{ values.fileNamePrefix }}.Domain.UnitTests.csproj", "{7E06DB77-221B-41A5-8717-6B5514304955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "${{ values.fileNamePrefix }}.Domain.UnitTests", "tests\${{ values.dirNamePrefix }}.Domain.UnitTests\${{ values.fileNamePrefix }}.Domain.UnitTests.csproj", "{7E06DB77-221B-41A5-8717-6B5514304955}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

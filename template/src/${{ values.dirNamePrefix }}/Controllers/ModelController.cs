@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ${{ values.namespace }}.Domain;
+using ${{ values.namespacePrefix }}.Domain;
 
-namespace ${{ values.namespace }}.Controllers;
+namespace ${{ values.namespacePrefix }}.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
