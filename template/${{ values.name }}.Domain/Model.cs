@@ -1,6 +1,6 @@
-namespace ${{ values.name }};
+namespace ${{ values.namespace }};
 
-public class WeatherForecast
+public class Model : IModel
 {
     public DateTime Date { get; set; }
 
