@@ -1,8 +1,11 @@
+using Funda.Extensions.Hosting;
 using Funda.Extensions.Messaging.Configuration;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.AddFundaDefaults("${{ values.applicationName }}");
 
 // Add services to the container.
 
