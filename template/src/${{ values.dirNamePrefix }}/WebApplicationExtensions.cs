@@ -1,6 +1,6 @@
 ﻿using Funda.Extensions.HealthChecks;
 
-using ${{ values.namespacePrefix }};
+namespace ${{ values.namespacePrefix }};
 
 public static class WebApplicationExtensions
 {

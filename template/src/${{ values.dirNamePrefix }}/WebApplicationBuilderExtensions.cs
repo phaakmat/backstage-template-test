@@ -5,7 +5,7 @@ using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
 using Microsoft.AspNetCore.Mvc;
 
-using ${{ values.namespacePrefix }};
+namespace ${{ values.namespacePrefix }};
 
 public static class WebApplicationBuilderExtensions
 {
