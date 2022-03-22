@@ -1,6 +1,6 @@
 using Xunit;
 
-namespace ${{ values.namespace }}.UnitTests;
+namespace ${{ values.namespacePrefix }}.UnitTests;
 
 public class UnitTest1
 {
