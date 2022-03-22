@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: dotnet-feature-api
-  title: .NET 6.0 Feature API
+  name: dotnet-feature-api-v1
+  title: .NET 6.0 Feature API v1.0
   description: Create a .NET 6.0 Feature API
   tags:
     - service
