@@ -43,15 +43,15 @@ public static class WebApplicationBuilderExtensions
 
         {%- if values.enableMvcControllers %}
         builder.AddControllers();
-        {% endif -%}
+        {%- endif %}
 
         {%- if values.enableFundaMessaging %}
         builder.AddFundaMessaging();
-        {% endif -%}
+        {%- endif %}
 
         {%- if values.enableEndpoints %}
         builder.AddEndpoints();
-        {% endif -%}
+        {%- endif %}
         return builder;
     }
 
@@ -62,19 +62,19 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddFundaMessaging();
     }
-    {% endif -%}
+    {%- endif %}
 
     {%- if values.enableMvcControllers %}
     private static void AddControllers(this WebApplicationBuilder builder)
     {
         builder.AddControllers();
     }
-    {% endif -%}
+    {%- endif %}
 
     {%- if values.enableEndpoints %}
     private static void AddEndpoints(this WebApplicationBuilder builder)
     {
 
     }
-    {% endif -%}
+    {%- endif %}
 }
