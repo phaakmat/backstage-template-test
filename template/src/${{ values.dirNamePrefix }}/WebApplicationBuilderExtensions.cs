@@ -16,9 +16,6 @@ public static class WebApplicationBuilderExtensions
         // Add services to the container.
 
         builder.Services.AddHealthChecks();
-
-        builder.Services.AddControllers();
-
         builder.Services.AddVersionedApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
@@ -44,11 +41,40 @@ public static class WebApplicationBuilderExtensions
                 prefix: builder.Configuration["Statsd:Prefix"],
                 environmentName: builder.Configuration["Statsd:EnvironmentName"]));
 
-        builder.Services.AddFundaDateTimeProvider();
+        {% if values.enableMvcControllers %}
+        builder.AddControllers();
+        {% endif %}
 
         {% if values.enableFundaMessaging %}
-        builder.Services.AddFundaMessaging();
+        builder.AddFundaMessaging();
+        {% endif %}
+
+        {% if values.enableEndpoints %}
+        builder.AddEndpoints();
         {% endif %}
         return builder;
     }
+
+    {% if values.enableFundaMessaging %}
+    private static void AddFundaMessaging(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddFundaDateTimeProvider();
+
+        builder.Services.AddFundaMessaging();
+    }
+    {% endif %}
+
+    {% if values.enableMvcControllers %}
+    private static void AddControllers(this WebApplicationBuilder builder)
+    {
+        builder.AddControllers();
+    }
+    {% endif %}
+
+    {% if values.enableEndpoints %}
+    private static void AddEndpoints(this WebApplicationBuilder builder)
+    {
+
+    }
+    {% endif %}
 }

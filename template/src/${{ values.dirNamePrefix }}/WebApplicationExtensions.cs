@@ -16,8 +16,9 @@ public static class WebApplicationExtensions
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
+        {% if values.enableMvcControllers %}
         app.MapControllers();
+        {% endif %}
 
         app.UseFundaHealthChecks();
 
