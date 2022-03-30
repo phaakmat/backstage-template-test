@@ -46,7 +46,7 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddFundaDateTimeProvider();
 
-        {% if values.enableFundaMessaging }
+        {% if values.enableFundaMessaging %}
         builder.Services.AddFundaMessaging();
         {% endif %}
         return builder;
