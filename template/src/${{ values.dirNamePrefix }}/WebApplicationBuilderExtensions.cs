@@ -41,40 +41,40 @@ public static class WebApplicationBuilderExtensions
                 prefix: builder.Configuration["Statsd:Prefix"],
                 environmentName: builder.Configuration["Statsd:EnvironmentName"]));
 
-        {% if values.enableMvcControllers %}
+        {%- if values.enableMvcControllers %}
         builder.AddControllers();
-        {% endif %}
+        {% endif -%}
 
-        {% if values.enableFundaMessaging %}
+        {%- if values.enableFundaMessaging %}
         builder.AddFundaMessaging();
-        {% endif %}
+        {% endif -%}
 
-        {% if values.enableEndpoints %}
+        {%- if values.enableEndpoints %}
         builder.AddEndpoints();
-        {% endif %}
+        {% endif -%}
         return builder;
     }
 
-    {% if values.enableFundaMessaging %}
+    {%- if values.enableFundaMessaging %}
     private static void AddFundaMessaging(this WebApplicationBuilder builder)
     {
         builder.Services.AddFundaDateTimeProvider();
 
         builder.Services.AddFundaMessaging();
     }
-    {% endif %}
+    {% endif -%}
 
-    {% if values.enableMvcControllers %}
+    {%- if values.enableMvcControllers %}
     private static void AddControllers(this WebApplicationBuilder builder)
     {
         builder.AddControllers();
     }
-    {% endif %}
+    {% endif -%}
 
-    {% if values.enableEndpoints %}
+    {%- if values.enableEndpoints %}
     private static void AddEndpoints(this WebApplicationBuilder builder)
     {
 
     }
-    {% endif %}
+    {% endif -%}
 }
