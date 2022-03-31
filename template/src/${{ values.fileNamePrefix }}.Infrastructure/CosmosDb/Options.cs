@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
+﻿namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
 public class Options
 {
     /// <summary>
-    /// The endpoint of the cosmosdb account
+    /// The endpoint of the CosmosDb account
     /// </summary>
     public string Endpoint { get; set; }
 

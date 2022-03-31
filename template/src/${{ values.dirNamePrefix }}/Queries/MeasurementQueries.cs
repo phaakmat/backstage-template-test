@@ -9,7 +9,7 @@ public class MeasurementQueries
         _repository = repository;
     }
 
-    public async Task<Measurement> GetMeasurementAsync(long id)
+    public async Task<Measurement> GetMeasurementAsync(Guid id)
     {
         return await _repository.FindAsync(id);
     }

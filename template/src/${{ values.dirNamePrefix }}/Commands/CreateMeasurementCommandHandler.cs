@@ -1,35 +1,33 @@
-﻿namespace ${{_values.fileNamePrefix_ }}.Commands;
+﻿using MediatR;
 
+namespace ${{ values.fileNamePrefix }}.Commands;
 
-// Regular CommandHandler
 public class CreateMeasurementCommandHandler
-    : IRequestHandler<CreateOrderCommand, bool>
+    : IRequestHandler<CreateMeasurementCommand, bool>
 {
-    private readonly IOrderRepository _orderRepository;
+    private readonly IMeasurementRepository _repository;
     private readonly IIdentityService _identityService;
     private readonly IMediator _mediator;
     private readonly IOrderingIntegrationEventService _orderingIntegrationEventService;
-    private readonly ILogger<CreateOrderCommandHandler> _logger;
+    private readonly ILogger<CreateMeasurementCommandHandler> _logger;
 
     // Using DI to inject infrastructure persistence Repositories
-    public CreateOrderCommandHandler(IMediator mediator,
-        IOrderingIntegrationEventService orderingIntegrationEventService,
-        IOrderRepository orderRepository,
-        IIdentityService identityService,
-        ILogger<CreateOrderCommandHandler> logger)
+    public CreateMeasurementCommandHandler(IMediator mediator,
+        IMeasurementRepository repository,
+        ILogger<CreateMeasurementCommandHandler> logger)
     {
-        _orderRepository = orderRepository ?? throw new ArgumentNullException(nameof(orderRepository));
-        _identityService = identityService ?? throw new ArgumentNullException(nameof(identityService));
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        _orderingIntegrationEventService = orderingIntegrationEventService ?? throw new ArgumentNullException(nameof(orderingIntegrationEventService));
-        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+        _repository = repository;
+        _mediator = mediator;
+        _logger = logger;
     }
 
-    public async Task<bool> Handle(CreateOrderCommand message, CancellationToken cancellationToken)
+    public async Task<bool> Handle(CreateMeasurementCommand message, CancellationToken cancellationToken)
     {
         // Add Integration event to clean the basket
         var orderStartedIntegrationEvent = new OrderStartedIntegrationEvent(message.UserId);
         await _orderingIntegrationEventService.AddAndSaveEventAsync(orderStartedIntegrationEvent);
+
+        var mesaurement = new Measurement(1, DateTimeOffset.UtcNow, message.TemperatureC, message.Summary);
 
         // Add/Update the Buyer AggregateRoot
         // DDD patterns comment: Add child entities and value-objects through the Order Aggregate-Root
@@ -45,27 +43,9 @@ public class CreateMeasurementCommandHandler
 
         _logger.LogInformation("----- Creating Order - Order: {@Order}", order);
 
-        _orderRepository.Add(order);
+        _repository.Add(order);
 
         return await _orderRepository.UnitOfWork
             .SaveEntitiesAsync(cancellationToken);
-    }
-}
-
-
-// Use for Idempotency in Command process
-public class CreateOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CreateOrderCommand, bool>
-{
-    public CreateOrderIdentifiedCommandHandler(
-        IMediator mediator,
-        IRequestManager requestManager,
-        ILogger<IdentifiedCommandHandler<CreateOrderCommand, bool>> logger)
-        : base(mediator, requestManager, logger)
-    {
-    }
-
-    protected override bool CreateResultForDuplicateRequest()
-    {
-        return true;                // Ignore duplicate requests for creating order.
     }
 }

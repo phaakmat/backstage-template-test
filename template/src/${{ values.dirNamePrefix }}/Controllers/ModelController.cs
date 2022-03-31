@@ -8,11 +8,6 @@ namespace ${{ values.namespacePrefix }}.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 public class ModelController : ControllerBase
 {
-    private static readonly string[] Summaries = new[]
-    {
-        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-    };
-
     private readonly ILogger<ModelController> _logger;
 
     public ModelController(ILogger<ModelController> logger)
