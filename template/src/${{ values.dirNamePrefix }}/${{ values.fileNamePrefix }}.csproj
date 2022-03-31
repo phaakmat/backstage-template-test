@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
-    <ProjectReference Include="..\${{ values.fileNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
+    <ProjectReference Include="..\${{ values.dirNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
