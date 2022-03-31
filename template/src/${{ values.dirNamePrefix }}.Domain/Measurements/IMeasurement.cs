@@ -1,8 +1,10 @@
 namespace ${{ values.namespacePrefix }}.Domain;
 
-public class Model : IModel
+public interface IMeasurement
 {
-    public DateTime Date { get; set; }
+    public Guid Id { get; set; }
+
+    public DateTimeOffset Created { get; set; }
 
     public int TemperatureC { get; set; }
 
