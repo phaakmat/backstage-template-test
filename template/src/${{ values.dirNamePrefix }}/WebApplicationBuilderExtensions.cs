@@ -5,6 +5,10 @@ using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
 using Microsoft.AspNetCore.Mvc;
 
+{%- if values.enableCosmosDb %}
+using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
+{%- endif %}
+
 namespace ${{ values.namespacePrefix }};
 
 public static class WebApplicationBuilderExtensions
@@ -52,6 +56,11 @@ public static class WebApplicationBuilderExtensions
         {%- if values.enableEndpoints %}
         builder.AddEndpoints();
         {%- endif %}
+
+        {%- if values.enableCosmosDb %}
+        builder.AddCosmosDb();
+        {%- endif %}
+
         return builder;
     }
 
@@ -75,6 +84,15 @@ public static class WebApplicationBuilderExtensions
     private static void AddEndpoints(this WebApplicationBuilder builder)
     {
 
+    }
+    {%- endif %}
+
+    {%- if values.enableCosmosDb %}
+    private static void AddCosmosDb(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddCosmosDbInfrastructure(options =>
+            builder.Configuration.GetSection(nameof(Options)).Bind(options)
+        );
     }
     {%- endif %}
 }

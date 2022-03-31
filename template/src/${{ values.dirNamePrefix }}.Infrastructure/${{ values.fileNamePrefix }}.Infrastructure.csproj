@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
+    <ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
   </ItemGroup>
 
 </Project>
