@@ -91,7 +91,7 @@ public static class WebApplicationBuilderExtensions
     private static void AddCosmosDb(this WebApplicationBuilder builder)
     {
         builder.Services.AddCosmosDbInfrastructure(options =>
-            builder.Configuration.GetSection(nameof(Options)).Bind(options)
+            builder.Configuration.GetSection("CosmosDb").Bind(options)
         );
     }
     {%- endif %}

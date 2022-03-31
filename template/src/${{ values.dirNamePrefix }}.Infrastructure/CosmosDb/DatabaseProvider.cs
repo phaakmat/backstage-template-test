@@ -12,10 +12,10 @@ interface IDatabaseProvider
 
 class DatabaseProvider : IDatabaseProvider
 {
-    private readonly Options _options;
+    private readonly DbOptions _options;
     private CosmosClient _client;
 
-    public DatabaseProvider(IOptions<Options> optionsAccessor)
+    public DatabaseProvider(IOptions<DbOptions> optionsAccessor)
     {
         _options = optionsAccessor.Value;
     }

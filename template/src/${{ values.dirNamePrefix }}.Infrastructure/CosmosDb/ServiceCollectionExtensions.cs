@@ -6,7 +6,7 @@ namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCosmosDbInfrastructure(this IServiceCollection services,
-        Action<Options> configure)
+        Action<DbOptions> configure)
     {
         services
             .AddSingleton<IDatabaseProvider, DatabaseProvider>()
@@ -14,15 +14,15 @@ public static class ServiceCollectionExtensions
             .AddSingleton<IContainerProvider<DeliveryStorageModel>, ContainerProvider<DeliveryStorageModel>>()
             .AddTransient<IDeliveryRepository, CosmosDeliveryRepository>()
             .Configure(configure)
-            .AddSingleton<IValidateOptions<Options>, CosmosDbOptionsValidation>();
+            .AddSingleton<IValidateOptions<DbOptions>, CosmosDbOptionsValidation>();
 
         return services;
     }
 }
 
-public class CosmosDbOptionsValidation : IValidateOptions<Options>
+public class CosmosDbOptionsValidation : IValidateOptions<DbOptions>
 {
-    public ValidateOptionsResult Validate(string name, Options options)
+    public ValidateOptionsResult Validate(string name, DbOptions options)
     {
         var optionsIsNotNull = options != null;
         var requiredValues = new[] { options.Endpoint, options.DatabaseId, options.CreateDatabaseAndContainersIfNotExists };
