@@ -3,7 +3,7 @@ using Microsoft.Azure.Cosmos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
-namespace ${{ values.fileNamePrefix }}.DbLoggerCategory.Infrastructure.CosmosDb;
+namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
 interface IDatabaseProvider
 {

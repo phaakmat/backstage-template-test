@@ -1,4 +1,6 @@
-﻿namespace ${{ values.fileNamePrefix }}.Queries;
+﻿using ${{ values.namespacePrefix }}.Domain;
+
+namespace ${{ values.namespacePrefix }}.Queries;
 
 public class MeasurementQueries
 {

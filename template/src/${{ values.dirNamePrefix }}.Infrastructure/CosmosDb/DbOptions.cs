@@ -1,6 +1,6 @@
 ﻿namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
-public class Options
+public class DbOptions
 {
     /// <summary>
     /// The endpoint of the CosmosDb account

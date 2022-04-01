@@ -1,6 +1,8 @@
-﻿namespace ${{ values.fileNamePrefix }}.Commands;
+﻿using MediatR;
 
-public class CreateMeasurementCommand
+namespace ${{ values.namespacePrefix }}.Commands;
+
+public class CreateMeasurementCommand : IRequest<bool>
 {
     public double TemperatureC { get; set; }
     public string? Summary { get; set; }

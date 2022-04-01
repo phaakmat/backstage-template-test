@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.EntityFrameworkCore;
+using ${{ values.namespacePrefix }}.Domain;
 
-namespace ${{ values.fileNamePrefix }}.Infrastructure.CosmosDb;
+namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
-
-public class MeasurementRepository : IBuyerRepository, IMeasurementRepository
+public class MeasurementRepository : IMeasurementRepository
 {
     private readonly MeasurementContext _context;
-    public IUnitOfWork UnitOfWork
-    {
-        get
-        {
-            return _context;
-        }
-    }
 
     public MeasurementRepository(MeasurementContext context)
     {
@@ -28,10 +17,10 @@ public class MeasurementRepository : IBuyerRepository, IMeasurementRepository
         return _context.Measurements.Add(measurement).Entity;
     }
 
-    public async Task<Measurement> FindAsync(string id)
+    public async Task<Measurement> FindAsync(Guid id)
     {
         var measurement = await _context.Measurements
-            .Where(o => o.Id == buyerIdentityGuid)
+            .Where(o => o.Id == id)
             .SingleOrDefaultAsync();
 
         return measurement;

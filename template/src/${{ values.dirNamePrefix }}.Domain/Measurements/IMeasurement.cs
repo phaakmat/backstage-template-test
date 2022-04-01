@@ -2,13 +2,11 @@ namespace ${{ values.namespacePrefix }}.Domain;
 
 public interface IMeasurement
 {
-    public Guid Id { get; set; }
+    Guid Id { get; set; }
 
-    public DateTimeOffset Created { get; set; }
+    DateTimeOffset Created { get; set; }
 
-    public int TemperatureC { get; set; }
+    double TemperatureC { get; set; }
 
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-
-    public string? Summary { get; set; }
+    string? Summary { get; set; }
 }

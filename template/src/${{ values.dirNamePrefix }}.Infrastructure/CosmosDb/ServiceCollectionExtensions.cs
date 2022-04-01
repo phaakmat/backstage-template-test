@@ -10,9 +10,9 @@ public static class ServiceCollectionExtensions
     {
         services
             .AddSingleton<IDatabaseProvider, DatabaseProvider>()
-            .AddSingleton<IContainerSettings<DeliveryStorageModel>, DeliveryContainerSettings>()
-            .AddSingleton<IContainerProvider<DeliveryStorageModel>, ContainerProvider<DeliveryStorageModel>>()
-            .AddTransient<IDeliveryRepository, CosmosDeliveryRepository>()
+            //.AddSingleton<IContainerSettings<DeliveryStorageModel>, DeliveryContainerSettings>()
+            //.AddSingleton<IContainerProvider<DeliveryStorageModel>, ContainerProvider<DeliveryStorageModel>>()
+            //.AddTransient<IDeliveryRepository, CosmosDeliveryRepository>()
             .Configure(configure)
             .AddSingleton<IValidateOptions<DbOptions>, CosmosDbOptionsValidation>();
 

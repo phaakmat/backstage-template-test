@@ -1,4 +1,4 @@
-﻿namespace ${{ values.fileNamePrefix }}.Endpoints;
+﻿namespace ${{ values.namespacePrefix }}.Endpoints;
 
 public static class Endpoints
 {

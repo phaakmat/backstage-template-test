@@ -2,7 +2,7 @@ namespace ${{ values.namespacePrefix }}.Domain;
 
 public class Measurement : IMeasurement
 {
-    public Measurement(Guid id, DateTimeOffset created, int temperatureC, string? summary)
+    public Measurement(Guid id, DateTimeOffset created, double temperatureC, string? summary)
     {
         Id = id;
         Created = created;
@@ -14,9 +14,9 @@ public class Measurement : IMeasurement
 
     public DateTimeOffset Created { get; set; }
 
-    public int TemperatureC { get; set; }
+    public double TemperatureC { get; set; }
 
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+    public double TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 
     public string? Summary { get; set; }
 }

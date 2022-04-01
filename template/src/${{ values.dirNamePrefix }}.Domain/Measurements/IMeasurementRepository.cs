@@ -1,4 +1,4 @@
-﻿namespace ${{ values.fileNamePrefix }}.Domain;
+﻿namespace ${{ values.namespacePrefix }}.Domain;
 
 public interface IMeasurementRepository
 {

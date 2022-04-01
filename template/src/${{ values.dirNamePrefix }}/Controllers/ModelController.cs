@@ -16,14 +16,12 @@ public class ModelController : ControllerBase
     }
 
     [HttpGet(Name = "GetModel")]
-    public IEnumerable<IModel> Get()
+    public IEnumerable<IMeasurement> Get()
     {
-        return Enumerable.Range(1, 5).Select(index => new Model
-        {
-            Date = DateTime.Now.AddDays(index),
-            TemperatureC = Random.Shared.Next(-20, 55),
-            Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-        })
-        .ToArray();
+        return Enumerable
+            .Range(1, 5)
+            .Select(index =>
+                new Measurement(Guid.NewGuid(), DateTimeOffset.UtcNow, Random.Shared.Next(-20, 55), "Summary"))
+            .ToArray();
     }
 }
