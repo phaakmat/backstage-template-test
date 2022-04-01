@@ -11,9 +11,9 @@ public class MeasurementQueries
         _repository = repository;
     }
 
-    public async Task<Measurement> GetMeasurementAsync(Guid id)
+    public async Task<Measurement?> GetMeasurementAsync(Guid id, CancellationToken cancellationToken)
     {
-        return await _repository.FindAsync(id);
+        return await _repository.FindAsync(id, cancellationToken);
     }
 }
 

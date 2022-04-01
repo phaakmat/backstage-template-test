@@ -4,10 +4,13 @@ using Funda.Extensions.Messaging.Configuration;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
 
 {%- if values.enableCosmosDb %}
 using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 {%- endif %}
+using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
+using ${{ values.namespacePrefix }}.Domain;
 
 namespace ${{ values.namespacePrefix }};
 
@@ -45,6 +48,9 @@ public static class WebApplicationBuilderExtensions
                 prefix: builder.Configuration["Statsd:Prefix"],
                 environmentName: builder.Configuration["Statsd:EnvironmentName"]));
 
+        builder.Services.AddSingleton<IMeasurementRepository, MeasurementRepository>();
+        builder.Services.AddAuthorization();
+
         {%- if values.enableMvcControllers %}
         builder.AddControllers();
         {%- endif %}
@@ -61,6 +67,8 @@ public static class WebApplicationBuilderExtensions
         builder.AddCosmosDb();
         {%- endif %}
 
+        builder.Services.AddMediatR(typeof(Program).Assembly);
+
         return builder;
     }
 
@@ -76,7 +84,7 @@ public static class WebApplicationBuilderExtensions
     {%- if values.enableMvcControllers %}
     private static void AddControllers(this WebApplicationBuilder builder)
     {
-        builder.AddControllers();
+        builder.Services.AddControllers();
     }
     {%- endif %}
 

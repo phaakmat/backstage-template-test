@@ -43,10 +43,10 @@ public class CreateMeasurementCommandHandler
 
         //_logger.LogInformation("----- Creating Order - Order: {@Order}", order);
 
-        _repository.Add(entity);
+        await _repository.Add(entity, cancellationToken);
 
         //return await _repository.UnitOfWork
         //    .SaveEntitiesAsync(cancellationToken);
-        return await Task.FromException<bool>(new NotImplementedException());
+        return true;
     }
 }

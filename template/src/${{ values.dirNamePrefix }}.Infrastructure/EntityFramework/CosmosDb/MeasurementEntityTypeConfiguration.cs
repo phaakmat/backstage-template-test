@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using ${{ values.namespacePrefix }}.Domain;
 
-namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
+namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework.CosmosDb;
 
 internal class MeasurementEntityTypeConfiguration : IEntityTypeConfiguration<Measurement>
 {

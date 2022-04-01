@@ -2,6 +2,6 @@
 
 public interface IMeasurementRepository
 {
-    Measurement Add(Measurement measurement);
-    Task<Measurement> FindAsync(Guid id);
+    Task<Measurement> Add(Measurement measurement, CancellationToken cancellationToken);
+    Task<Measurement?> FindAsync(Guid id, CancellationToken cancellationToken);
 }
