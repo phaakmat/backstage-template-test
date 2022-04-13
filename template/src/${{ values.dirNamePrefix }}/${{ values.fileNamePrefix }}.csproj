@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <!-- Package Settings -->
   <PropertyGroup>
     <PackageId>${{ values.applicationName }}</PackageId>
@@ -12,7 +12,11 @@
   <ItemGroup>
     <PackageReference Include="Funda.Extensions.DateTimeProvider" Version="1.0.2" />
     <PackageReference Include="Funda.Extensions.Hosting" Version="4.3.2" />
-    <PackageReference Include="Funda.Extensions.Messaging" Version="5.1.0" />
+    <PackageReference Include="Funda.Extensions.Messaging" Version="5.1.1" />
+    <PackageReference Include="Funda.Extensions.Messaging.Metrics" Version="5.1.1" />
+    <PackageReference Include="Funda.Extensions.Messaging.CQRS" Version="5.1.1" />
+    <PackageReference Include="Funda.Extensions.Messaging.Azure" Version="5.1.1" />
+    <PackageReference Include="Funda.Extensions.Messaging.DatadogTracing" Version="5.1.1" />
     <PackageReference Include="Funda.Extensions.Metrics.AspNetCore" Version="5.3.0" />
     <PackageReference Include="Funda.Extensions.Metrics.Statsd" Version="5.3.0" />
     <PackageReference Include="Funda.Middleware.HealthChecks" Version="2.0.1" />
@@ -20,6 +24,7 @@
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 

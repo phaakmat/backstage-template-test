@@ -3,11 +3,11 @@ using ${{ values.namespacePrefix }}.Domain;
 
 namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 
-public class MeasurementRepository : IMeasurementRepository
+public class EfMeasurementRepository : IMeasurementRepository
 {
     private readonly IDbContext _context;
 
-    public MeasurementRepository(IDbContext context)
+    public EfMeasurementRepository(IDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }

@@ -17,9 +17,4 @@
     <ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityFramework\SqlServer\" />
-    <Folder Include="SqlServer\" />
-  </ItemGroup>
-
 </Project>
