@@ -7,16 +7,14 @@ using ${{ values.namespacePrefix }}.Domain;
 namespace ${{ values.namespacePrefix }}.Commands;
 
 public class CreateMeasurementCommandHandler
-    : IRequestHandler<CreateMeasurementCommand, bool>
-{%- if values.enableFundaMessaging %},
+    : IRequestHandler<CreateMeasurementCommand, IMeasurement>,
       IMessageHandler
 {%- endif %}
 {
     private readonly IMeasurementRepository _repository;
-    private readonly IMediator _mediator;
     private readonly ILogger<CreateMeasurementCommandHandler> _logger;
 
-    public CreateMeasurementCommandHandler(IMediator mediator,
+    public CreateMeasurementCommandHandler(
         IMeasurementRepository repository,
         ILogger<CreateMeasurementCommandHandler> logger)
     {
@@ -25,13 +23,11 @@ public class CreateMeasurementCommandHandler
         _logger = logger;
     }
 
-    public async Task<bool> Handle(CreateMeasurementCommand message, CancellationToken cancellationToken)
+    public async Task<IMeasurement> Handle(CreateMeasurementCommand message, CancellationToken cancellationToken)
     {
         var entity = new Measurement(Guid.NewGuid(), DateTimeOffset.UtcNow, message.TemperatureC, message.Summary);
 
-        await _repository.Add(entity, cancellationToken);
-
-        return true;
+        return await _repository.AddAsync(entity, cancellationToken);
     }
 
     {%- if values.enableFundaMessaging %}

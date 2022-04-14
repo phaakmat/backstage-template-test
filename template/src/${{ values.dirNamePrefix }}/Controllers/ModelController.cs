@@ -10,32 +10,43 @@ namespace ${{ values.namespacePrefix }}.Controllers;
 [Route("api/v{version:apiVersion}/[controller]")]
 public class ModelController : ControllerBase
 {
+    private readonly IMeasurementRepository _repository;
     private readonly IMediator _mediator;
     private readonly ILogger<ModelController> _logger;
 
     public ModelController(IMediator mediator,
+        IMeasurementRepository repository,
         ILogger<ModelController> logger)
     {
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
-    [HttpGet(Name = "GetModel")]
-    public IEnumerable<IMeasurement> Get(CancellationToken cancellationToken)
+    [HttpGet]
+    public async Task<ActionResult<Measurement>> Get(Guid id, CancellationToken cancellationToken)
     {
-        return Enumerable
-            .Range(1, 5)
-            .Select(index =>
-                new Measurement(Guid.NewGuid(), DateTimeOffset.UtcNow, Random.Shared.Next(-20, 55), "Summary"))
-            .ToArray();
+        var result = await _repository.FindAsync(id, cancellationToken);
+        
+        if (result == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(result);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Add(Guid? guid, double temperatureC, string summary, CancellationToken cancellationToken)
+    public async Task<ActionResult<Measurement>> Add(Guid? guid, double temperatureC, string summary, CancellationToken cancellationToken)
     {
         var cmd = new CreateMeasurementCommand();
-        var result = await _mediator.Send(cmd);
+        var result = await _mediator.Send(cmd, cancellationToken);
 
-        return result ? Ok() : BadRequest();
+        if (result == null)
+        {
+            return BadRequest();
+        }
+
+        return Ok(result);
     }
 }
