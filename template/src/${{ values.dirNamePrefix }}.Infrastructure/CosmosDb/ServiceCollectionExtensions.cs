@@ -9,8 +9,7 @@ public static class ServiceCollectionExtensions
     {
         services
             .Configure<CosmosDbOptions>(configure)
-            .AddSingleton<ICosmosDbClientService, CosmosDbClientService>()
-            .AddSingleton<ICosmosDbContainerService, CosmosDbContainerService>();
+            .AddSingleton<ICosmosDbClientService, CosmosDbClientService>();
 
         return services;
     }

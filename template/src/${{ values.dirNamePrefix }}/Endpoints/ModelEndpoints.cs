@@ -1,5 +1,6 @@
 ﻿using MediatR;
-using HttpContext = Microsoft.AspNetCore.Http.HttpContext;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using ${{ values.namespacePrefix }}.Domain;
 using ${{ values.namespacePrefix }}.Queries;
 using ${{ values.namespacePrefix }}.Commands;

@@ -3,14 +3,18 @@
 {%- if values.enableEndpoints %}
 using ${{ values.namespacePrefix }}.Endpoints;
 {%- endif %}
-
+{%- if values.enableMessaging %}
+using ${{ values.namespacePrefix }}.Messaging;
+{%- endif %}
+{%- if values.enableEntityFramework %}
+using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
+{%- endif %}
 namespace ${{ values.namespacePrefix }}.Extensions;
 
 public static class WebApplicationExtensions
 {
     public static WebApplication Configure(this WebApplication app)
     {
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();
@@ -33,6 +37,13 @@ public static class WebApplicationExtensions
         {%- endif %}
 
         app.UseFundaHealthChecks();
+
+        {%- if values.enableEntityFramework %}
+        if (app.Environment.IsDevelopment())
+        {
+            app.Services.EnsureEntityFrameworkDbCreated();
+        }
+        {%- endif %}
 
         return app;
     }

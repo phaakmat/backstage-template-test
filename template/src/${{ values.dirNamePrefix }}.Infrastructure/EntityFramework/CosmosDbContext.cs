@@ -4,13 +4,16 @@ using ${{ values.namespacePrefix }}.Domain;
 
 public class CosmosDbContext : DbContext, IDbContext
 {
-    public const string DEFAULT_SCHEMA = "schema";
     public DbSet<Measurement> Measurements => Set<Measurement>();
+    public async Task<bool> EnsureCreated()
+    {
+        return await Database.EnsureCreatedAsync();
+    }
 
     public CosmosDbContext(DbContextOptions<CosmosDbContext> options) : base(options)
     {
     }
-
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Measurement>()

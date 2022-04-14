@@ -2,6 +2,9 @@ namespace ${{ values.namespacePrefix }}.Domain;
 
 public class Measurement : IMeasurement
 {
+    public Measurement()
+    {
+    }
     public Measurement(Guid id, DateTimeOffset created, double temperatureC, string? summary)
     {
         Id = id;

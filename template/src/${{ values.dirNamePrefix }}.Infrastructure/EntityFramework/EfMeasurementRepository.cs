@@ -12,19 +12,19 @@ public class EfMeasurementRepository : IMeasurementRepository
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<Measurement> Add(Measurement measurement, CancellationToken cancellationToken)
+    public async Task<IMeasurement> AddAsync(Measurement measurement, CancellationToken cancellationToken)
     {
         var entity = _context.Measurements.Add(measurement).Entity;
         await _context.SaveChangesAsync(cancellationToken);
         return entity;
     }
 
-    public async Task<Measurement?> FindAsync(Guid id, CancellationToken cancellationToken)
+    public async Task<IMeasurement?> FindAsync(Guid id, CancellationToken cancellationToken)
     {
-        var measurement = await _context.Measurements
+        var item = await _context.Measurements
             .Where(o => o.Id == id)
             .SingleOrDefaultAsync(cancellationToken);
 
-        return measurement;
+        return item;
     }
 }

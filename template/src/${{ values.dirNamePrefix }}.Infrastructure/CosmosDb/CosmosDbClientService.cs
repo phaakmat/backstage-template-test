@@ -5,20 +5,42 @@ namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
 public interface ICosmosDbClientService
 {
-    CosmosClient GetClient();
+    public CosmosDbOptions Options { get; }
+    Task<Database> GetDatabaseAsync(string databaseId);
+    Task<Container> GetContainerAsync(Database database, string containerId, ContainerProperties containerProperties);
 }
 
 public class CosmosDbClientService : ICosmosDbClientService
 {
     private readonly CosmosClient _client;
+    private readonly CosmosDbOptions _options;
 
-    public CosmosDbClientService(IOptions<CosmosDbOptions> options)
+    public CosmosDbOptions Options => _options;
+
+    public CosmosDbClientService(IOptions<CosmosDbOptions> optionsAccessor)
     {
-        this._client = new CosmosClient(options.Value.Endpoint, options.Value.PrimaryKey);
+        _options = optionsAccessor.Value;
+
+        _client = new CosmosClient(_options.Endpoint, _options.PrimaryKey);
     }
 
-    public CosmosClient GetClient()
+    public async Task<Database> GetDatabaseAsync(string databaseId)
     {
-        return _client;
+        if (_options.CreateDatabaseAndContainersIfNotExists)
+        {
+            return await _client.CreateDatabaseIfNotExistsAsync(_options.DatabaseId);
+        }
+
+        return _client.GetDatabase(databaseId);
+    }
+
+    public async Task<Container> GetContainerAsync(Database database, string containerId, ContainerProperties containerProperties)
+    {
+        if (_options.CreateDatabaseAndContainersIfNotExists)
+        {
+            return await database.CreateContainerIfNotExistsAsync(containerProperties);
+        }
+
+        return database.GetContainer(containerId);
     }
 }

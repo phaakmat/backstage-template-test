@@ -8,4 +8,6 @@ public interface IDbContext
     DbSet<Measurement> Measurements { get; }
 
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+
+    Task<bool> EnsureCreated();
 }

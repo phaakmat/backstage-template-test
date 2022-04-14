@@ -6,6 +6,10 @@ public class SqlServerDbContext : DbContext, IDbContext
 {
     public const string DEFAULT_SCHEMA = "schema";
     public DbSet<Measurement> Measurements => Set<Measurement>();
+    public async Task<bool> EnsureCreated()
+    {
+        return await Database.EnsureCreatedAsync();
+    }
 
     public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
     {

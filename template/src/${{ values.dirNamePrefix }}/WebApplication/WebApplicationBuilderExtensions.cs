@@ -1,20 +1,21 @@
+using MediatR;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Funda.Extensions.DateTimeProvider;
 using Funda.Extensions.Hosting;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
-using Microsoft.AspNetCore.Mvc;
-using MediatR;
 {%- if values.enableFundaMessaging %}
 using Funda.Extensions.Messaging.Metrics;
 using Funda.Extensions.Messaging.DatadogTracing;
 using Funda.Extensions.Messaging.Azure;
 using Funda.Extensions.Messaging.Configuration;
+using ${{ values.namespacePrefix }}.Messaging;
 {%- endif %}
 {%- if values.enableCosmosDb %}
 using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 {%- endif %}
 {%- if values.enableEntityFramework %}
-using Microsoft.EntityFrameworkCore;
 using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
 using ${{ values.namespacePrefix }}.Domain;
@@ -59,59 +60,45 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddAuthorization();
 
         {%- if values.enableMvcControllers %}
+		
         // MVC Controllers
-
         builder.Services.AddControllers();
         {%- endif %}
 
         {%- if values.enableFundaMessaging %}
+		
         // Funda.Messaging
-
-        builder.Services.AddFundaDateTimeProvider();
-
-        builder.Services
-            .AddFundaMessaging()
-            .AddFundaMessagingAzureServiceBus()
-            .AddDatadogTracing()
-            .ConfigureEndpoint("Commands", endpoint =>
-            {
-                endpoint
-                    .ConfigurePubSub<CreateMeasurementCommand, CreateMeasurementCommandHandler>()
-                    .ConfigureAzureServiceBusQueue("${{ values.applicationName }}", options =>
-                        builder.Configuration.GetSection("AzureServiceBus").Bind(options))
-                    .ConfigureAzureServiceBusWorker()
-                    .ConfigurePipeline(pipeline =>
-                    {
-                        pipeline
-                            .UsePublishMetrics()
-                            .UseRetryMessageExecution()
-                            .UseDatadogTracing()
-                            .UseHandleMessage();
-                    });
-            });
-        {%- endif %}
+        builder.AddFundaMessaging();
+		{%- endif %}
+		
+		{%- if values.enableCosmosDb %}
         
-        {%- if values.enableCosmosDb %}
-        // Cosmos DB
+		// Add Cosmos DB
         builder.Services.AddCosmosDbInfrastructure(options =>
             builder.Configuration.GetSection("CosmosDb").Bind(options)
         );
         {%- endif %}
-           
+
         {%- if values.enableEntityFramework %}
-        // Entity Framework
-
+		
+        // Add repository based on Entity Framework
         builder.Services.AddScoped<IMeasurementRepository, EfMeasurementRepository>();
+		{%- endif %}
+		
+        {%- if values.enableEntityFrameworkSqlServer %}
 
-        {%- if values.enableSqlServer %}
-        // SQL Server
-
+		// Configure EntityFramework to use SQL Server
         builder.Services
             .AddDbContext<IDbContext, SqlServerDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-        {%- endif %}
+        {%- elif values.enableEntityFrameworkCosmos %}
 
-        {%- endif %}
+		// Configure EntityFramework to use CosmosDb
+        builder.Services.AddDbContext<IDbContext, CosmosDbContext>(options =>
+            options.UseCosmos(builder.Configuration["CosmosDb:Endpoint"],
+                builder.Configuration["CosmosDb:PrimaryKey"],
+                builder.Configuration["CosmosDb:DatabaseId"]));
+		{%- endif %}
 
         builder.Services.AddMediatR(typeof(Program).Assembly);
 
