@@ -7,7 +7,8 @@ using ${{ values.namespacePrefix }}.Domain;
 namespace ${{ values.namespacePrefix }}.Commands;
 
 public class CreateMeasurementCommandHandler
-    : IRequestHandler<CreateMeasurementCommand, IMeasurement>,
+    : IRequestHandler<CreateMeasurementCommand, IMeasurement>
+{%- if values.enableFundaMessaging %},
       IMessageHandler
 {%- endif %}
 {
@@ -19,7 +20,6 @@ public class CreateMeasurementCommandHandler
         ILogger<CreateMeasurementCommandHandler> logger)
     {
         _repository = repository;
-        _mediator = mediator;
         _logger = logger;
     }
 
