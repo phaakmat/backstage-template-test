@@ -18,11 +18,6 @@ public class CosmosDbOptions
     public string DatabaseId { get; set; } = null!;
 
     /// <summary>
-    /// Name/Id of the container.
-    /// </summary>
-    public string ContainerId { get; set; } = null!;
-
-    /// <summary>
     /// When set containers and database are created on first usage.
     ///
     /// This is intended for local development against en emulated cosmos db.
