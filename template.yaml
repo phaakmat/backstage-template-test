@@ -52,6 +52,10 @@ spec:
           type: string
           default: phaakmat # fundarealestate
           ui:widget: hidden
+        dirNamePrefix:
+          ui:widget: hidden
+          type: string
+          default: ${{ parameters.name }}
     - title: Features
       properties:
         enableEndpoints:
@@ -117,19 +121,9 @@ spec:
           - third
 
     - id: debug
-      name: debug fetch-base
+      name: debug parameters
       action: debug:log
-      message: ${{ steps.fetch-base }}
-
-    - id: debug
-      name: debug fetch-base output
-      action: debug:log
-      message: ${{ steps.fetch-base.output }}
-
-    - id: debug
-      name: debug fetch-base input
-      action: debug:log
-      message: ${{ steps.fetch-base.input }}
+      message: ${{ parameters }}
       
     - id: setup-controllers
       name: Configure template
