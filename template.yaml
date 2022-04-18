@@ -93,31 +93,18 @@ spec:
         entityFramework:
           type: object
           properties:
-            enabled:
+            entityFrameworkEnabled:
               type: boolean
               title: Enable EntityFramework
-          allOf:
-            if:
+          dependencies:
+            entityFrameworkEnabled:
               properties:
-                enable:
-                  const: true
-            then:
-              properties:
-                cosmosDb:
-                  title: ...with CosmosDB
+                cosmosDbEnabled:
                   type: boolean
                   default: false
-                sqlServer:
-                  title: ...with SqlServer
+                sqlServerEnabled:
                   type: boolean
-                  default: false
-            if:
-              properties:
-                enable:
-                  const: true
-            then:
-              properties:
-                  
+                  default: false                  
 
   # scaffolding steps
   steps:
