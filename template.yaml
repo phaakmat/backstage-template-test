@@ -124,6 +124,7 @@ spec:
       name: debug parameters
       action: debug:log
       message: 'Dumping parameters: ${{ parameters | dump }}'
+      extra: ${{ parameters }}
       
     - id: setup-controllers
       name: Configure template
