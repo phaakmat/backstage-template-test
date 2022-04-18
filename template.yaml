@@ -123,7 +123,7 @@ spec:
     - id: hello
       name: Log hello
       action: debug:log
-      message: 'Hello world'
+      message: Hello world
 
     - id: debug
       name: debug parameters
