@@ -103,15 +103,70 @@ spec:
           fileNamePrefix: 'Funda.${{ parameters.name }}'
           dirNamePrefix: 'Funda.${{ parameters.name }}'
           applicationName: 'Funda.${{ parameters.name }}'
-
-    - id: remove-files
+          enableControllers: ${{ parameters.enableControllers }}
+          enableEndpoints: ${{ parameters.enableEndpoints }}
+          enableFundaMessaging: ${{ parameters.enableFundaMessaging }}
+          enableCosmosDb: ${{ parameters.enableCosmosDb }}
+          enableEntityFramework: ${{ parameters.enableEntityFramework }}
+          enableEntityFrameworkCosmosDb: ${{ parameters.enableEntityFrameworkCosmosDb }}
+          enableEntityFrameworkSqlServer: ${{ parameters.enableEntityFrameworkSqlServer }}
+  
+    - id: setup-controllers
       name: Configure template
       action: fs:delete
-      if: ${{ !parameters.enableEntityFramework }}
+      if: ${{ ! parameters.enableControllers }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}/Controllers
+          
+    - id: setup-endpoints
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableEndpoints }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}/Endpoints
+          
+    - id: setup-sqlserver
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableSqlServer }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}.Infrastructure/SqlServer
+
+    - id: setup-cosmosdb
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableCosmosDb }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}.Infrastructure/CosmosDb
+
+    - id: setup-ef
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableEntityFramework }}
       input:
         files:
           - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework
 
+    - id: setup-ef-cosmos
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableEntityFrameworkCosmosDb }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/CosmosDb
+
+    - id: setup-ef-sqlserver
+      name: Configure template
+      action: fs:delete
+      if: ${{ ! parameters.enableEntityFrameworkSqlServer }}
+      input:
+        files:
+          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/SqlServer
+          
     - id: publish
       name: Create GitHub Repository
       action: publish:github
