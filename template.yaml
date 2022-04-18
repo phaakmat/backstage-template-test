@@ -91,20 +91,27 @@ spec:
           type: boolean
           description: Enable SQL Server EF Core support
         entityFramework:
-          type: object
-          properties:
-            entityFrameworkEnabled:
-              type: boolean
-              title: Enable EntityFramework
-          dependencies:
-            entityFrameworkEnabled:
-              properties:
-                cosmosDbEnabled:
-                  type: boolean
-                  default: false
-                sqlServerEnabled:
-                  type: boolean
-                  default: false                  
+          type: string
+          enum:
+            - No
+            - EntityFramework
+            - EntityFramework with CosmosDB
+            - EntityFramework with SqlServer
+          title: Entity Framework
+          # type: object
+          # properties:
+          #   enabled:
+          #     type: boolean
+          #     title: Enable EntityFramework
+          # dependencies:
+          #   entityFrameworkEnabled:
+          #     properties:
+          #       cosmosDbEnabled:
+          #         type: boolean
+          #         default: false
+          #       sqlServerEnabled:
+          #         type: boolean
+          #         default: false                  
 
   # scaffolding steps
   steps:
@@ -126,7 +133,7 @@ spec:
           enableEndpoints: ${{ parameters.enableEndpoints }}
           enableFundaMessaging: ${{ parameters.enableFundaMessaging }}
           enableCosmosDb: ${{ parameters.enableCosmosDb }}
-          enableEntityFramework: ${{ parameters.enableEntityFramework }}
+          enableEntityFramework: ${{ parameters.entityFramework.enabled && parameters.entityFramework }}
           enableEntityFrameworkCosmosDb: ${{ parameters.enableEntityFrameworkCosmosDb }}
           enableEntityFrameworkSqlServer: ${{ parameters.enableEntityFrameworkSqlServer }}
       output:
