@@ -115,16 +115,16 @@ spec:
           - first
           - second
           - third
-          
-    - id: debug
-      name: debug fetch-base output
-      action: debug:log
-      message: ${{ steps.fetch-base.output }}
-      
+
     - id: debug
       name: debug fetch-base
       action: debug:log
       message: ${{ steps.fetch-base }}
+
+    - id: debug
+      name: debug fetch-base output
+      action: debug:log
+      message: ${{ steps.fetch-base.output }}
 
     - id: debug
       name: debug fetch-base input
