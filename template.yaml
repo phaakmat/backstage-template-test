@@ -117,9 +117,19 @@ spec:
           - third
           
     - id: debug
-      name: debug
+      name: debug fetch-base output
       action: debug:log
-      message: ${{ steps.fetch-base.output.files }}
+      message: ${{ steps.fetch-base.output }}
+      
+    - id: debug
+      name: debug fetch-base
+      action: debug:log
+      message: ${{ steps.fetch-base }}
+
+    - id: debug
+      name: debug fetch-base input
+      action: debug:log
+      message: ${{ steps.fetch-base.input }}
       
     - id: setup-controllers
       name: Configure template
