@@ -98,6 +98,7 @@ spec:
             - EntityFramework with CosmosDB
             - EntityFramework with SqlServer
           title: Entity Framework
+          default: No
           # type: object
           # properties:
           #   enabled:
@@ -133,9 +134,9 @@ spec:
           enableEndpoints: ${{ parameters.enableEndpoints }}
           enableFundaMessaging: ${{ parameters.enableFundaMessaging }}
           enableCosmosDb: ${{ parameters.enableCosmosDb }}
-          enableEntityFramework: ${{ parameters.entityFramework.enabled && parameters.entityFramework }}
-          enableEntityFrameworkCosmosDb: ${{ parameters.enableEntityFrameworkCosmosDb }}
-          enableEntityFrameworkSqlServer: ${{ parameters.enableEntityFrameworkSqlServer }}
+          enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
+          enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'EntityFramework with CosmosDB' }}
+          enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'EntityFramework with SqlServer' }}
       output:
         files:
           - first
