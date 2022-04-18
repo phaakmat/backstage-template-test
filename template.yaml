@@ -90,6 +90,34 @@ spec:
           title: EF Core with SQL Server
           type: boolean
           description: Enable SQL Server EF Core support
+        entityFramework:
+          type: object
+          properties:
+            enabled:
+              type: boolean
+              title: Enable EntityFramework
+          allOf:
+            if:
+              properties:
+                enable:
+                  const: true
+            then:
+              properties:
+                cosmosDb:
+                  title: ...with CosmosDB
+                  type: boolean
+                  default: false
+                sqlServer:
+                  title: ...with SqlServer
+                  type: boolean
+                  default: false
+            if:
+              properties:
+                enable:
+                  const: true
+            then:
+              properties:
+                  
 
   # scaffolding steps
   steps:
