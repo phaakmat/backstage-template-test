@@ -123,7 +123,7 @@ spec:
     - id: debug
       name: debug parameters
       action: debug:log
-      message: ${{ parameters }}
+      message: ${{ parameters | dump }}
       
     - id: setup-controllers
       name: Configure template
@@ -131,7 +131,7 @@ spec:
       if: ${{ ! parameters.enableControllers }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}/Controllers
+          - template/${{ parameters.dirNamePrefix }}/Controllers
           
     - id: setup-endpoints
       name: Configure template
@@ -139,7 +139,7 @@ spec:
       if: ${{ ! parameters.enableEndpoints }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}/Endpoints
+          - template/${{ parameters.dirNamePrefix }}/Endpoints
           
     - id: setup-sqlserver
       name: Configure template
@@ -147,7 +147,7 @@ spec:
       if: ${{ ! parameters.enableSqlServer }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}.Infrastructure/SqlServer
+          - template/${{ parameters.dirNamePrefix }}.Infrastructure/SqlServer
 
     - id: setup-cosmosdb
       name: Configure template
@@ -155,7 +155,7 @@ spec:
       if: ${{ ! parameters.enableCosmosDb }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}.Infrastructure/CosmosDb
+          - template/${{ parameters.dirNamePrefix }}.Infrastructure/CosmosDb
 
     - id: setup-ef
       name: Configure template
@@ -163,7 +163,7 @@ spec:
       if: ${{ ! parameters.enableEntityFramework }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework
+          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework
 
     - id: setup-ef-cosmos
       name: Configure template
@@ -171,7 +171,7 @@ spec:
       if: ${{ ! parameters.enableEntityFrameworkCosmosDb }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/CosmosDb
+          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework/CosmosDb
 
     - id: setup-ef-sqlserver
       name: Configure template
@@ -179,7 +179,7 @@ spec:
       if: ${{ ! parameters.enableEntityFrameworkSqlServer }}
       input:
         files:
-          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/SqlServer
+          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework/SqlServer
           
     - id: publish
       name: Create GitHub Repository
