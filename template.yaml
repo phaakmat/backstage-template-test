@@ -123,13 +123,15 @@ spec:
     - id: hello
       name: Log hello
       action: debug:log
-      message: Hello world
+      input:
+        message: Log hello
 
     - id: debug
       name: debug parameters
       action: debug:log
-      message: 'Dumping parameters: ${{ parameters | dump }}'
-      extra: ${{ parameters }}
+      input:
+        message: ${{ parameters | dump }}
+        extra: ${{ parameters }}
       
     - id: setup-controllers
       name: Configure template
