@@ -110,7 +110,7 @@ spec:
       if: ${{ !parameters.enableEntityFramework }}
       input:
         files:
-          - template/${{ '{{ values.dirNamePrefix }}' }}.Infrastructure/EntityFramework
+          - template/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework
 
     - id: publish
       name: Create GitHub Repository
