@@ -110,7 +110,17 @@ spec:
           enableEntityFramework: ${{ parameters.enableEntityFramework }}
           enableEntityFrameworkCosmosDb: ${{ parameters.enableEntityFrameworkCosmosDb }}
           enableEntityFrameworkSqlServer: ${{ parameters.enableEntityFrameworkSqlServer }}
-  
+      output:
+        files:
+          - first
+          - second
+          - third
+          
+    - id: debug
+      name: debug
+      action: debug:log
+      message: ${{ steps.fetch-base.output.files }}
+      
     - id: setup-controllers
       name: Configure template
       action: fs:delete
