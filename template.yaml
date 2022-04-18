@@ -104,6 +104,14 @@ spec:
           dirNamePrefix: 'Funda.${{ parameters.name }}'
           applicationName: 'Funda.${{ parameters.name }}'
 
+    - id: remove-files
+      name: Configure template
+      action: fs:delete
+      if: ${{ !parameters.enableEntityFramework }}
+      input:
+        files:
+          - template/$${{ values.dirNamePrefix }}.Infrastructure/EntityFramework
+
     - id: publish
       name: Create GitHub Repository
       action: publish:github
