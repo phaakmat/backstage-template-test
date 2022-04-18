@@ -120,6 +120,11 @@ spec:
           - second
           - third
 
+    - id: hello
+      name: Log hello
+      action: debug:log
+      message: 'Hello world'
+
     - id: debug
       name: debug parameters
       action: debug:log
