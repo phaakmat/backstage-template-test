@@ -82,10 +82,10 @@ spec:
           type: string
           enum:
             - No
-            - EntityFramework
-            - EntityFramework with CosmosDB
-            - EntityFramework with SqlServer
-          title: Entity Framework
+            - Entity Framework Core
+            - Entity Framework Core with CosmosDB
+            - Entity Framework Core with SqlServer
+          title: Entity Framework Core
           default: No
           # type: object
           # properties:
@@ -123,8 +123,8 @@ spec:
           enableFundaMessaging: ${{ parameters.enableFundaMessaging }}
           enableCosmosDb: ${{ parameters.enableCosmosDb }}
           enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
-          enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'EntityFramework with CosmosDB' }}
-          enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'EntityFramework with SqlServer' }}
+          enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
+          enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
       output:
         files:
           - first
