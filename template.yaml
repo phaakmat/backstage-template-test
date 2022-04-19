@@ -109,7 +109,13 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableInMemoryRepository: ${{ parameters.entityFramework == 'No' }}
+          {% set randomTestValue = "hello test" %}
 
+    - id: debug
+      name: debug
+      action: debug:log
+      input:
+        message: 'randomTestValue = ${{ randomTestValue }}'
     - id: remove-controllers
       name: Remove Controllers
       action: fs:delete
