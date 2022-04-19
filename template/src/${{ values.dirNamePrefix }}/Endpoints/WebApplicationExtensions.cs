@@ -6,7 +6,7 @@ using ${{ values.namespacePrefix }}.Domain.Repositories;
 
 namespace ${{ values.namespacePrefix }}.Endpoints;
 
-public static class Endpoints
+public static class WebApplicationExtensions
 {
     public static WebApplication MapEndpoints(this WebApplication app)
     {

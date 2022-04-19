@@ -1,6 +1,6 @@
-using ${{ values.namespacePrefix }}.Extensions;
+using ${{ values.namespacePrefix }}.Startup;
 
-var builder = WebApplication.CreateBuilder(args).Configure();
+var builder = WebApplication.CreateBuilder(args).ConfigureBuilder();
 
 var app = builder.Build().Configure();
 

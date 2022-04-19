@@ -9,7 +9,7 @@ using ${{ values.namespacePrefix }}.Messaging;
 {%- if values.enableEntityFramework %}
 using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
-namespace ${{ values.namespacePrefix }}.WebApplication;
+namespace ${{ values.namespacePrefix }}.Startup;
 
 public static class WebApplicationExtensions
 {

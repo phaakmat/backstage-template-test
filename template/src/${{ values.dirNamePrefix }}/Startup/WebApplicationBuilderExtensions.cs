@@ -20,11 +20,11 @@ using ${{ values.namespacePrefix }}.Infrastructure.InMemory;
 {%- endif %}
 using ${{ values.namespacePrefix }}.Domain.Repositories;
 
-namespace ${{ values.namespacePrefix }}.Extensions;
+namespace ${{ values.namespacePrefix }}.Startup;
 
 public static class WebApplicationBuilderExtensions
 {
-    public static WebApplicationBuilder Configure(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureBuilder(this WebApplicationBuilder builder)
     {
         builder.Host.AddFundaDefaults("${{ values.applicationName }}");
 
