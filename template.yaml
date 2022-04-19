@@ -1,8 +1,8 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: dotnet-feature-api-v1
-  title: .NET 6.0 Feature API v1.1
+  name: dotnet-feature-api-v1.0
+  title: .NET 6.0 Feature API v1.0
   description: Create a .NET 6.0 Feature API
   tags:
     - service
@@ -61,11 +61,11 @@ spec:
         enableMvcControllers:
           title: Add MVC Controllers
           type: boolean
-          descriptionn: Whether to include support for MVC Controllers.
+          description: Whether to include support for MVC Controllers.
         enableFundaMessaging:
           title: Add Funda.Extensions.Messaging
           type: boolean
-          description: Whether to include Funda.Extensions.Messaging template
+          description: Whether to include Funda.Extensions.Messaging.
         enableCosmosDb:
           title: Add CosmosDB
           type: boolean
@@ -75,29 +75,15 @@ spec:
           type: boolean
           description: Whether to include SQL Server client.
         entityFramework:
+          title: Entity Framework Core
           type: string
           enum:
             - No
             - Entity Framework Core
             - Entity Framework Core with CosmosDB
             - Entity Framework Core with SqlServer
-          title: Entity Framework Core
           description: Whether to include EF Core and a database provider
           default: No
-          # type: object
-          # properties:
-          #   enabled:
-          #     type: boolean
-          #     title: Enable EntityFramework
-          # dependencies:
-          #   entityFrameworkEnabled:
-          #     properties:
-          #       cosmosDbEnabled:
-          #         type: boolean
-          #         default: false
-          #       sqlServerEnabled:
-          #         type: boolean
-          #         default: false                  
 
   # scaffolding steps
   steps:
@@ -123,13 +109,7 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
 
-    - id: dump-workspace
-      name: Dump workspace
-      action: debug:log
-      input:
-        listWorkspace: true
-
-    - id: setup-controllers
+    - id: remove-controllers
       name: Remove Controllers
       action: fs:delete
       if: ${{ not parameters.enableControllers }}
@@ -137,7 +117,7 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}/Controllers
           
-    - id: setup-endpoints
+    - id: remove-endpoints
       name: Remove Endpoints
       action: fs:delete
       if: ${{ not parameters.enableEndpoints }}
@@ -145,7 +125,7 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}/Endpoints
 
-    - id: setup-funda-messaging
+    - id: remove-funda-messaging
       name: Remove Funda.Messaging
       action: fs:delete
       if: ${{ not parameters.enableFundaMessaging }}
@@ -161,15 +141,15 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
 
-    - id: Remove CosmosDB
-      name: Configure template
+    - id: remove-cosmosdb
+      name: Remove CosmosDB
       action: fs:delete
       if: ${{ not parameters.enableCosmosDb }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
-    - id: setup-ef
+    - id: remove-ef
       name: Remove EF Core
       action: fs:delete
       if: ${{ not parameters.enableEntityFramework }}
@@ -177,7 +157,7 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
 
-    - id: setup-ef-cosmos
+    - id: remove-ef-cosmos
       name: Remove EF Core CosmosDb
       action: fs:delete
       if: ${{ not parameters.enableEntityFrameworkCosmosDb }}
@@ -185,7 +165,7 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
 
-    - id: setup-ef-sqlserver
+    - id: remove-ef-sqlserver
       name: Remove EF Core SqlServer
       action: fs:delete
       if: ${{ not parameters.enableEntityFrameworkSqlServer }}
