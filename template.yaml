@@ -134,7 +134,7 @@ spec:
     - id: setup-endpoints
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableEndpoints }}
+      if: ${{ not parameters.enableEndpoints }}
       input:
         files:
           - template/Funda.${{ parameters.name }}/Endpoints
