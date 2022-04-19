@@ -157,8 +157,8 @@ spec:
       name: debug steps.fetch-base.output
       action: debug:log
       input:
-        message: 'data = ${{ steps.fetch-base.output | dump }}'
-        extra: ${{ steps.fetch-base.output }}
+        message: 'data = ${{ steps.fetch-base.output.dirNamePrefix | dump }}'
+        extra: ${{ steps.fetch-base.output.dirNamePrefix }}
         
     - id: setup-controllers
       name: Configure template
