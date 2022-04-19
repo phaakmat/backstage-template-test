@@ -9,7 +9,7 @@ using ${{ values.namespacePrefix }}.Messaging;
 {%- if values.enableEntityFramework %}
 using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
-namespace ${{ values.namespacePrefix }}.Extensions;
+namespace ${{ values.namespacePrefix }}.WebApplication;
 
 public static class WebApplicationExtensions
 {
@@ -23,21 +23,24 @@ public static class WebApplicationExtensions
 
         app.UseHttpsRedirection();
 
-        {% if values.enableControllers %}
+        {%- if values.enableControllers %}
+
         app.UseRouting();
 
         app.UseAuthentication();
         app.UseAuthorization();
 
         app.MapControllers();
-        {% endif %}
+        {%- endif %}
         {%- if values.enableEndpoints %}
+
         app.MapEndpoints();
         {%- endif %}
 
         app.UseFundaHealthChecks();
 
         {%- if values.enableEntityFramework %}
+
         if (app.Environment.IsDevelopment())
         {
             app.Services.EnsureEntityFrameworkDbCreated();

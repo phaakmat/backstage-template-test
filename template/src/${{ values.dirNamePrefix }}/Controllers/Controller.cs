@@ -9,15 +9,15 @@ namespace ${{ values.namespacePrefix }}.Controllers;
 [ApiController]
 [ApiVersion("1.0")]
 [Route("api/v{version:apiVersion}/[controller]")]
-public class ModelController : ControllerBase
+public class Controller : ControllerBase
 {
     private readonly IMeasurementRepository _repository;
     private readonly IMediator _mediator;
-    private readonly ILogger<ModelController> _logger;
+    private readonly ILogger<Controller> _logger;
 
-    public ModelController(IMediator mediator,
+    public Controller(IMediator mediator,
         IMeasurementRepository repository,
-        ILogger<ModelController> logger)
+        ILogger<Controller> logger)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));

@@ -1,7 +1,4 @@
 using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Funda.Extensions.DateTimeProvider;
 using Funda.Extensions.Hosting;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;
@@ -21,8 +18,6 @@ using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- if values.enableInMemoryRepository %}
 using ${{ values.namespacePrefix }}.Infrastructure.InMemory;
 {%- endif %}
-using ${{ values.namespacePrefix }}.Domain.Commands;
-using ${{ values.namespacePrefix }}.Domain.Models;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
 
 namespace ${{ values.namespacePrefix }}.Extensions;
