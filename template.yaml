@@ -122,7 +122,13 @@ spec:
           enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
-        
+
+    - id: dump-workspace
+      name: Dump workspace
+      action: log:debug
+      input:
+        listWorkspace: true
+
     - id: setup-controllers
       name: Configure template
       action: fs:delete
