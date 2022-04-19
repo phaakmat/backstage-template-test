@@ -52,10 +52,6 @@ spec:
           type: string
           default: phaakmat # fundarealestate
           ui:widget: hidden
-        dirNamePrefix:
-          ui:widget: hidden
-          type: string
-          default: ${{ parameters.name }}
     - title: Features
       properties:
         enableEndpoints:
@@ -126,39 +122,6 @@ spec:
           enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
-      output:
-        dirNamePrefix: 'Funda.${{ parameters.name }}'
-        files:
-          - first
-          - second
-          - third
-
-    - id: hello
-      name: Log hello
-      action: debug:log
-      input:
-        message: Log hello
-
-    - id: debug
-      name: debug parameters
-      action: debug:log
-      input:
-        message: ${{ parameters | dump }}
-        extra: ${{ parameters }}
-
-    - id: debug2
-      name: debug steps.fetch-base
-      action: debug:log
-      input:
-        message: 'data = ${{ steps.fetch-base.input.values | dump }}'
-        extra: ${{ steps.fetch-base.input.values }}
-
-    - id: debug3
-      name: debug steps.fetch-base.output
-      action: debug:log
-      input:
-        message: 'data = ${{ steps.fetch-base.output.dirNamePrefix | dump }}'
-        extra: ${{ steps.fetch-base.output.dirNamePrefix }}
         
     - id: setup-controllers
       name: Configure template
@@ -166,7 +129,7 @@ spec:
       if: ${{ ! parameters.enableControllers }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}/Controllers
+          - template/Funda.${{ parameters.name }}/Controllers
           
     - id: setup-endpoints
       name: Configure template
@@ -174,7 +137,7 @@ spec:
       if: ${{ ! parameters.enableEndpoints }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}/Endpoints
+          - template/Funda.${{ parameters.name }}/Endpoints
           
     - id: setup-sqlserver
       name: Configure template
@@ -182,7 +145,7 @@ spec:
       if: ${{ ! parameters.enableSqlServer }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}.Infrastructure/SqlServer
+          - template/Funda.${{ parameters.name }}.Infrastructure/SqlServer
 
     - id: setup-cosmosdb
       name: Configure template
@@ -190,7 +153,7 @@ spec:
       if: ${{ ! parameters.enableCosmosDb }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}.Infrastructure/CosmosDb
+          - template/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
     - id: setup-ef
       name: Configure template
@@ -198,7 +161,7 @@ spec:
       if: ${{ ! parameters.enableEntityFramework }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework
+          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
 
     - id: setup-ef-cosmos
       name: Configure template
@@ -206,7 +169,7 @@ spec:
       if: ${{ ! parameters.enableEntityFrameworkCosmosDb }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework/CosmosDb
+          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
 
     - id: setup-ef-sqlserver
       name: Configure template
@@ -214,7 +177,7 @@ spec:
       if: ${{ ! parameters.enableEntityFrameworkSqlServer }}
       input:
         files:
-          - template/${{ parameters.dirNamePrefix }}.Infrastructure/EntityFramework/SqlServer
+          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
           
     - id: publish
       name: Create GitHub Repository
