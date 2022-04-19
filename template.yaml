@@ -145,7 +145,7 @@ spec:
       if: ${{ not parameters.enableSqlServer }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}.Infrastructure/SqlServer
+          - Funda.${{ parameters.name }}.Infrastructure/SqlServer
 
     - id: setup-cosmosdb
       name: Configure template
