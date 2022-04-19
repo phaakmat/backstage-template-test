@@ -55,6 +55,7 @@ spec:
     - title: Features
       properties:
         features:
+          title: Select services
           properties:
             endpoints:
               title: Add .NET 6 Endpoints
@@ -151,13 +152,6 @@ spec:
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
-
-    - id: debug-params
-      name: Debug
-      action: debug:log
-      input:
-        message: 'Features: ${{ parameters.features | dump }}'
-        extra: ${{ parameters.features }}
 
     - id: remove-in-memory-repository
       name: Remove In Memory repository
