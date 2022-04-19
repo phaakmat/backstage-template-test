@@ -54,36 +54,38 @@ spec:
           ui:widget: hidden
     - title: Features
       properties:
-        enableEndpoints:
-          title: Use .NET 6 Endpoints
-          description: Whether to use endpoints
-          type: boolean
-        enableMvcControllers:
-          title: Add MVC Controllers
-          type: boolean
-          description: Whether to include support for MVC Controllers.
-        enableFundaMessaging:
-          title: Add Funda.Extensions.Messaging
-          type: boolean
-          description: Whether to include Funda.Extensions.Messaging.
-        enableCosmosDb:
-          title: Add CosmosDB
-          type: boolean
-          description: Whether to include CosmosDB template.
-        enableSqlServer:
-          title: Add SQL Server
-          type: boolean
-          description: Whether to include SQL Server client.
-        entityFramework:
-          title: Entity Framework Core
-          type: string
-          enum:
-            - No
-            - Entity Framework Core
-            - Entity Framework Core with CosmosDB
-            - Entity Framework Core with SqlServer
-          description: Whether to include EF Core and a database provider
-          default: No
+        features:
+          properties:
+            endpoints:
+              title: Add .NET 6 Endpoints
+              description: Whether to use ASP.NET Core Endpoints
+              type: boolean
+            mvcControllers:
+              title: Add MVC Controllers
+              type: boolean
+              description: Whether to include support for MVC Controllers.
+            fundaMessaging:
+              title: Add Funda.Extensions.Messaging
+              type: boolean
+              description: Whether to include Funda.Extensions.Messaging.
+            cosmosDb:
+              title: Add CosmosDB
+              type: boolean
+              description: Whether to include CosmosDB template.
+            sqlServer:
+              title: Add SQL Server
+              type: boolean
+              description: Whether to include SQL Server client.
+            entityFramework:
+              title: Entity Framework Core
+              type: string
+              enum:
+                - No
+                - Entity Framework Core
+                - Entity Framework Core with CosmosDB
+                - Entity Framework Core with SqlServer
+              description: Whether to include EF Core and a database provider
+              default: No
 
   # scaffolding steps
   steps:
@@ -101,25 +103,19 @@ spec:
           fileNamePrefix: 'Funda.${{ parameters.name }}'
           dirNamePrefix: 'Funda.${{ parameters.name }}'
           applicationName: 'Funda.${{ parameters.name }}'
-          enableControllers: ${{ parameters.enableControllers }}
-          enableEndpoints: ${{ parameters.enableEndpoints }}
-          enableFundaMessaging: ${{ parameters.enableFundaMessaging }}
-          enableCosmosDb: ${{ parameters.enableCosmosDb }}
-          enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
-          enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
-          enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
-          enableInMemoryRepository: ${{ parameters.entityFramework == 'No' }}
-          {% set randomTestValue = "hello test" %}
+          enableControllers: ${{ parameters.features.mvcControllers }}
+          enableEndpoints: ${{ parameters.features.endpoints }}
+          enableFundaMessaging: ${{ parameters.features.fundaMessaging }}
+          enableCosmosDb: ${{ parameters.features.cosmosDb }}
+          enableEntityFramework: ${{ parameters.features.entityFramework != 'No' }}
+          enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
+          enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
+          enableInMemoryRepository: ${{ parameters.features.entityFramework == 'No' }}
 
-    - id: debug
-      name: debug
-      action: debug:log
-      input:
-        message: 'randomTestValue = ${{ randomTestValue }}'
     - id: remove-controllers
       name: Remove Controllers
       action: fs:delete
-      if: ${{ not parameters.enableControllers }}
+      if: ${{ not parameters.features.mvcControllers }}
       input:
         files:
           - src/Funda.${{ parameters.name }}/Controllers
@@ -127,7 +123,7 @@ spec:
     - id: remove-endpoints
       name: Remove Endpoints
       action: fs:delete
-      if: ${{ not parameters.enableEndpoints }}
+      if: ${{ not parameters.features.endpoints }}
       input:
         files:
           - src/Funda.${{ parameters.name }}/Endpoints
@@ -135,7 +131,7 @@ spec:
     - id: remove-funda-messaging
       name: Remove Funda.Messaging
       action: fs:delete
-      if: ${{ not parameters.enableFundaMessaging }}
+      if: ${{ not parameters.features.fundaMessaging }}
       input:
         files:
           - src/Funda.${{ parameters.name }}/Messaging
@@ -143,7 +139,7 @@ spec:
     - id: setup-sqlserver
       name: Remove SQL Server
       action: fs:delete
-      if: ${{ not parameters.enableSqlServer }}
+      if: ${{ not parameters.features.sqlServer }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
@@ -151,15 +147,23 @@ spec:
     - id: remove-cosmosdb
       name: Remove CosmosDB
       action: fs:delete
-      if: ${{ not parameters.enableCosmosDb }}
+      if: ${{ not parameters.features.cosmosDb }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
+    - id: remove-in-memory-repository
+      name: Remove In Memory repository
+      action: fs:delete
+      if: ${{ not parameters.features.entityFramework == 'No' }}
+      input:
+        files:
+          - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
+
     - id: remove-ef
       name: Remove EF Core
       action: fs:delete
-      if: ${{ not parameters.enableEntityFramework }}
+      if: ${{ parameters.entityFramework == 'No' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
@@ -167,7 +171,7 @@ spec:
     - id: remove-ef-cosmos
       name: Remove EF Core CosmosDb
       action: fs:delete
-      if: ${{ not parameters.enableEntityFrameworkCosmosDb }}
+      if: ${{ not parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
@@ -175,18 +179,10 @@ spec:
     - id: remove-ef-sqlserver
       name: Remove EF Core SqlServer
       action: fs:delete
-      if: ${{ not parameters.enableEntityFrameworkSqlServer }}
+      if: ${{ not parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
-
-    - id: remove-in-memory-repository
-      name: Remove In Memory repository
-      action: fs:delete
-      if: ${{ not parameters.enableInMemoryRepository }}
-      input:
-        files:
-          - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
 
     - id: publish
       name: Create GitHub Repository
