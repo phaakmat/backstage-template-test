@@ -152,6 +152,13 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
+    - id: debug-params
+      name: Debug
+      action: debug:log
+      input:
+        message: 'Features: ${{ parameters.features }}'
+        extra: ${{ parameters.features }}
+
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
