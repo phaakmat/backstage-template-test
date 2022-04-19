@@ -156,13 +156,13 @@ spec:
       name: Debug
       action: debug:log
       input:
-        message: 'Features: ${{ parameters.features }}'
+        message: 'Features: ${{ parameters.features | dump }}'
         extra: ${{ parameters.features }}
 
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
-      if: ${{ not parameters.features.entityFramework == 'No' }}
+      if: ${{ parameters.features.entityFramework != 'No' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
@@ -178,7 +178,7 @@ spec:
     - id: remove-ef-cosmos
       name: Remove EF Core CosmosDb
       action: fs:delete
-      if: ${{ not parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
+      if: ${{ parameters.features.entityFramework != 'Entity Framework Core with CosmosDB' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
@@ -186,7 +186,7 @@ spec:
     - id: remove-ef-sqlserver
       name: Remove EF Core SqlServer
       action: fs:delete
-      if: ${{ not parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
+      if: ${{ parameters.features.entityFramework != 'Entity Framework Core with SqlServer' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
