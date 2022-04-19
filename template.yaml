@@ -125,7 +125,7 @@ spec:
 
     - id: dump-workspace
       name: Dump workspace
-      action: log:debug
+      action: debug:log
       input:
         listWorkspace: true
 
