@@ -69,7 +69,7 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddAuthorization();
 
-        {%- if values.enableMvcControllers %}
+        {%- if values.enableControllers %}
 		
         // MVC Controllers
         builder.Services.AddControllers();
