@@ -36,6 +36,8 @@ public static class WebApplicationBuilderExtensions
         // Add services to the container.
 
         builder.Services.AddHealthChecks();
+
+        {%- if values.enableMvcControllers %}
         builder.Services.AddVersionedApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
@@ -47,10 +49,14 @@ public static class WebApplicationBuilderExtensions
             options.AssumeDefaultVersionWhenUnspecified = true;
             options.ReportApiVersions = true;
         });
+        {%- endif %}
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 
+        {%- if values.enableEndpoints %}
         builder.Services.AddEndpointsApiExplorer();
+        {%- endif %}
+
         builder.Services.AddSwaggerGen();
 
         builder.Services.AddFundaMetrics(
