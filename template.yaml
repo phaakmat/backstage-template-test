@@ -129,7 +129,7 @@ spec:
       if: ${{ not parameters.enableControllers }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}/Controllers
+          - template/src/Funda.${{ parameters.name }}/Controllers
           
     - id: setup-endpoints
       name: Configure template
@@ -137,7 +137,7 @@ spec:
       if: ${{ not parameters.enableEndpoints }}
       input:
         files:
-          - Funda.${{ parameters.name }}/Endpoints
+          - template/src/Funda.${{ parameters.name }}/Endpoints
           
     - id: setup-sqlserver
       name: Configure template
@@ -145,7 +145,7 @@ spec:
       if: ${{ not parameters.enableSqlServer }}
       input:
         files:
-          - Funda.${{ parameters.name }}.Infrastructure/SqlServer
+          - template/src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
 
     - id: setup-cosmosdb
       name: Configure template
@@ -153,7 +153,7 @@ spec:
       if: ${{ not parameters.enableCosmosDb }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
+          - template/src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
     - id: setup-ef
       name: Configure template
@@ -161,7 +161,7 @@ spec:
       if: ${{ not parameters.enableEntityFramework }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
+          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
 
     - id: setup-ef-cosmos
       name: Configure template
@@ -169,7 +169,7 @@ spec:
       if: ${{ not parameters.enableEntityFrameworkCosmosDb }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
+          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
 
     - id: setup-ef-sqlserver
       name: Configure template
@@ -177,7 +177,7 @@ spec:
       if: ${{ not parameters.enableEntityFrameworkSqlServer }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
+          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
 
     - id: publish
       name: Create GitHub Repository
