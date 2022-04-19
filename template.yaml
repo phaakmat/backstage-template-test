@@ -137,7 +137,7 @@ spec:
       if: ${{ not parameters.enableEndpoints }}
       input:
         files:
-          - template/Funda.${{ parameters.name }}/Endpoints
+          - Funda.${{ parameters.name }}/Endpoints
           
     - id: setup-sqlserver
       name: Configure template
