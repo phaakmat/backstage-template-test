@@ -5,6 +5,11 @@ public class Measurement : IMeasurement
     public Measurement()
     {
     }
+
+    public Measurement(IMeasurement measurement) : this(measurement.Id, measurement.Created, measurement.TemperatureC, measurement.Summary)
+    {
+    }
+
     public Measurement(Guid id, DateTimeOffset created, double temperatureC, string? summary)
     {
         Id = id;

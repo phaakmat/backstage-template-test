@@ -4,18 +4,18 @@ using ${{ values.namespacePrefix }}.Domain.Models;
 
 namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 
-public class EfMeasurementRepository : IMeasurementRepository
+public class EntityFrameworkMeasurementRepository : IMeasurementRepository
 {
     private readonly IDbContext _context;
 
-    public EfMeasurementRepository(IDbContext context)
+    public EntityFrameworkMeasurementRepository(IDbContext context)
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
     }
 
-    public async Task<IMeasurement> AddAsync(Measurement measurement, CancellationToken cancellationToken)
+    public async Task<IMeasurement> AddAsync(IMeasurement measurement, CancellationToken cancellationToken)
     {
-        var entity = _context.Measurements.Add(measurement).Entity;
+        var entity = _context.Measurements.Add(new Measurement(measurement)).Entity;
         await _context.SaveChangesAsync(cancellationToken);
         return entity;
     }

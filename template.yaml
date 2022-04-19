@@ -108,6 +108,7 @@ spec:
           enableEntityFramework: ${{ parameters.entityFramework != 'No' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
+          enableInMemoryRepository: ${{ parameters.entityFramework == 'No' }}
 
     - id: remove-controllers
       name: Remove Controllers

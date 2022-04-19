@@ -18,6 +18,9 @@ using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 {%- if values.enableEntityFramework %}
 using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
+{%- if values.enableInMemoryRepository %}
+using ${{ values.namespacePrefix }}.Infrastructure.InMemory;
+{%- endif %}
 using ${{ values.namespacePrefix }}.Domain.Commands;
 using ${{ values.namespacePrefix }}.Domain.Models;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
@@ -83,9 +86,16 @@ public static class WebApplicationBuilderExtensions
         {%- if values.enableEntityFramework %}
 		
         // Add repository based on Entity Framework
-        builder.Services.AddScoped<IMeasurementRepository, EfMeasurementRepository>();
+        builder.Services.AddScoped<IMeasurementRepository, EntityFrameworkMeasurementRepository>();
 		{%- endif %}
-		
+
+        {%- if values.enableInMemoryRepository %}
+
+        // Add repository
+        builder.Services.AddSingleton<IMeasurementRepository, InMemoryMeasurementRepository>();
+        {%- endif %}
+
+
         {%- if values.enableEntityFrameworkSqlServer %}
 
 		// Configure EntityFramework to use SQL Server
