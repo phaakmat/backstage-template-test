@@ -1,4 +1,6 @@
-﻿namespace ${{ values.namespacePrefix }}.Domain;
+﻿using ${{ values.namespacePrefix }}.Domain.Models;
+
+namespace ${{ values.namespacePrefix }}.Domain.Repositories;
 
 public interface IMeasurementRepository
 {

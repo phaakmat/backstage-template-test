@@ -1,4 +1,4 @@
-namespace ${{ values.namespacePrefix }}.Domain;
+namespace ${{ values.namespacePrefix }}.Domain.Models;
 
 public interface IMeasurement
 {

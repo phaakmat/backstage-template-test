@@ -1,16 +1,10 @@
 ﻿using MediatR;
-{%- if values.enableFundaMessaging %}
-using Funda.Extensions.Messaging.CQRS;
-{%- endif %}
-using ${{ values.namespacePrefix }}.Domain;
 
-namespace ${{ values.namespacePrefix }}.Commands;
+using ${{ values.namespacePrefix }}.Domain.Models;
 
-public class CreateMeasurementCommand :
-{%- if values.enableFundaMessaging %}
-    Command,
-{%- endif %}
-    IRequest<IMeasurement>
+namespace ${{ values.namespacePrefix }}.Domain.Commands;
+
+public class CreateMeasurementCommand : IRequest<IMeasurement>
 {
     public double TemperatureC { get; set; }
     public string? Summary { get; set; }

@@ -18,8 +18,9 @@ using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 {%- if values.enableEntityFramework %}
 using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
-using ${{ values.namespacePrefix }}.Domain;
-using ${{ values.namespacePrefix }}.Commands;
+using ${{ values.namespacePrefix }}.Domain.Commands;
+using ${{ values.namespacePrefix }}.Domain.Models;
+using ${{ values.namespacePrefix }}.Domain.Repositories;
 
 namespace ${{ values.namespacePrefix }}.Extensions;
 

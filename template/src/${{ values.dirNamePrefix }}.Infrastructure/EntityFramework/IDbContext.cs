@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using ${{ values.namespacePrefix }}.Domain;
+using ${{ values.namespacePrefix }}.Domain.Models;
 
 namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 

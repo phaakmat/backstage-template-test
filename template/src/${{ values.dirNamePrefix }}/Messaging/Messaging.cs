@@ -3,7 +3,6 @@ using Funda.Extensions.Messaging.Azure;
 using Funda.Extensions.Messaging.Configuration;
 using Funda.Extensions.Messaging.DatadogTracing;
 using Funda.Extensions.Messaging.Metrics;
-using ${{ values.namespacePrefix }}.Commands;
 
 namespace ${{ values.namespacePrefix }}.Messaging;
 public static class WebApplicationExtensions
@@ -18,7 +17,7 @@ public static class WebApplicationExtensions
             .ConfigureEndpoint("Commands", endpoint =>
             {
                 endpoint
-                    .ConfigurePubSub<CreateMeasurementCommand, CreateMeasurementCommandHandler>()
+                    .ConfigurePubSub<MessagingCommand, MessagingCommandHandler>()
                     .ConfigureAzureServiceBusQueue("${{ values.applicationName }}", options =>
                         builder.Configuration.GetSection("AzureServiceBus").Bind(options))
                     .ConfigureAzureServiceBusWorker()

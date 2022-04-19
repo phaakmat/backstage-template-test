@@ -1,16 +1,11 @@
-﻿using MediatR;
+﻿using Microsoft.Extensions.Logging;
+using MediatR;
+using ${{ values.namespacePrefix }}.Domain.Repositories;
+using ${{ values.namespacePrefix }}.Domain.Models;
 
-{%- if values.enableFundaMessaging %}
-using Funda.Extensions.Messaging;
-{%- endif %}
-using ${{ values.namespacePrefix }}.Domain;
-namespace ${{ values.namespacePrefix }}.Commands;
+namespace ${{ values.namespacePrefix }}.Domain.Commands;
 
-public class CreateMeasurementCommandHandler
-    : IRequestHandler<CreateMeasurementCommand, IMeasurement>
-{%- if values.enableFundaMessaging %},
-      IMessageHandler
-{%- endif %}
+public class CreateMeasurementCommandHandler : IRequestHandler<CreateMeasurementCommand, IMeasurement>
 {
     private readonly IMeasurementRepository _repository;
     private readonly ILogger<CreateMeasurementCommandHandler> _logger;
@@ -29,11 +24,4 @@ public class CreateMeasurementCommandHandler
 
         return await _repository.AddAsync(entity, cancellationToken);
     }
-
-    {%- if values.enableFundaMessaging %}
-    public Task HandleAsync(IMessage message, IMessageHandlerContext context, CancellationToken token = new CancellationToken())
-    {
-        throw new NotImplementedException();
-    }
-    {%- endif %}
 }

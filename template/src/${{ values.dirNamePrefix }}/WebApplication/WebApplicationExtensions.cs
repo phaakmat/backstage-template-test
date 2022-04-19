@@ -23,7 +23,6 @@ public static class WebApplicationExtensions
 
         app.UseHttpsRedirection();
 
-
         app.UseRouting();
 
         app.UseAuthentication();
