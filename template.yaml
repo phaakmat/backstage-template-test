@@ -127,6 +127,7 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
       output:
+        dirNamePrefix: 'Funda.${{ parameters.name }}'
         files:
           - first
           - second
@@ -149,9 +150,16 @@ spec:
       name: debug steps.fetch-base
       action: debug:log
       input:
-        message: 'data = ${{ steps.fetch-base | dump }}'
-        extra: ${{ steps.fetch-base }}
+        message: 'data = ${{ steps.fetch-base.input.values | dump }}'
+        extra: ${{ steps.fetch-base.input.values }}
 
+    - id: debug3
+      name: debug steps.fetch-base.output
+      action: debug:log
+      input:
+        message: 'data = ${{ steps.fetch-base.output | dump }}'
+        extra: ${{ steps.fetch-base.output }}
+        
     - id: setup-controllers
       name: Configure template
       action: fs:delete
