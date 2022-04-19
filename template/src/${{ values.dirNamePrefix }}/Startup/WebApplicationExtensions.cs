@@ -13,7 +13,7 @@ namespace ${{ values.namespacePrefix }}.Startup;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication Configure(this WebApplication app)
+    public static WebApplication ConfigureApp(this WebApplication app)
     {
         if (app.Environment.IsDevelopment())
         {

@@ -61,6 +61,7 @@ spec:
               title: Add .NET 6 Endpoints
               description: Whether to use ASP.NET Core Endpoints
               type: boolean
+              default: true
             mvcControllers:
               title: Add MVC Controllers
               type: boolean
