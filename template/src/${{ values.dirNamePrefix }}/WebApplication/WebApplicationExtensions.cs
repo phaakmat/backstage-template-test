@@ -23,12 +23,12 @@ public static class WebApplicationExtensions
 
         app.UseHttpsRedirection();
 
+        {% if values.enableControllers %}
         app.UseRouting();
 
         app.UseAuthentication();
         app.UseAuthorization();
 
-        {% if values.enableMvcControllers %}
         app.MapControllers();
         {% endif %}
         {%- if values.enableEndpoints %}

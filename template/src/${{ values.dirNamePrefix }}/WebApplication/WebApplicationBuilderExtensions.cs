@@ -37,7 +37,7 @@ public static class WebApplicationBuilderExtensions
 
         builder.Services.AddHealthChecks();
 
-        {%- if values.enableMvcControllers %}
+        {%- if values.enableControllers %}
         builder.Services.AddVersionedApiExplorer(options =>
         {
             options.GroupNameFormat = "'v'VVV";
