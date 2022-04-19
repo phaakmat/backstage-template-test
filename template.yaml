@@ -163,7 +163,7 @@ spec:
     - id: remove-ef
       name: Remove EF Core
       action: fs:delete
-      if: ${{ parameters.entityFramework == 'No' }}
+      if: ${{ parameters.features.entityFramework == 'No' }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
