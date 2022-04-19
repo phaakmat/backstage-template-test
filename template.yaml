@@ -117,7 +117,7 @@ spec:
       input:
         files:
           - src/Funda.${{ parameters.name }}/Controllers
-          
+
     - id: remove-endpoints
       name: Remove Endpoints
       action: fs:delete
@@ -173,6 +173,14 @@ spec:
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
+
+    - id: remove-in-memory-repository
+      name: Remove In Memory repository
+      action: fs:delete
+      if: ${{ not parameters.enableInMemoryRepository }}
+      input:
+        files:
+          - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
 
     - id: publish
       name: Create GitHub Repository
