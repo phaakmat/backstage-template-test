@@ -86,6 +86,7 @@ spec:
             - Entity Framework Core with CosmosDB
             - Entity Framework Core with SqlServer
           title: Entity Framework Core
+          description: Whether to include EF Core and a database provider
           default: No
           # type: object
           # properties:
@@ -143,7 +144,14 @@ spec:
       input:
         message: ${{ parameters | dump }}
         extra: ${{ parameters }}
-      
+
+    - id: debug2
+      name: debug steps.fetch-base
+      action: debug:log
+      input:
+        message: ${{ steps.fetch-base | dump }}
+        extra: ${{ steps.fetch-base }}
+
     - id: setup-controllers
       name: Configure template
       action: fs:delete
