@@ -130,60 +130,68 @@ spec:
         listWorkspace: true
 
     - id: setup-controllers
-      name: Configure template
+      name: Remove Controllers
       action: fs:delete
       if: ${{ not parameters.enableControllers }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}/Controllers
+          - src/Funda.${{ parameters.name }}/Controllers
           
     - id: setup-endpoints
-      name: Configure template
+      name: Remove Endpoints
       action: fs:delete
       if: ${{ not parameters.enableEndpoints }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}/Endpoints
+          - src/Funda.${{ parameters.name }}/Endpoints
+
+    - id: setup-funda-messaging
+      name: Remove Funda.Messaging
+      action: fs:delete
+      if: ${{ not parameters.enableFundaMessaging }}
+      input:
+        files:
+          - src/Funda.${{ parameters.name }}/Messaging
           
     - id: setup-sqlserver
-      name: Configure template
+      name: Remove SQL Server
       action: fs:delete
       if: ${{ not parameters.enableSqlServer }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
+          - src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
 
-    - id: setup-cosmosdb
+    - id: Remove CosmosDB
       name: Configure template
       action: fs:delete
       if: ${{ not parameters.enableCosmosDb }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
+          - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
     - id: setup-ef
-      name: Configure template
+      name: Remove EF Core
       action: fs:delete
       if: ${{ not parameters.enableEntityFramework }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
+          - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
 
     - id: setup-ef-cosmos
-      name: Configure template
+      name: Remove EF Core CosmosDb
       action: fs:delete
       if: ${{ not parameters.enableEntityFrameworkCosmosDb }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
+          - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
 
     - id: setup-ef-sqlserver
-      name: Configure template
+      name: Remove EF Core SqlServer
       action: fs:delete
       if: ${{ not parameters.enableEntityFrameworkSqlServer }}
       input:
         files:
-          - template/src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
+          - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
 
     - id: publish
       name: Create GitHub Repository
