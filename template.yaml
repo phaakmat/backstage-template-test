@@ -126,7 +126,7 @@ spec:
     - id: setup-controllers
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableControllers }}
+      if: ${{ not parameters.enableControllers }}
       input:
         files:
           - template/Funda.${{ parameters.name }}/Controllers
@@ -142,7 +142,7 @@ spec:
     - id: setup-sqlserver
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableSqlServer }}
+      if: ${{ not parameters.enableSqlServer }}
       input:
         files:
           - template/Funda.${{ parameters.name }}.Infrastructure/SqlServer
@@ -150,7 +150,7 @@ spec:
     - id: setup-cosmosdb
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableCosmosDb }}
+      if: ${{ not parameters.enableCosmosDb }}
       input:
         files:
           - template/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
@@ -158,7 +158,7 @@ spec:
     - id: setup-ef
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableEntityFramework }}
+      if: ${{ not parameters.enableEntityFramework }}
       input:
         files:
           - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
@@ -166,7 +166,7 @@ spec:
     - id: setup-ef-cosmos
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableEntityFrameworkCosmosDb }}
+      if: ${{ not parameters.enableEntityFrameworkCosmosDb }}
       input:
         files:
           - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/CosmosDb
@@ -174,11 +174,11 @@ spec:
     - id: setup-ef-sqlserver
       name: Configure template
       action: fs:delete
-      if: ${{ ! parameters.enableEntityFrameworkSqlServer }}
+      if: ${{ not parameters.enableEntityFrameworkSqlServer }}
       input:
         files:
           - template/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
-          
+
     - id: publish
       name: Create GitHub Repository
       action: publish:github
