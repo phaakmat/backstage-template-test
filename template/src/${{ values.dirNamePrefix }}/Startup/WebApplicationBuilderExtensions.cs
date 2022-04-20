@@ -1,4 +1,7 @@
 using MediatR;
+{%- if values.enableEntityFramework %}
+using Microsoft.EntityFrameworkCore;
+{%- endif %}
 using Funda.Extensions.Hosting;
 using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 using Funda.Extensions.Metrics.Statsd.DependencyResolution;

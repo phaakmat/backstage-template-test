@@ -15,7 +15,7 @@
     <PackageReference Include="Funda.Extensions.Messaging" Version="5.1.1" />
     <PackageReference Include="Funda.Extensions.Messaging.Metrics" Version="5.1.1" />
     <PackageReference Include="Funda.Extensions.Messaging.CQRS" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Messaging.Azure" Version="5.1.1" />
+    <PackageReference Include="Funda.Extensions.Messaging.InMemory" Version="5.1.1" />
     <PackageReference Include="Funda.Extensions.Messaging.DatadogTracing" Version="5.1.1" />
     <PackageReference Include="Funda.Extensions.Metrics.AspNetCore" Version="5.3.0" />
     <PackageReference Include="Funda.Extensions.Metrics.Statsd" Version="5.3.0" />
