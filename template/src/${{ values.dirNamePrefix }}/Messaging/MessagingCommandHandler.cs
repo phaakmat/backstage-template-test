@@ -1,6 +1,4 @@
-﻿using Funda.Extensions.Messaging.CQRS;
-
-namespace ${{ values.namespacePrefix }}.Messaging;
+﻿namespace ${{ values.namespacePrefix }}.Messaging;
 
 public class MessagingCommandHandler : CommandHandler<MessagingCommand>
 {

@@ -1,40 +1,105 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-  <!-- Package Settings -->
-  <PropertyGroup>
-    <PackageId>${{ values.applicationName }}</PackageId>
-    <Description>${{ values.description }}</Description>
-  </PropertyGroup>
+	<!-- Package Settings -->
+	<PropertyGroup>
+		<PackageId>${{ values.applicationName }}</PackageId>
+		<Description>${{ values.description }}</Description>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Funda.Extensions.DateTimeProvider" Version="1.0.2" />
-    <PackageReference Include="Funda.Extensions.Hosting" Version="4.3.2" />
-    <PackageReference Include="Funda.Extensions.Messaging" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Messaging.Metrics" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Messaging.CQRS" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Messaging.InMemory" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Messaging.DatadogTracing" Version="5.1.1" />
-    <PackageReference Include="Funda.Extensions.Metrics.AspNetCore" Version="5.3.0" />
-    <PackageReference Include="Funda.Extensions.Metrics.Statsd" Version="5.3.0" />
-    <PackageReference Include="Funda.Middleware.HealthChecks" Version="2.0.1" />
-    <PackageReference Include="MediatR" Version="10.0.1" />
-    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MediatR" Version="10.0.1" />
+		<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="10.0.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
 
-  <ItemGroup>
-    <ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
-    <ProjectReference Include="..\${{ values.dirNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
-  </ItemGroup>
+		<PackageReference Include="Funda.Extensions.Hosting" Version="4.3.2" />
+		<PackageReference Include="Funda.Extensions.Metrics.AspNetCore" Version="5.3.0" />
+		<PackageReference Include="Funda.Extensions.Metrics.Statsd" Version="5.3.0" />
+		<PackageReference Include="Funda.Middleware.HealthChecks" Version="2.0.1" />
+
+		{%- if values.enableFundaMessaging %}
+		<PackageReference Include="Funda.Extensions.DateTimeProvider" Version="1.0.2" />
+		<PackageReference Include="Funda.Extensions.Messaging" Version="5.1.1" />
+		<PackageReference Include="Funda.Extensions.Messaging.Metrics" Version="5.1.1" />
+		<PackageReference Include="Funda.Extensions.Messaging.CQRS" Version="5.1.1" />
+		<PackageReference Include="Funda.Extensions.Messaging.InMemory" Version="5.1.1" />
+		<PackageReference Include="Funda.Extensions.Messaging.DatadogTracing" Version="5.1.1" />
+		{%- endif %}
+		
+		{%- if values.enableControllers %}
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
+		{%- endif %}
+		
+		{%- if values.enableEntityFramework %}
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+			<PrivateAssets>all</PrivateAssets>
+		</PackageReference>
+		{%- endif %}
+
+		{%- if values.enableEntityFrameworkSqlServer %}
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.4" />
+		{%- endif %}
+	</ItemGroup>
+
+	<ItemGroup>
+		<Using Include="MediatR" />
+
+		<Using Include="Funda.Extensions.Hosting" />
+		<Using Include="Funda.Extensions.HealthChecks" />
+		<Using Include="Funda.Extensions.Metrics.Abstractions.DependencyResolution" />
+		<Using Include="Funda.Extensions.Metrics.Statsd.DependencyResolution" />
+
+		<Using Include="${{ values.namespacePrefix }}.Domain.Models" />
+		<Using Include="${{ values.namespacePrefix }}.Domain.Repositories" />
+		<Using Include="${{ values.namespacePrefix }}.Domain.Commands" />
+
+		{%- if values.enableEntityFramework %}
+		<Using Include="Microsoft.EntityFrameworkCore" />
+		<Using Include="${{ values.namespacePrefix }}.Infrastructure.EntityFramework" />
+		{%- endif %}
+
+		{%- if values.enableEntityFrameworkSqlServer %}
+		<Using Include="Microsoft.EntityFrameworkCore.SqlServer" />
+		{%- endif %}
+
+		{%- if values.enableCosmosDb %}
+		<Using Include="${{ values.namespacePrefix }}.Infrastructure.CosmosDb" />
+		{%- endif %}
+
+		{%- if values.enableInMemoryRepository %}
+		<Using Include="${{ values.namespacePrefix }}.Infrastructure.InMemory" />
+		{%- endif %}
+
+		{%- if values.enableControllers %}
+		<Using Include="Microsoft.AspNetCore.Mvc" />
+		<Using Include="${{ values.namespacePrefix }}.Controllers" />
+		{%- endif %}
+
+		{%- if values.enableEndpoints %}
+		<Using Include="${{ values.namespacePrefix }}.Endpoints" />
+		{%- endif %}
+
+		{%- if values.enableFundaMessaging %}
+		<Using Include="Funda.Extensions.DateTimeProvider" />
+		<Using Include="Funda.Extensions.Messaging" />
+		<Using Include="Funda.Extensions.Messaging.CQRS" />
+		<Using Include="Funda.Extensions.Messaging.InMemory" />
+		<Using Include="Funda.Extensions.Messaging.Configuration" />
+		<Using Include="Funda.Extensions.Messaging.DatadogTracing" />
+		<Using Include="Funda.Extensions.Messaging.Metrics" />
+		<Using Include="${{ values.namespacePrefix }}.Messaging" />
+		{%- endif %}
+
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
+		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
+	</ItemGroup>
 
 </Project>

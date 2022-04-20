@@ -1,28 +1,3 @@
-using MediatR;
-{%- if values.enableEntityFramework %}
-using Microsoft.EntityFrameworkCore;
-{%- endif %}
-using Funda.Extensions.Hosting;
-using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
-using Funda.Extensions.Metrics.Statsd.DependencyResolution;
-{%- if values.enableFundaMessaging %}
-using Funda.Extensions.Messaging.Metrics;
-using Funda.Extensions.Messaging.DatadogTracing;
-using Funda.Extensions.Messaging.Azure;
-using Funda.Extensions.Messaging.Configuration;
-using ${{ values.namespacePrefix }}.Messaging;
-{%- endif %}
-{%- if values.enableCosmosDb %}
-using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
-{%- endif %}
-{%- if values.enableEntityFramework %}
-using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
-{%- endif %}
-{%- if values.enableInMemoryRepository %}
-using ${{ values.namespacePrefix }}.Infrastructure.InMemory;
-{%- endif %}
-using ${{ values.namespacePrefix }}.Domain.Repositories;
-
 namespace ${{ values.namespacePrefix }}.Startup;
 
 public static class WebApplicationBuilderExtensions
