@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Routing;
 using ${{ values.namespacePrefix }}.Domain.Models;
 using ${{ values.namespacePrefix }}.Domain.Commands;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
