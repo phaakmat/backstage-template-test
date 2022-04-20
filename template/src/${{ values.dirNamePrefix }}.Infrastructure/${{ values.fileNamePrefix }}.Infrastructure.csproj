@@ -26,28 +26,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="Microsoft.Extensions.Options" />
-		<Using Include="Microsoft.Extensions.DependencyInjection" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Models" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Repositories" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Commands" />
-
-		{%- if values.enableEntityFramework %}
-		<Using Include="Microsoft.EntityFrameworkCore" />
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.EntityFramework" />
-		{%- endif %}
-
-		{%- if values.enableCosmosDb %}
-		<Using Include="Microsoft.Azure.Cosmos" />
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.CosmosDb" />
-		{%- endif %}
-
-		{%- if values.enableInMemoryRepository %}
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.InMemory" />
-		{%- endif %}
-
-	</ItemGroup>
-	<ItemGroup>
 		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
 	</ItemGroup>
 

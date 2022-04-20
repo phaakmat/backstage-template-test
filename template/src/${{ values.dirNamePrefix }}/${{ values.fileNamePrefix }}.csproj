@@ -47,57 +47,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Using Include="MediatR" />
-
-		<Using Include="Funda.Extensions.Hosting" />
-		<Using Include="Funda.Extensions.HealthChecks" />
-		<Using Include="Funda.Extensions.Metrics.Abstractions.DependencyResolution" />
-		<Using Include="Funda.Extensions.Metrics.Statsd.DependencyResolution" />
-
-		<Using Include="${{ values.namespacePrefix }}.Domain.Models" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Repositories" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Commands" />
-
-		{%- if values.enableEntityFramework %}
-		<Using Include="Microsoft.EntityFrameworkCore" />
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.EntityFramework" />
-		{%- endif %}
-
-		{%- if values.enableEntityFrameworkSqlServer %}
-		<Using Include="Microsoft.EntityFrameworkCore.SqlServer" />
-		{%- endif %}
-
-		{%- if values.enableCosmosDb %}
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.CosmosDb" />
-		{%- endif %}
-
-		{%- if values.enableInMemoryRepository %}
-		<Using Include="${{ values.namespacePrefix }}.Infrastructure.InMemory" />
-		{%- endif %}
-
-		{%- if values.enableControllers %}
-		<Using Include="Microsoft.AspNetCore.Mvc" />
-		<Using Include="${{ values.namespacePrefix }}.Controllers" />
-		{%- endif %}
-
-		{%- if values.enableEndpoints %}
-		<Using Include="${{ values.namespacePrefix }}.Endpoints" />
-		{%- endif %}
-
-		{%- if values.enableFundaMessaging %}
-		<Using Include="Funda.Extensions.DateTimeProvider" />
-		<Using Include="Funda.Extensions.Messaging" />
-		<Using Include="Funda.Extensions.Messaging.CQRS" />
-		<Using Include="Funda.Extensions.Messaging.InMemory" />
-		<Using Include="Funda.Extensions.Messaging.Configuration" />
-		<Using Include="Funda.Extensions.Messaging.DatadogTracing" />
-		<Using Include="Funda.Extensions.Messaging.Metrics" />
-		<Using Include="${{ values.namespacePrefix }}.Messaging" />
-		{%- endif %}
-
-	</ItemGroup>
-
-	<ItemGroup>
 		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
 		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
 	</ItemGroup>

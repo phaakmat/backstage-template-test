@@ -8,11 +8,4 @@
 		<PackageReference Include="MediatR" Version="10.0.1" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.1" />
 	</ItemGroup>
-
-	<ItemGroup>
-		<Using Include="MediatR" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Models" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Repositories" />
-		<Using Include="${{ values.namespacePrefix }}.Domain.Commands" />
-	</ItemGroup>
 </Project>
