@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using Microsoft.EntityFrameworkCore;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
 using ${{ values.namespacePrefix }}.Domain.Models;
 
@@ -15,13 +14,7 @@ public class InMemoryMeasurementRepository : IMeasurementRepository
 
     public Task<IMeasurement> AddAsync(IMeasurement measurement, CancellationToken cancellationToken)
     {
-        if (measurement == null)
-        {
-            throw new ArgumentNullException(nameof(measurement));
-        }
-
         _storage.AddOrUpdate(measurement.Id, (_) => measurement, (_, item) => item);
-
         return Task.FromResult(measurement);
     }
 
