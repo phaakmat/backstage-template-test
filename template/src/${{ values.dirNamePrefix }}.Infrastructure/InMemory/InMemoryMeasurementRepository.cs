@@ -1,6 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using ${{ values.namespacePrefix }}.Domain.Repositories;
-using ${{ values.namespacePrefix }}.Domain.Models;
 
 namespace ${{ values.namespacePrefix }}.Infrastructure.InMemory;
 

@@ -1,8 +1,4 @@
-﻿using MediatR;
-
-using ${{ values.namespacePrefix }}.Domain.Models;
-
-namespace ${{ values.namespacePrefix }}.Domain.Commands;
+﻿namespace ${{ values.namespacePrefix }}.Domain.Commands;
 
 public class CreateMeasurementCommand : IRequest<IMeasurement>
 {

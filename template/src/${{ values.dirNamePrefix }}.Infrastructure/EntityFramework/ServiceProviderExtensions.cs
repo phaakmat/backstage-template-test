@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
+﻿namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 
 public static class ServiceProviderExtensions
 {

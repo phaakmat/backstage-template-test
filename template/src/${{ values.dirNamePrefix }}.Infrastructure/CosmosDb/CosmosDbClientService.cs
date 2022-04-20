@@ -1,7 +1,4 @@
-﻿using Microsoft.Azure.Cosmos;
-using Microsoft.Extensions.Options;
-
-namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
+﻿namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
 public interface ICosmosDbClientService
 {

@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ${{ values.namespacePrefix }}.Domain.Repositories;
-using ${{ values.namespacePrefix }}.Domain.Models;
-
-namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
+﻿namespace ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 
 public class EntityFrameworkMeasurementRepository : IMeasurementRepository
 {

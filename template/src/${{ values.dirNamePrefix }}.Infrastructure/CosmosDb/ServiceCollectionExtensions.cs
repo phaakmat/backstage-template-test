@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-
-namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
+﻿namespace ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 
 public static class ServiceCollectionExtensions
 {
