@@ -1,13 +1,12 @@
 ﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using IEndpointRouteBuilder = Microsoft.AspNetCore.Routing.IEndpointRouteBuilder;
+using Microsoft.AspNetCore.Routing;
 using ${{ values.namespacePrefix }}.Domain.Models;
 using ${{ values.namespacePrefix }}.Domain.Commands;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
 
 namespace ${{ values.namespacePrefix }}.Endpoints;
 
-public static class WebApplicationExtensions
+public static class IEndpointRouteBuilderExtensions
 {
     public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
     {
@@ -28,7 +27,7 @@ public static class WebApplicationExtensions
             .AllowAnonymous();
 
         app.MapPost("/", 
-                async ([FromBody] Measurement item, IMediator mediator, HttpContext http, CancellationToken token) =>
+                async (Measurement item, IMediator mediator, HttpContext http, CancellationToken token) =>
                 {
                     var cmd = new CreateMeasurementCommand();
                     var result = await mediator.Send(cmd, token);
