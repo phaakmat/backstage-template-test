@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using IEndpointRouteBuilder = Microsoft.AspNetCore.Routing.IEndpointRouteBuilder;
 using ${{ values.namespacePrefix }}.Domain.Models;
 using ${{ values.namespacePrefix }}.Domain.Commands;
 using ${{ values.namespacePrefix }}.Domain.Repositories;
@@ -8,7 +9,7 @@ namespace ${{ values.namespacePrefix }}.Endpoints;
 
 public static class WebApplicationExtensions
 {
-    public static WebApplication MapEndpoints(this WebApplication app)
+    public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
     {
         app.MapGet("/{id:guid}",
                 async (Guid id, IMeasurementRepository repository, HttpContext http, CancellationToken token) =>
@@ -30,7 +31,7 @@ public static class WebApplicationExtensions
                 async ([FromBody] Measurement item, IMediator mediator, HttpContext http, CancellationToken token) =>
                 {
                     var cmd = new CreateMeasurementCommand();
-                        var result = await mediator.Send(cmd, token);
+                    var result = await mediator.Send(cmd, token);
 
                     if (result == null)
                     {
