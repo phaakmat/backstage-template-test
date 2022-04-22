@@ -40,8 +40,6 @@ public static class WebApplicationBuilderExtensions
                 prefix: builder.Configuration["Statsd:Prefix"],
                 environmentName: builder.Configuration["Statsd:EnvironmentName"]));
 
-        builder.Services.AddAuthorization();
-
         {%- if values.enableControllers %}
 		
         // MVC Controllers
@@ -70,7 +68,7 @@ public static class WebApplicationBuilderExtensions
 
         {%- if values.enableInMemoryRepository %}
 
-        // Add repository
+        // Add repository based on in memory storage
         builder.Services.AddSingleton<IMeasurementRepository, InMemoryMeasurementRepository>();
         {%- endif %}
 

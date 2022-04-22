@@ -7,6 +7,7 @@ public static class WebApplicationExtensions
         builder.Services
             .AddFundaDateTimeProvider()
             .AddFundaMessaging()
+            .AddFundaMessagingInMemory()
             .AddDatadogTracing()
             .ConfigureEndpoint("Commands", endpoint =>
             {
