@@ -1,3 +1,4 @@
+# This is a placeholder until the funda-specific Docker image can be integrated
 FROM mcr.microsoft.com/dotnet/sdk:6.0
 ENV ASPNETCORE_ENVIRONMENT=production
 

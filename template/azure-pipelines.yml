@@ -1,15 +1,9 @@
+# This is a placeholder until the service pipeline templates can be integrated
 trigger:
   paths:
     exclude:
     - docs/*
     - azure-pipelines-docs.yml
-
-# resources:
-#   repositories:
-#     - repository: templates
-#       type: github
-#       name: fundarealestate/funda-azdo-templates
-#       endpoint: fundarealestate
 
 pool:
   vmImage: ubuntu-latest
