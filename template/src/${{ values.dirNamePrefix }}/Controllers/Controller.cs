@@ -22,7 +22,7 @@ public class Controller : ControllerBase
     public async Task<ActionResult<Measurement>> Get(Guid id, CancellationToken cancellationToken)
     {
         var result = await _repository.FindAsync(id, cancellationToken);
-        
+
         if (result == null)
         {
             return NotFound();
@@ -43,5 +43,11 @@ public class Controller : ControllerBase
         }
 
         return Ok(result);
+    }
+
+    [HttpDelete]
+    public async Task<IActionResult> Delete(Guid? guid)
+    {
+        throw new NotImplementedException();
     }
 }

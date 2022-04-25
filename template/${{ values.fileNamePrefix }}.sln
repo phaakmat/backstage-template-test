@@ -3,14 +3,14 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31919.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1D4088E3-C263-4003-B357-9D03837FE649}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2231C435-4FBC-4453-9380-7881B85D330F}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		NuGet.config = NuGet.config
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1D4088E3-C263-4003-B357-9D03837FE649}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{A8EFEF79-568F-492D-9272-EAE5DFA4EB4C}"
 EndProject
@@ -23,6 +23,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${{ values.fileNamePrefix }}.UnitTests", "tests\${{ values.dirNamePrefix }}.UnitTests\${{ values.fileNamePrefix }}.UnitTests.csproj", "{BBDCD223-0133-45B3-9DE9-D35CE348EE0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${{ values.fileNamePrefix }}.Domain.UnitTests", "tests\${{ values.dirNamePrefix }}.Domain.UnitTests\${{ values.fileNamePrefix }}.Domain.UnitTests.csproj", "{7E06DB77-221B-41A5-8717-6B5514304955}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${{ values.fileNamePrefix }}.Infrastructure.UnitTests", "tests\${{ values.dirNamePrefix }}.Infrastructure.UnitTests\${{ values.fileNamePrefix }}.Infrastructure.UnitTests.csproj", "{CCDC4EB7-258E-4223-B471-D4F1650F9022}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "${{ values.fileNamePrefix }}.ComponentTests", "tests\${{ values.dirNamePrefix }}.ComponentTests\${{ values.fileNamePrefix }}.ComponentTests.csproj", "{0781BAE5-85B9-474E-840B-5CBB35287142}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,14 @@ Global
 		{7E06DB77-221B-41A5-8717-6B5514304955}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7E06DB77-221B-41A5-8717-6B5514304955}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7E06DB77-221B-41A5-8717-6B5514304955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCDC4EB7-258E-4223-B471-D4F1650F9022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCDC4EB7-258E-4223-B471-D4F1650F9022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCDC4EB7-258E-4223-B471-D4F1650F9022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCDC4EB7-258E-4223-B471-D4F1650F9022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0781BAE5-85B9-474E-840B-5CBB35287142}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0781BAE5-85B9-474E-840B-5CBB35287142}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0781BAE5-85B9-474E-840B-5CBB35287142}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0781BAE5-85B9-474E-840B-5CBB35287142}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +72,8 @@ Global
 		{B03D3912-61AE-4C48-BB1B-4C3AE4558608} = {1D4088E3-C263-4003-B357-9D03837FE649}
 		{BBDCD223-0133-45B3-9DE9-D35CE348EE0A} = {A8EFEF79-568F-492D-9272-EAE5DFA4EB4C}
 		{7E06DB77-221B-41A5-8717-6B5514304955} = {A8EFEF79-568F-492D-9272-EAE5DFA4EB4C}
+		{CCDC4EB7-258E-4223-B471-D4F1650F9022} = {A8EFEF79-568F-492D-9272-EAE5DFA4EB4C}
+		{0781BAE5-85B9-474E-840B-5CBB35287142} = {A8EFEF79-568F-492D-9272-EAE5DFA4EB4C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9A8AC4D7-BB2B-4D2F-BF3B-629B8489FBC0}
