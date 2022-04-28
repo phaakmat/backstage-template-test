@@ -1,13 +1,19 @@
+global using System.Diagnostics;
+
 global using MediatR;
+global using FluentValidation;
+global using FluentValidation.AspNetCore;
 
 global using Funda.Extensions.Hosting;
 global using Funda.Extensions.HealthChecks;
 global using Funda.Extensions.Metrics.Abstractions.DependencyResolution;
 global using Funda.Extensions.Metrics.Statsd.DependencyResolution;
 
+global using ${{ values.namespacePrefix }}.ErrorHandling;
 global using ${{ values.namespacePrefix }}.Domain.Models;
 global using ${{ values.namespacePrefix }}.Domain.Repositories;
 global using ${{ values.namespacePrefix }}.Domain.Commands;
+global using ${{ values.namespacePrefix }}.Domain.Validations;
 
 {%- if values.enableEntityFramework %}
 global using Microsoft.EntityFrameworkCore;
@@ -45,3 +51,7 @@ global using Funda.Extensions.Messaging.DatadogTracing;
 global using Funda.Extensions.Messaging.Metrics;
 global using ${{ values.namespacePrefix }}.Messaging;
 {%- endif %}
+global using Microsoft.AspNetCore.Diagnostics;
+
+// ProblemDetails is in the Mvc namespace but actually lives in Microsoft.AspNetCore.Http.Extensions.dll
+global using ProblemDetails = Microsoft.AspNetCore.Mvc.ProblemDetails;

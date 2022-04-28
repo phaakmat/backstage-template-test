@@ -2,7 +2,6 @@ namespace ${{ values.namespacePrefix }}.Controllers;
 
 [ApiController]
 [ApiVersion("1.0")]
-[Route("api/v{version:apiVersion}/[controller]")]
 public class Controller : ControllerBase
 {
     private readonly IMeasurementRepository _repository;
@@ -18,36 +17,44 @@ public class Controller : ControllerBase
         _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
     }
 
-    [HttpGet]
-    public async Task<ActionResult<Measurement>> Get(Guid id, CancellationToken cancellationToken)
+    /// <summary>
+    /// Find an item by Id.
+    /// </summary>
+    /// <param name="id"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    [HttpGet("/api/v{version:apiVersion}/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<ActionResult<Measurement>> FindById(Guid id, CancellationToken cancellationToken)
     {
-        var result = await _repository.FindAsync(id, cancellationToken);
-
-        if (result == null)
-        {
-            return NotFound();
-        }
+        var result = await _repository.FindByIdAsync(id, cancellationToken);
 
         return Ok(result);
     }
 
-    [HttpPost]
-    public async Task<ActionResult<Measurement>> Add(Guid? guid, double temperatureC, string summary, CancellationToken cancellationToken)
+    [HttpPost("/api/v{version:apiVersion}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<ActionResult<Measurement>> Create([FromBody] CreateMeasurementCommand command, CancellationToken cancellationToken)
     {
-        var cmd = new CreateMeasurementCommand();
-        var result = await _mediator.Send(cmd, cancellationToken);
-
-        if (result == null)
-        {
-            return BadRequest();
-        }
+        var result = await _mediator.Send(command, cancellationToken);
 
         return Ok(result);
     }
 
-    [HttpDelete]
-    public async Task<IActionResult> Delete(Guid? guid)
+    [HttpDelete("/api/v{version:apiVersion}/{id:guid}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
     {
-        throw new NotImplementedException();
+        var command = new DeleteMeasurementCommand
+        {
+            MeasurementId = id
+        };
+
+        var found = await _mediator.Send(command, cancellationToken);
+
+        return found ? Ok() : NoContent();
     }
 }

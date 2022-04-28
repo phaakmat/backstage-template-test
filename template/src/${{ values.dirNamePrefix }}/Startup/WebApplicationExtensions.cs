@@ -35,6 +35,7 @@ public static class WebApplicationExtensions
             app.Services.EnsureEntityFrameworkDbCreated();
         }
         {%- endif %}
+        app.UseProblemDetailsExceptionHandler();
 
         return app;
     }

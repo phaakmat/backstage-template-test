@@ -4,7 +4,7 @@ public interface IDbContext
 {
     DbSet<Measurement> Measurements { get; }
 
-    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
+    DatabaseFacade Database { get; }
 
-    Task<bool> EnsureCreated();
+    Task<int> SaveChangesAsync(CancellationToken cancellationToken);
 }

@@ -52,6 +52,10 @@ public static class WebApplicationBuilderExtensions
         builder.AddFundaMessaging();
 		{%- endif %}
 		
+        // Fluent Validation
+		builder.Services.AddFluentValidation(fv => 
+            fv.RegisterValidatorsFromAssemblyContaining<CreateMeasurementCommandValidator>());
+		
 		{%- if values.enableCosmosDb %}
         
 		// Add Cosmos DB
@@ -88,7 +92,7 @@ public static class WebApplicationBuilderExtensions
                 builder.Configuration["CosmosDb:DatabaseId"]));
 		{%- endif %}
 
-        builder.Services.AddMediatR(typeof(Program).Assembly);
+        builder.Services.AddMediatR(typeof(IMeasurementRepository).Assembly);
 
         return builder;
     }

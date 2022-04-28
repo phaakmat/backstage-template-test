@@ -1,8 +1,8 @@
-namespace ${{ values.applicationName }}.ComponentTests;
+namespace ${{ values.namespacePrefix }}.ComponentTests;
 
-public class TestClient : IClassFixture<WebApplicationFactory<Program>>
+public class TestClient : IDisposable
 {
-    public HttpClient Client { get; }
+    public HttpClient HttpClient { get; }
 
     public WireMockServer WireMockServer { get; }
 
@@ -12,7 +12,7 @@ public class TestClient : IClassFixture<WebApplicationFactory<Program>>
         var port = WireMockServer.Ports.First();
         var url = $"http://localhost:{port}/";
 
-        Client = factory
+        HttpClient = factory
             .WithWebHostBuilder(
                 builder =>
                 {
@@ -28,5 +28,12 @@ public class TestClient : IClassFixture<WebApplicationFactory<Program>>
                     AllowAutoRedirect = false,
                     HandleCookies = false
                 });
+    }
+
+    public void Dispose()
+    {
+        HttpClient.Dispose();
+        WireMockServer.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

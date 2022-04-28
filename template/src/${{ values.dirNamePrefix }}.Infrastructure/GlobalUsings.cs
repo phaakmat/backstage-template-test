@@ -6,6 +6,7 @@ global using ${{ values.namespacePrefix }}.Domain.Commands;
 
 {%- if values.enableEntityFramework %}
 global using Microsoft.EntityFrameworkCore;
+global using Microsoft.EntityFrameworkCore.Infrastructure;
 global using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 {%- endif %}
 

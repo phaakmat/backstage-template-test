@@ -6,7 +6,7 @@ public static class ServiceProviderExtensions
     {
         using (var scope = serviceProvider.CreateScope())
         {
-            scope.ServiceProvider.GetRequiredService<IDbContext>().EnsureCreated();
+            scope.ServiceProvider.GetRequiredService<IDbContext>().Database.EnsureCreated();
         }
 
         return serviceProvider;

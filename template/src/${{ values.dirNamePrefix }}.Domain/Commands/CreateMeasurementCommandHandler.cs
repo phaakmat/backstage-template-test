@@ -1,27 +1,38 @@
-﻿using Microsoft.Extensions.Logging;
-using MediatR;
-using ${{ values.namespacePrefix }}.Domain.Repositories;
-using ${{ values.namespacePrefix }}.Domain.Models;
-
-namespace ${{ values.namespacePrefix }}.Domain.Commands;
+﻿namespace ${{ values.namespacePrefix }}.Domain.Commands;
 
 public class CreateMeasurementCommandHandler : IRequestHandler<CreateMeasurementCommand, IMeasurement>
 {
     private readonly IMeasurementRepository _repository;
     private readonly ILogger<CreateMeasurementCommandHandler> _logger;
+    private readonly IValidator<CreateMeasurementCommand> _validator;
 
     public CreateMeasurementCommandHandler(
         IMeasurementRepository repository,
-        ILogger<CreateMeasurementCommandHandler> logger)
+        ILogger<CreateMeasurementCommandHandler> logger,
+        IValidator<CreateMeasurementCommand> validator)
     {
         _repository = repository;
         _logger = logger;
+        _validator = validator;
     }
 
-    public async Task<IMeasurement> Handle(CreateMeasurementCommand message, CancellationToken cancellationToken)
+    public async Task<IMeasurement> Handle(CreateMeasurementCommand command, CancellationToken cancellationToken)
     {
-        var entity = new Measurement(Guid.NewGuid(), DateTimeOffset.UtcNow, message.TemperatureC, message.Summary);
+        var validationResults = await _validator.ValidateAsync(command, cancellationToken);
 
-        return await _repository.AddAsync(entity, cancellationToken);
+        if (!validationResults.IsValid)
+        {
+            _logger.LogError("Validation errors: {errors}", validationResults.Errors);
+            throw new ValidationException(validationResults.Errors);
+        }
+
+        var entity = new Measurement(
+            command.MeasurementId ?? Guid.NewGuid(), 
+            DateTimeOffset.UtcNow, 
+            command.TemperatureC, 
+            command.Summary
+        );
+
+        return await _repository.CreateAsync(entity, cancellationToken);
     }
 }

@@ -2,20 +2,28 @@
 
 public static class EndpointRouteBuilderExtensions
 {
+    private static string Prefix { get; } = "/api/v1/";
+    private static string Route(string routeTemplate = "") => $"{Prefix}{routeTemplate}";
+
     public static IEndpointRouteBuilder MapEndpoints(this IEndpointRouteBuilder app)
     {
-        app.MapGet(ApiVersion + "/{id:guid}", EndpointHandlers.GetById)
+        app.MapGet(Route("{id:guid}"), EndpointHandlers.FindById)
             .Produces<IMeasurement>(200)
-            .ProducesProblem(404);
+            .Produces(StatusCodes.Status204NoContent)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
 
-        app.MapPost("/", EndpointHandlers.Create)
-            .Accepts<Measurement>("application/json")
-            .Produces<IMeasurement>(201);
+        app.MapPost(Route(), EndpointHandlers.Create)
+            .Accepts<CreateMeasurementCommand>("application/json")
+            .Produces<IMeasurement>(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status204NoContent)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .ProducesValidationProblem();
 
-        app.MapDelete("/{id:guid}", EndpointHandlers.Delete);
-
+        app.MapDelete(Route("{id:guid}"), EndpointHandlers.Delete)
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status204NoContent)
+            .ProducesProblem(StatusCodes.Status400BadRequest);
+        
         return app;
     }
-
-    public static string ApiVersion { get; set; } = "1.0";
 }
