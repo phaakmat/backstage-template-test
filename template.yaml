@@ -63,86 +63,119 @@ spec:
             - const: ".NET 6 Minimal API Endpoints"
             - const: "MVC Controllers"
           default: .NET 6 Minimal API Endpoints
-    - title: Cosmos DB
-      description: Cosmos DB
+    - title: Storage
+      description: Storage options
       properties:
         features.cosmosDb:
-          title: properties.cosmosDb title
-          description: properties.cosmosDb description
           type: string
           oneOf:
             - const: ""
               title: "No"
             - const: "Yes"
-              description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
-      dependencies:
-        features.cosmosDb:
-          properties:
-            features.cosmosDbRepository:
-              title: Add CosmosDB Sample Repository
-              type: boolean
+          description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+        features.sqlServer:
+          title: Enable a SQL PaaS database
+          type: string
+          oneOf:
+            - const: ""
+              title: "No"
+            - const: "Yes"
+        features.entityFramework:
+          title: Enable Entity Framework Core
+          type: string
+          oneOf:
+            - const: ""
+              title: "No"
+            - const: "Entity Framework Core"
+            - const: "Entity Framework Core with CosmosDB"
+            - const: "Entity Framework Core with SqlServer"
+          description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
+          default: ""
 
-    - title: Features
-      description: Description of Features
+        dependencies:
+          features.cosmosDb:
+            properties:
+              features.cosmosDbRepository:
+                title: Add CosmosDB Sample Repository Class
+                type: boolean
+          features.entityFramework:
+            properties:
+              features.entityFrameworkRepository:
+                title: Add Entity Framework Sample Repository Class
+                type: boolean
+
+    - title: Messaging
+      description: Messaging
       properties:
-        features:
-          title: Select services
-          description: Select services description
-          ui:order:
-            - httpApi
-            - cosmosDb
-            - cosmosDbRepository
-            - sqlServer
-            - entityFramework
-            - entityFrameworkRepository
-            - fundaMessaging
-          properties:
-            httpApi:
-              title: HTTP API
-              type: string
-              enum:
-                - .NET 6 Minimal API Endpoints
-                - MVC Controllers
-              description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
-              default: .NET 6 Minimal API Endpoints
-            fundaMessaging:
-              title: Add Funda.Extensions.Messaging
-              type: boolean
-              description: "Whether to include Funda.Extensions.Messaging."
-            cosmosDb:
-              title: CosmosDB
-              type: string
-              oneOf:
-                - const: ""
-                  title: "No"
-                - const: "Yes"
-              description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
-            sqlServer:
-              title: Add SQL Server
-              type: boolean
-              description: Whether to include SQL Server client.
-            entityFramework:
-              title: Entity Framework Core
-              type: string
-              oneOf:
-                - const: ""
-                  title: "No"
-                - const: "Entity Framework Core"
-                - const: "Entity Framework Core with CosmosDB"
-                - const: "Entity Framework Core with SqlServer"
-              description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
-              default: No
-          dependencies:
-            cosmosDb:
-              properties:
-                cosmosDbRepository:
-                  title: Add CosmosDB Sample Repository
-                  type: boolean
-            entityFramework:
-              properties:
-                entityFrameworkRepository:
-                  title: Add Entity Framework Core Sample Repository
-                  type: boolean
+        features.fundaMessaging:
+          type: string
+          oneOf:
+            - const: ""
+              title: "No"
+            - const: "Yes"
+          description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+
+    # - title: Features
+    #   description: Description of Features
+    #   properties:
+    #     features:
+    #       title: Select services
+    #       description: Select services description
+    #       ui:order:
+    #         - httpApi
+    #         - cosmosDb
+    #         - cosmosDbRepository
+    #         - sqlServer
+    #         - entityFramework
+    #         - entityFrameworkRepository
+    #         - fundaMessaging
+    #       properties:
+    #         httpApi:
+    #           title: HTTP API
+    #           type: string
+    #           enum:
+    #             - .NET 6 Minimal API Endpoints
+    #             - MVC Controllers
+    #           description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
+    #           default: .NET 6 Minimal API Endpoints
+    #         fundaMessaging:
+    #           title: Add Funda.Extensions.Messaging
+    #           type: boolean
+    #           description: "Whether to include Funda.Extensions.Messaging."
+    #         cosmosDb:
+    #           title: CosmosDB
+    #           type: string
+    #           oneOf:
+    #             - const: ""
+    #               title: "No"
+    #             - const: "Yes"
+    #           description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+    #         sqlServer:
+    #           title: Add SQL Server
+    #           type: boolean
+    #           description: Whether to include SQL Server client.
+    #         entityFramework:
+    #           title: Entity Framework Core
+    #           type: string
+    #           oneOf:
+    #             - const: ""
+    #               title: "No"
+    #             - const: "Entity Framework Core"
+    #             - const: "Entity Framework Core with CosmosDB"
+    #             - const: "Entity Framework Core with SqlServer"
+    #           description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
+    #           default: No
+    #       dependencies:
+    #         cosmosDb:
+    #           properties:
+    #             cosmosDbRepository:
+    #               title: Add CosmosDB Sample Repository
+    #               type: boolean
+    #         entityFramework:
+    #           properties:
+    #             entityFrameworkRepository:
+    #               title: Add Entity Framework Core Sample Repository Class
+    #               type: boolean
 
 
   # scaffolding steps
