@@ -82,7 +82,7 @@ spec:
               type: string
               description: 'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples.
               enum:
-                - 
+                - ''
                 - Include CosmosDB references 
             sqlServer:
               title: Add SQL Server
