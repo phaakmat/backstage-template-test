@@ -56,15 +56,15 @@ spec:
       properties:
         features:
           title: Select services
+          ui:order:
+            - fundaMessaging
+            - httpApi
+            - cosmosDb
+            - cosmosDbRepository
+            - sqlServer
+            - entityFramework
+            - entityFrameworkRepository
           properties:
-            ui:order:
-              - fundaMessaging
-              - httpApi
-              - cosmosDb
-              - cosmosDbRepository
-              - sqlServer
-              - entityFramework
-              - entityFrameworkRepository
             httpApi:
               title: HTTP API
               type: string
