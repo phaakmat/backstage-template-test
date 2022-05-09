@@ -60,8 +60,8 @@ spec:
           oneOf:
             - const: ""
               title: "No"
-              - const: "Yes"
-                description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+            - const: "Yes"
+              description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
         dependencies:
           cosmosDb:
             properties:
