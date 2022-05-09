@@ -1,7 +1,7 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: dotnet-feature-api-v1.0
+  name: dotnet-feature-api-v1.0 # Remember to also change templateName
   title: .NET 6.0 Feature API v1.0
   description: Create a .NET 6.0 Feature API
   tags:
@@ -40,7 +40,7 @@ spec:
           title: Owner
           type: string
           description: Owner of the package
-          default: pascalhaakmat
+          default: pascalhaakmat # Can be changed to your username for local development
           ui:field: OwnerPicker
           ui:widget: select
           ui:options:
@@ -50,13 +50,22 @@ spec:
           title: GitHub organization
           description: The organization / owner in GitHub
           type: string
-          default: phaakmat # fundarealestate
+          default: phaakmat # fundarealestate # Can be changed to develop/test against dev/test repo
           ui:widget: hidden
     - title: Features
       properties:
         features:
           title: Select services
           properties:
+            httpApi:
+              title: HTTP API
+              type: string
+              enum:
+                - .NET 6 Minimal API Endpoints
+                - MVC Controllers
+              description: Select HTTP API
+              default: .NET 6 Minimal API Endpoints
+
             endpoints:
               title: Add .NET 6 Endpoints
               description: Whether to use ASP.NET Core Endpoints
@@ -88,6 +97,13 @@ spec:
                 - Entity Framework Core with SqlServer
               description: Whether to include EF Core and a database provider
               default: No
+          dependencies:
+            cosmosDb:
+              properties:
+                cosmosDbRepository:
+                  title: Add CosmosDB Sample Repository
+                  type: boolean
+                  
 
   # scaffolding steps
   steps:
@@ -97,6 +113,7 @@ spec:
       input:
         url: './template'
         values:
+          templateName: dotnet-feature-api-v1.0 # From metadata.name
           name: ${{ parameters.name }}
           description: ${{ parameters.description }}
           owner: ${{ parameters.owner }}
@@ -105,14 +122,16 @@ spec:
           fileNamePrefix: 'Funda.${{ parameters.name }}'
           dirNamePrefix: 'Funda.${{ parameters.name }}'
           applicationName: 'Funda.${{ parameters.name }}'
-          enableControllers: ${{ parameters.features.mvcControllers }}
-          enableEndpoints: ${{ parameters.features.endpoints }}
+          enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
+          enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
           enableFundaMessaging: ${{ parameters.features.fundaMessaging }}
           enableCosmosDb: ${{ parameters.features.cosmosDb }}
+          enableCosmosDbRepository: ${{ parameters.features.cosmosDbRepository }}
           enableEntityFramework: ${{ parameters.features.entityFramework != 'No' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
-          enableInMemoryRepository: ${{ parameters.features.entityFramework == 'No' }}
+          enableEntityFrameworkRepository: ${{ parameters.features.entityFrameworkRepository }}
+          enableInMemoryRepository: ${{ !parameters.features.entityFrameworkRepository && !parameters.features.CosmosDbRepository }}
 
     - id: remove-controllers
       name: Remove Controllers
