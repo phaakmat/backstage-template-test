@@ -127,7 +127,7 @@ spec:
     - id: logdebug
       action: debug:log
       input:
-        message: ${{ parameters }}
+        message: ${{ parameters | dump }}
 
     - id: fetch-base
       name: Fetch Template
