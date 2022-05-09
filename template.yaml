@@ -52,10 +52,22 @@ spec:
           type: string
           default: phaakmat # fundarealestate # Can be changed to develop/test against dev/test repo
           ui:widget: hidden
-    - title: Cosmos DB
-      description: Description of Feature
+    - title: X
+      description: X.description
       properties:
+        title: X.properties.title
+        description: x.properties.description
+        httpApi:
+          title: HTTP API
+          description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
+          type: string
+          oneOf:
+            - const: ".NET 6 Minimal API Endpoints"
+            - const: "MVC Controllers"
+          default: .NET 6 Minimal API Endpoints
         cosmosDb:
+          title: properties.cosmosDb title
+          description: properties.cosmosDb description
           type: string
           oneOf:
             - const: ""
@@ -74,6 +86,7 @@ spec:
       properties:
         features:
           title: Select services
+          description: Select services description
           ui:order:
             - httpApi
             - cosmosDb
