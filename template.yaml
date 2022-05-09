@@ -146,14 +146,14 @@ spec:
           applicationName: 'Funda.${{ parameters.name }}'
           enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
           enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
-          enableFundaMessaging: ${{ parameters.features.fundaMessaging }}
+          enableFundaMessaging: ${{ parameters.features.fundaMessaging != '' }}
           enableCosmosDb: ${{ parameters.features.cosmosDb }}
-          enableCosmosDbRepository: ${{ parameters.features.cosmosDbRepository }}
-          enableEntityFramework: ${{ parameters.features.entityFramework != 'No' }}
+          enableCosmosDbRepository: ${{ parameters.features.cosmosDb && parameters.features.cosmosDbRepository }}
+          enableEntityFramework: ${{ parameters.features.entityFramework != '' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
-          enableEntityFrameworkRepository: ${{ parameters.features.entityFrameworkRepository }}
-          enableInMemoryRepository: true
+          enableEntityFrameworkRepository: ${{ parameters.features.cosmosDb && parameters.features.entityFrameworkRepository }}
+          enableInMemoryRepository: ${{ (not parameters.features.entityFrameworkRepository) and (not parameters.features.cosmosDbRepository) }}
 
     - id: remove-controllers
       name: Remove Controllers
