@@ -55,11 +55,9 @@ spec:
     - title: X
       description: X.description
       properties:
-        title: X.properties.title
-        description: x.properties.description
         httpApi:
           title: HTTP API
-          description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
+          description: "'[.NET 6 Minimal API Endpoints](http://www.google.com)' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
           type: string
           oneOf:
             - const: ".NET 6 Minimal API Endpoints"
