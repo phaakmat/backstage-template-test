@@ -54,6 +54,52 @@ spec:
           ui:widget: hidden
     - title: Features
       properties:
+        httpApi:
+          title: HTTP endpoints
+          type: string
+          enum:
+            - .NET 6 Minimal API Endpoints
+            - MVC Controllers
+          description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
+          default: .NET 6 Minimal API Endpoints
+        sqlServer:
+          title: Add SQL Server
+          type: boolean
+          description: "Whether to include SQL Server client."
+        cosmosDb:
+          title: CosmosDB
+          type: string
+          description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+          oneOf:
+            - const: ""
+              title: "No"
+            - const: "Yes"
+              title: "Yes"
+          dependencies:
+            cosmosDb:
+              properties:
+                cosmosDbRepository:
+                  title: Add CosmosDB Sample Repository
+                  type: boolean
+        entityFramework:
+          title: Entity Framework Core
+          type: string
+          oneOf:
+            - const: ""
+              title: "No"
+            - const: "Entity Framework Core"
+            - const: "Entity Framework Core with CosmosDB"
+            - const: "Entity Framework Core with SqlServer"
+          description: Whether to include EF Core and a database provider
+          default: No
+          dependencies:
+            entityFramework:
+              properties:
+                cosmosDbRepository:
+                  title: Add Entity Framework Sample Repository
+                  type: boolean
+    - title: Features
+      properties:
         features:
           title: Select services
           ui:order:
