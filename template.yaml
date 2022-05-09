@@ -71,19 +71,19 @@ spec:
               enum:
                 - .NET 6 Minimal API Endpoints
                 - MVC Controllers
-              description: '.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'.
+              description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
               default: .NET 6 Minimal API Endpoints
             fundaMessaging:
               title: Add Funda.Extensions.Messaging
               type: boolean
-              description: Whether to include Funda.Extensions.Messaging.
+              description: "Whether to include Funda.Extensions.Messaging."
             cosmosDb:
               title: CosmosDB
               type: string
-              description: 'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples.
+              description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
               enum:
                 - ''
-                - Include CosmosDB references 
+                - Yes
             sqlServer:
               title: Add SQL Server
               type: boolean
