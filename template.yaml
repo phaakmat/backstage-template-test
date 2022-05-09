@@ -104,7 +104,7 @@ spec:
                 cosmosDbRepository:
                   title: Add CosmosDB Sample Repository
                   type: boolean
-                  
+
 
   # scaffolding steps
   steps:
@@ -132,7 +132,7 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ parameters.features.entityFrameworkRepository }}
-          enableInMemoryRepository: ${{ !parameters.features.entityFrameworkRepository && !parameters.features.CosmosDbRepository }}
+          enableInMemoryRepository: true
 
     - id: remove-controllers
       name: Remove Controllers
