@@ -65,6 +65,11 @@ spec:
           default: .NET 6 Minimal API Endpoints
     - title: Storage
       description: Storage options
+      ui:order:
+        - features.cosmosDb
+        - features.cosmosDbRepository
+        - features.entityFramework
+        - features.entityFrameworkRepository
       properties:
         features.cosmosDb:
           type: string
