@@ -92,17 +92,17 @@ spec:
           description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
           default: ""
 
-        dependencies:
-          features.cosmosDb:
-            properties:
-              features.cosmosDbRepository:
-                title: Add CosmosDB Sample Repository Class
-                type: boolean
-          features.entityFramework:
-            properties:
-              features.entityFrameworkRepository:
-                title: Add Entity Framework Sample Repository Class
-                type: boolean
+      dependencies:
+        features.cosmosDb:
+          properties:
+            features.cosmosDbRepository:
+              title: Add CosmosDB Sample Repository Class
+              type: boolean
+        features.entityFramework:
+          properties:
+            features.entityFrameworkRepository:
+              title: Add Entity Framework Sample Repository Class
+              type: boolean
 
     - title: Messaging
       description: Messaging
@@ -205,6 +205,11 @@ spec:
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ parameters.features.entityFrameworkRepository }}
           enableInMemoryRepository: true
+
+    - id: logdebug
+      action: debug:log
+      input:
+        message: ${{ parameters }}
 
     - id: remove-controllers
       name: Remove Controllers
