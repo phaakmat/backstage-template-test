@@ -60,8 +60,7 @@ public static class WebApplicationBuilderExtensions
         
 		// Add Cosmos DB
         builder.Services.AddCosmosDbInfrastructure(options =>
-            builder.Configuration.GetSection("CosmosDb").Bind(options)
-        );
+            builder.Configuration.GetSection("CosmosDb").Bind(options));
         {%- endif %}
 
         {%- if values.enableEntityFramework %}
@@ -76,20 +75,21 @@ public static class WebApplicationBuilderExtensions
         builder.Services.AddSingleton<IMeasurementRepository, InMemoryMeasurementRepository>();
         {%- endif %}
 
-
         {%- if values.enableEntityFrameworkSqlServer %}
 
 		// Configure EntityFramework to use SQL Server
-        builder.Services
-            .AddDbContext<IDbContext, SqlServerDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-        {%- elif values.enableEntityFrameworkCosmos %}
+        builder.Services.AddDbContext<IDbContext, SqlServerDbContext>(options =>
+            options.UseSqlServer(
+                builder.Configuration["EntityFramework:SqlServer:ConnectionString"]));
+        {%- endif %}
+
+        {%- if values.enableEntityFrameworkCosmosDb %}
 
 		// Configure EntityFramework to use CosmosDb
         builder.Services.AddDbContext<IDbContext, CosmosDbContext>(options =>
-            options.UseCosmos(builder.Configuration["CosmosDb:Endpoint"],
-                builder.Configuration["CosmosDb:PrimaryKey"],
-                builder.Configuration["CosmosDb:DatabaseId"]));
+            options.UseCosmos(
+                builder.Configuration["EntityFramework:CosmosDb:ConnectionString"],
+                builder.Configuration["EntityFramework:CosmosDb:DatabaseName"]));
 		{%- endif %}
 
         builder.Services.AddMediatR(typeof(IMeasurementRepository).Assembly);

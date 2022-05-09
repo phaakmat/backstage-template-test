@@ -2,7 +2,7 @@
 
 ${{ values.description }}
 
-# How to use
+# Getting started
 
 After installing the [.NET 6 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) you can use the standard `dotnet` CLI commands to build/test/run this service, for example:
 
@@ -21,16 +21,43 @@ $ dotnet run -p src/${{ dirNamePrefix }}/${{ fileNamePrefix }}.csproj
 - [Nullable reference types](https://docs.microsoft.com/en-us/dotnet/csharp/nullable-references)
 - [Global usings](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/using-directive#global-modifier)
 - [File scoped namespaces](https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/namespace)
+- [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
 
-## Projects 
+## Filesystem layout
 
-Key projects in the [src](./src) directory:
+- [src/${{ values.dirNamePrefix }}/](./src/${{ values.dirNamePrefix }})
+: Application entry point. See [Program.cs](./src/${{ values.dirNamePrefix }}/Program.cs) and the [Startup](./src/${{ values.dirNamePrefix }}/Startup) folder.
+- [src/${{ values.dirNamePrefix }}.Domain/](./src/${{ values.dirNamePrefix }}.Domain)
+: Domain classes, models, commands, validation logic, etc.
+- [src/${{ values.dirNamePrefix }}.Infrastructure/](./src/${{ values.dirNamePrefix }}.Infrastructure)
+: Storage and other infrastructure support.
+- [tests/](./tests)
+: Unit and component tests.
+- [${{ values.fileNamePrefix }}.sln](./${{ values.fileNamePrefix }}.sln)
+: Solution file.
+- [azure-pipelines.yml](./azure-pipelines.yml)
+: Azure build pipeline.
+- [catalog-info.yaml](./catalog-info.yaml)
+: Backstage catalog information.
+- [Directory.Build.props](./Directory.Build.props)
+: Common MSBuild properties.
+- [Dockerfile](./src/Dockerfile)
+: Commands to assemble Docker image.
+- [NuGet.Config](./NuGet.config)
+: NuGet sources.
 
-| Project | Description |
-| --- | --- |
-| [${{ values.dirNamePrefix }}](./src/${{ values.dirNamePrefix }}) | Application entry point. See [Program.cs](./src/${{ values.dirNamePrefix }}/Program.cs) and the [Startup](./src/${{ values.dirNamePrefix }}/Startup) folder. |
-| [${{ values.dirNamePrefix }}.Domain](./src/${{ values.dirNamePrefix }}.Domain) | Domain models, commands, etc. |
-| [${{ values.dirNamePrefix }}.Infrastructure](./src/${{ values.dirNamePrefix }}.Infrastructure) | Storage and other infrastructure support. |
+## appsettings
+
+The different `appsettings.{_}.json` files refer to the following environments, selected by the environment variable `ASPNETCORE_ENVIRONMENT`:
+
+- **Development**
+: The local development environment (see also [launchSettings.json](src/${{ values.dirNamePrefix }}/Properties/launchSettings.json)).
+- **dev**
+: funda dev environment
+- **acc**
+: funda acceptance
+- **prod**
+: funda production
 
 ## Backstage
 
@@ -39,45 +66,73 @@ The file [catalog-info.yaml](./catalog-info.yaml)  provides [Backstage](https://
 {%- if values.enableEndpoints %}
 ## .NET 6 Endpoints
 
-Endpoints are defined in the `Endpoints` directory. 
+Endpoints provide lightweight HTTP handlers. They are defined in the [Endpoints](./src/${{ values.dirNamePrefix }}/Endpoints) directory. 
 
 {%- endif %}
 
 {%- if values.enableControllers %}
 ## MVC Controllers
 
-ASP.NET MVC Controllers are defined in the `Controllers` directory.
+ASP.NET MVC Controllers are defined in the [Controllers](./src/${{ values.dirNamePrefix }}/Controllers) directory.
 
 {%- endif %}
 
 {%- if values.enableFundaMessaging %}
 ## Funda Messaging
 
-The `Messaging` directory contains configuration for the [Funda.Extensions.Messaging](https://git.funda.nl/projects/PACKAGES/repos/funda.extensions.messaging) package.
+The [Messaging](./src/${{ values.dirNamePrefix }}/Messaging) directory contains configuration for the [Funda.Extensions.Messaging](https://git.funda.nl/projects/PACKAGES/repos/funda.extensions.messaging) package.
 
 {%- endif %}
 
 {%- if values.enableSqlServer %}
 ## SQL Server
 
+See the `"SqlServer"` section in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json) for the SqlServer connection string.
 
 {%- endif %}
 
 {%- if values.enableCosmosDb %}
 
 ## CosmosDB
+
+See the `"CosmosDb"` section in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json).
+
+{%- if values.enableCosmosDbRepository %}
+A sample repository for Cosmos DB can be found here: [CosmosDbMeasurementRepository.cs](./src/${{%20values.dirNamePrefix%20}}.Infrastructure/CosmosDb/CosmosDbRepository.cs).
+{%- endif %}
+
+For local development, install the [Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator).
+
 {%- endif %}
 
 {%- if values.enableEntityFramework %}
 ## Entity Framework Core
 
-[Entity Framework Core](https://docs.microsoft.com/en-us/ef/core/) is an object-relational mapper (ORM) for database access. See [WebApplicationBuilderExtensions.cs]([src/${{ values.dirNamePrefix }}/](./src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) and [src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework](./src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework).
+Entity Framework Core code lives in [Infrastructure/EntityFramework](src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/). Initialization happens in [WebApplicationBuilderExtensions.cs](./src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) and [src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework](./src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework).
 
+See the `"EntityFramework"` section in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json) for options.
+
+{%- if values.enableEntityFrameworkRepository %}
+A sample repository for Entity Framework Core can be found here: [EntityFrameworkMeasurementRepository.cs](./src/${{%20values.dirNamePrefix%20}}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs).
+{%- endif %}
+
+{%- if values.enableEntityFrameworkCosmosDb %}
+### Cosmos DB
+
+See `"EntityFramework:CosmosDb"` in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json) for options.
+{%- endif %}
+
+{%- if values.enableEntityFrameworkSqlServer %}
+### Sql Server
+
+See `"EntityFramework:SqlServer"` in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json) for options.
+
+{%- endif %}
 {%- endif %}
 
 # Owner
 
 This codebase is owned by ${{ values.owner }}
 
-*Generated from template ${{ values.templateName }}*
+*Based on template ${{ values.templateName }}*
 

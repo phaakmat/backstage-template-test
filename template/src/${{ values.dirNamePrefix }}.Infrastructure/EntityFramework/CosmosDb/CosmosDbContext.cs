@@ -8,11 +8,6 @@ public class CosmosDbContext : DbContext, IDbContext
     {
     }
 
-    public async Task<bool> EnsureCreated()
-    {
-        return await Database.EnsureCreatedAsync();
-    }
-
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Measurement>()

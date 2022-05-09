@@ -1,4 +1,4 @@
-﻿namespace Funda.FeatureApiTemplate.ErrorHandling;
+﻿namespace ${{ values.namespacePrefix }}.ErrorHandling;
 
 internal static class ProblemDetailsFactory
 {

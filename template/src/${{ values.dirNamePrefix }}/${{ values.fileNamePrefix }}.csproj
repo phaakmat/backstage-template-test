@@ -51,5 +51,4 @@
 		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Domain\${{ values.fileNamePrefix }}.Domain.csproj" />
 		<ProjectReference Include="..\${{ values.dirNamePrefix }}.Infrastructure\${{ values.fileNamePrefix }}.Infrastructure.csproj" />
 	</ItemGroup>
-
 </Project>

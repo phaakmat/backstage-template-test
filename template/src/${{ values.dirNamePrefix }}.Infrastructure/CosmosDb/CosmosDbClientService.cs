@@ -18,14 +18,14 @@ public class CosmosDbClientService : ICosmosDbClientService
     {
         _options = optionsAccessor.Value;
 
-        _client = new CosmosClient(_options.Endpoint, _options.PrimaryKey);
+        _client = new CosmosClient(_options.ConnectionString);
     }
 
     public async Task<Database> GetDatabaseAsync(string databaseId)
     {
         if (_options.CreateDatabaseAndContainersIfNotExists)
         {
-            return await _client.CreateDatabaseIfNotExistsAsync(_options.DatabaseId);
+            return await _client.CreateDatabaseIfNotExistsAsync(databaseId);
         }
 
         return _client.GetDatabase(databaseId);

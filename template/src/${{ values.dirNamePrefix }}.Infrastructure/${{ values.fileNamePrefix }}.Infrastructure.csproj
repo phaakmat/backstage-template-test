@@ -10,14 +10,14 @@
 		{%- endif %}
 
 		{%- if values.enableEntityFramework %}
-		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.4" />
 
 		{%- if values.enableEntityFrameworkCosmosDb %}
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Cosmos" Version="6.0.4" />
 		{%- endif %}
 
 		{%- if values.enableEntityFrameworkSqlServer %}
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.3" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="6.0.4" />
 		{%- endif %}
 
 		{%- endif %}

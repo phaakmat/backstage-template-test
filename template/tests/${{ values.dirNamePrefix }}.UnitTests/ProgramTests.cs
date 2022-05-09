@@ -1,12 +1,9 @@
-using Xunit;
-
 namespace ${{ values.namespacePrefix }}.UnitTests;
 
-public class UnitTest1
+public class ProgramTests
 {
     [Fact]
-    public void Test1()
+    public void Succeeds()
     {
-
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace Funda.FeatureApiTemplate.Domain.Commands;
+﻿namespace ${{ values.namespacePrefix }}.Domain.Commands;
 
 public class DeleteMeasurementCommandHandler : IRequestHandler<DeleteMeasurementCommand, bool>
 {

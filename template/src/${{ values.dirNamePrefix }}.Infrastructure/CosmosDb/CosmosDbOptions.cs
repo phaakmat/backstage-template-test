@@ -3,19 +3,9 @@
 public class CosmosDbOptions
 {
     /// <summary>
-    /// The endpoint of the CosmosDb account
+    /// Connection string.
     /// </summary>
-    public string Endpoint { get; set; } = null!;
-
-    /// <summary>
-    /// The primary key of the cosmosdb account
-    /// </summary>
-    public string PrimaryKey { get; set; } = null!;
-
-    /// <summary>
-    /// Name/Id of the database
-    /// </summary>
-    public string DatabaseId { get; set; } = null!;
+    public string ConnectionString { get; set; }
 
     /// <summary>
     /// When set containers and database are created on first usage.

@@ -1,4 +1,4 @@
-﻿namespace Funda.FeatureApiTemplate.Domain.Validations;
+﻿namespace ${{ values.namespacePrefix }}.Domain.Validations;
 
 public class DeleteMeasurementCommandValidator : AbstractValidator<DeleteMeasurementCommand>
 {

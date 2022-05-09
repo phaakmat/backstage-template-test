@@ -24,6 +24,10 @@ global using ${{ values.namespacePrefix }}.Infrastructure.EntityFramework;
 global using Microsoft.EntityFrameworkCore.SqlServer;
 {%- endif %}
 
+{%- if values.enableEntityFrameworkCosmosDb %}
+global using Microsoft.EntityFrameworkCore.Cosmos;
+{%- endif %}
+
 {%- if values.enableCosmosDb %}
 global using ${{ values.namespacePrefix }}.Infrastructure.CosmosDb;
 {%- endif %}

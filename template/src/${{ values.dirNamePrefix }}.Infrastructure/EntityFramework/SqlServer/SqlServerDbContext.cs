@@ -7,12 +7,7 @@ public class SqlServerDbContext : DbContext, IDbContext
     public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
     {
     }
-
-    public async Task<bool> EnsureCreated()
-    {
-        return await Database.EnsureCreatedAsync();
-    }
-
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Measurement>()

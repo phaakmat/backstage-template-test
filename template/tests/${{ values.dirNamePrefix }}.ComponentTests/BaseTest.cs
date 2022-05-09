@@ -1,6 +1,6 @@
 namespace ${{ values.namespacePrefix }}.ComponentTests;
 
-public class BaseTest: IClassFixture<WebApplicationFactory<Program>>, IDisposable
+public class BaseTest : IClassFixture<WebApplicationFactory<Program>>, IDisposable
 {
     public readonly TestClient TestClient;
     public readonly string BaseUrl;
