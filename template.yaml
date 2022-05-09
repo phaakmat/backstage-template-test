@@ -40,7 +40,6 @@ spec:
           title: Owner
           type: string
           description: Owner of the package
-          default: pascalhaakmat # Can be changed to your username for local development
           ui:field: OwnerPicker
           ui:widget: select
           ui:options:
@@ -50,7 +49,7 @@ spec:
           title: GitHub organization
           description: The organization / owner in GitHub
           type: string
-          default: phaakmat # fundarealestate # Can be changed to develop/test against dev/test repo
+          default: fundarealestate # Can be changed to develop/test against dev/test repo
           ui:widget: hidden
     - title: HTTP endpoints
       description: This template supports both the [Minimal API](https://www.google.com) .NET 6 Endpoints and the classic MVC Controllers.
