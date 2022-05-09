@@ -98,7 +98,7 @@ See the `"SqlServer"` section in [appsettings.json](src/${{ values.dirNamePrefix
 See the `"CosmosDb"` section in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json).
 
 {%- if values.enableCosmosDbRepository %}
-A sample repository for Cosmos DB can be found here: [CosmosDbMeasurementRepository.cs](./src/${{+values.dirNamePrefix+}}.Infrastructure/CosmosDb/CosmosDbRepository.cs).
+A sample repository for Cosmos DB can be found here: [CosmosDbMeasurementRepository.cs](./src/${{ values.dirNamePrefix }}.Infrastructure/CosmosDb/CosmosDbRepository.cs).
 {%- endif %}
 
 For local development, install the [Cosmos DB Emulator](https://docs.microsoft.com/en-us/azure/cosmos-db/local-emulator).
@@ -113,7 +113,7 @@ Entity Framework Core code lives in [Infrastructure/EntityFramework](src/${{ val
 See the `"EntityFramework"` section in [appsettings.json](src/${{ values.dirNamePrefix }}/appsettings.json) for options.
 
 {%- if values.enableEntityFrameworkRepository %}
-A sample repository for Entity Framework Core can be found here: [EntityFrameworkMeasurementRepository.cs](./src/${{+values.dirNamePrefix+}}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs).
+A sample repository for Entity Framework Core can be found here: [EntityFrameworkMeasurementRepository.cs](./src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs).
 {%- endif %}
 
 {%- if values.enableEntityFrameworkCosmosDb %}

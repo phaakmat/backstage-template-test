@@ -96,8 +96,8 @@ Template features are enabled/disabled through the `enable*` flags. A template f
 
 1. Package references in `.csproj` files
 2. Global usings
-3. Configuration sections in [appsettings.json](./template/src/${{+values.dirNamePrefix+}}/appsettings.json)
-4. DI setup in [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) and [WebApplicationExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationExtensions.cs)
+3. Configuration sections in [appsettings.json](./template/src/${{ values.dirNamePrefix }}/appsettings.json)
+4. DI setup in [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) and [WebApplicationExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationExtensions.cs)
 5. Files with samples/seedwork
 
 | Flag                                                                | Description                                                                                                                    |
@@ -124,15 +124,15 @@ Adds seedwork for the [Funda.Extensions.Messaging](https://git.funda.nl/projects
 
 |                   | Item                                                                                                                            | Description                               |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{+values.dirNamePrefix+}}/${{+values.fileNamePrefix+}}.csproj)                         | Funda.Extensions.DateTimeProvider         |
+| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{ values.dirNamePrefix }}/${{ values.fileNamePrefix }}.csproj)                         | Funda.Extensions.DateTimeProvider         |
 |                   |                                                                                                                                 | Funda.Extensions.Messaging                |
 |                   |                                                                                                                                 | Funda.Extensions.Messaging.Metrics        |
 |                   |                                                                                                                                 | Funda.Extensions.Messaging.CQRS           |
 |                   |                                                                                                                                 | Funda.Extensions.Messaging.InMemory       |
 |                   |                                                                                                                                 | Funda.Extensions.Messaging.DatadogTracing |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                               | (*Same as packages*)                      |
-| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | `AddFundaMessaging()`                     |
-| **Directory**     | [Messaging](./template/src/${{+values.dirNamePrefix+}}/Messaging/)                                                          | Sample configuration.                     |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                               | (*Same as packages*)                      |
+| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | `AddFundaMessaging()`                     |
+| **Directory**     | [Messaging](./template/src/${{ values.dirNamePrefix }}/Messaging/)                                                          | Sample configuration.                     |
 
 #### `enableControllers`
 
@@ -142,19 +142,19 @@ MVC Controllers can be selected instead of Endpoints (eg. for compatibility reas
 
 |                   | Item                                                                                                                            | Description                                     |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
-| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{+values.dirNamePrefix+}}/${{+values.fileNamePrefix+}}.csproj)                         | Microsoft.AspNetCore.Mvc.Core                   |
+| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{ values.dirNamePrefix }}/${{ values.fileNamePrefix }}.csproj)                         | Microsoft.AspNetCore.Mvc.Core                   |
 |                   |                                                                                                                                 | Microsoft.AspNetCore.Mvc.Versioning             |
 |                   |                                                                                                                                 | Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                               | *global using Microsoft.AspNetCore.Mvc;*        |
-| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | `AddEndpointsApiExplorer()`                     |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                               | *global using Microsoft.AspNetCore.Mvc;*        |
+| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | `AddEndpointsApiExplorer()`                     |
 |                   |                                                                                                                                 | `AddVersionedApiExplorer()`                     |
 |                   |                                                                                                                                 | `AddApiVersioning()`                            |
 |                   |                                                                                                                                 | `AddControllers()`                              |
-|                   | [WebApplicationExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs)        | `UseRouting()`                                  |
+|                   | [WebApplicationExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs)        | `UseRouting()`                                  |
 |                   |                                                                                                                                 | `UseAuthentication()`                           |
 |                   |                                                                                                                                 | `UseAuthorization()`                            |
 |                   |                                                                                                                                 | `MapControllers()`                              |
-| **Directory**     | [Controllers](./template/src/${{+values.dirNamePrefix+}}/Controllers/)                                                      | Sample controller.                              |
+| **Directory**     | [Controllers](./template/src/${{ values.dirNamePrefix }}/Controllers/)                                                      | Sample controller.                              |
 
 #### `enableEndpoints`
 
@@ -164,10 +164,10 @@ Endpoints are part of the .NET 6 [Minimal APIs](https://docs.microsoft.com/en-us
 
 |                   | Item                                                                                                                            | Description                 |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                               | `Funda.{_}`.Endpoints           |
-| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | `AddEndpointsApiExplorer()` |
-|                   | [WebApplicationExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs)        | `MappEndpoints()`           |
-| **Directory**     | [Endpoints](./template/src/${{+values.dirNamePrefix+}}/Endpoints/)                                                          | Sample endpoints.           |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                               | `Funda.{_}`.Endpoints           |
+| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | `AddEndpointsApiExplorer()` |
+|                   | [WebApplicationExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs)        | `MappEndpoints()`           |
+| **Directory**     | [Endpoints](./template/src/${{ values.dirNamePrefix }}/Endpoints/)                                                          | Sample endpoints.           |
 
 #### `enableInMemoryRepository`
 
@@ -175,8 +175,8 @@ Adds a sample repository that uses a dictionary for in-memory storage. This is t
 
 |               | Item                                                                                                                            | Description                              |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | Injects `InMemoryMeasurementRepository`. |
-| **Directory** | [Infrastructure/InMemory](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/InMemory/)                              | Sample repository.                       |
+| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | Injects `InMemoryMeasurementRepository`. |
+| **Directory** | [Infrastructure/InMemory](./template/src/${{ values.dirNamePrefix }}.Infrastructure/InMemory/)                              | Sample repository.                       |
 
 #### `enableSqlServer`
 
@@ -184,9 +184,9 @@ Adds `System.Data.SqlClient` as a package reference to use `SqlConnection`, `Sql
 
 |                   | Item                                                                                                                                                 | Description                           |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------- |
-| **Packages**      | [`Funda.{_}`.Infrastructure.csproj](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/${{+values.fileNamePrefix+}}.Infrastructure.csproj) | System.Data.SqlClient                 |
-| **Configuration** | [appsettings.json](./template/src/${{+values.dirNamePrefix+}}/appsettings.json)                                                                  | `SqlServer:ConnectionString`          |
-| **Global usings** | [Infrastructure/GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/GlobalUsings.cs)                                      | *global using System.Data.SqlClient;* |
+| **Packages**      | [`Funda.{_}`.Infrastructure.csproj](./template/src/${{ values.dirNamePrefix }}.Infrastructure/${{ values.fileNamePrefix }}.Infrastructure.csproj) | System.Data.SqlClient                 |
+| **Configuration** | [appsettings.json](./template/src/${{ values.dirNamePrefix }}/appsettings.json)                                                                  | `SqlServer:ConnectionString`          |
+| **Global usings** | [Infrastructure/GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}.Infrastructure/GlobalUsings.cs)                                      | *global using System.Data.SqlClient;* |
 
 #### `enableSqlServerRepository`
 
@@ -194,8 +194,8 @@ Adds `SqlServerMeasurementRepository` sample repository.
 
 |               | Item                                                                                                                            | Description                               |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | Injects `SqlServerMeasurementRepository`. |
-| **Directory** | [Infrastructure/SqlServer](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/SqlServer/)                            | Sample repository.                        |
+| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | Injects `SqlServerMeasurementRepository`. |
+| **Directory** | [Infrastructure/SqlServer](./template/src/${{ values.dirNamePrefix }}.Infrastructure/SqlServer/)                            | Sample repository.                        |
 
 #### `enableCosmosDb`
 
@@ -203,10 +203,10 @@ Adds `Microsoft.Azure.Cosmos` references.
 
 |                   | Item                                                                                                                                                 | Description                            |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------- |
-| **Packages**      | [`Funda.{_}`.Infrastructure.csproj](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/${{+values.fileNamePrefix+}}.Infrastructure.csproj) | Microsoft.Azure.Cosmos                 |
-| **Configuration** | [appsettings.json](./template/src/${{+values.dirNamePrefix+}}/appsettings.json)                                                                  | `"CosmosDb:ConnectionString"`          |
+| **Packages**      | [`Funda.{_}`.Infrastructure.csproj](./template/src/${{ values.dirNamePrefix }}.Infrastructure/${{ values.fileNamePrefix }}.Infrastructure.csproj) | Microsoft.Azure.Cosmos                 |
+| **Configuration** | [appsettings.json](./template/src/${{ values.dirNamePrefix }}/appsettings.json)                                                                  | `"CosmosDb:ConnectionString"`          |
 |                   |                                                                                                                                                      | `"CosmosDb:DatabaseName"`              |
-| **Global usings** | [Infrastructure/GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/GlobalUsings.cs)                                      | *global using Microsoft.Azure.Cosmos;* |
+| **Global usings** | [Infrastructure/GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}.Infrastructure/GlobalUsings.cs)                                      | *global using Microsoft.Azure.Cosmos;* |
 
 #### `enableCosmosDbRepository`
 
@@ -214,8 +214,8 @@ Adds `CosmosDbMeasurementRepository` sample repository.
 
 |               | Item                                                                                                                            | Description                              |
 | ------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs) | Injects `CosmosDbMeasurementRepository`. |
-| **Directory** | [Infrastructure/CosmosDb](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/CosmosDb/)                              | Seedwork repository for Cosmos DB.       |
+| **DI Setup**  | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs) | Injects `CosmosDbMeasurementRepository`. |
+| **Directory** | [Infrastructure/CosmosDb](./template/src/${{ values.dirNamePrefix }}.Infrastructure/CosmosDb/)                              | Seedwork repository for Cosmos DB.       |
 
 #### `enableEntityFramework`
 
@@ -223,13 +223,13 @@ Adds support for [Entity Framework Core](https://docs.microsoft.com/en-us/ef/cor
 
 |                   | Item                                                                                                             | Description                                                  |
 | ----------------- | ---------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{+values.dirNamePrefix+}}/${{+values.fileNamePrefix+}}.csproj)          | Microsoft.EntityFrameworkCore.Design                         |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                | *global using Microsoft.EntityFrameworkCore;*                |
+| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{ values.dirNamePrefix }}/${{ values.fileNamePrefix }}.csproj)          | Microsoft.EntityFrameworkCore.Design                         |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                | *global using Microsoft.EntityFrameworkCore;*                |
 |                   |                                                                                                                  | *global using {{ name }}.Infrastructure.EntityFramework;*    |
-|                   | [Infrastructure/GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/GlobalUsings.cs)  | *global using Microsoft.EntityFrameworkCore;*                |
+|                   | [Infrastructure/GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}.Infrastructure/GlobalUsings.cs)  | *global using Microsoft.EntityFrameworkCore;*                |
 |                   |                                                                                                                  | *global using Microsoft.EntityFrameworkCore.Infrastructure;* |
 |                   |                                                                                                                  | *global using {{ name }}.Infrastructure.EntityFramework;*    |
-| **Directory**     | [Infrastructure/EntityFramework](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/EntityFramework/) | DbContext infrastructure.                                    |
+| **Directory**     | [Infrastructure/EntityFramework](./template/src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/) | DbContext infrastructure.                                    |
 
 
 #### `enableEntityFrameworkSqlServer`
@@ -238,11 +238,11 @@ Adds SQL Server as a database provider for Entity Framework Core.
 
 |                   | Item                                                                                                                                  | Description                                                                          |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/${{+values.fileNamePrefix+}}.Infrastructure.csproj) | Microsoft.EntityFrameworkCore.Relational                                             |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                                     | *global using Microsoft.EntityFrameworkCore.SqlServer;*                              |
-| **Configuration** | [appsettings.json](./template/src/${{+values.dirNamePrefix+}}/appsettings.json)                                                   | `"EntityFramework:SqlServer:ConnectionString"`                                       |
-| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs)       | `AddDbContext<IDbContext, SqlServerDbContext>(options => options.UseSqlServer(...))` |
-| **Directory**     | [Infrastructure/EntityFramework/SqlServer](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/EntityFramework/SqlServer/)  | SQL Server DbContext.                                                                |
+| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{ values.dirNamePrefix }}.Infrastructure/${{ values.fileNamePrefix }}.Infrastructure.csproj) | Microsoft.EntityFrameworkCore.Relational                                             |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                                     | *global using Microsoft.EntityFrameworkCore.SqlServer;*                              |
+| **Configuration** | [appsettings.json](./template/src/${{ values.dirNamePrefix }}/appsettings.json)                                                   | `"EntityFramework:SqlServer:ConnectionString"`                                       |
+| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs)       | `AddDbContext<IDbContext, SqlServerDbContext>(options => options.UseSqlServer(...))` |
+| **Directory**     | [Infrastructure/EntityFramework/SqlServer](./template/src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/SqlServer/)  | SQL Server DbContext.                                                                |
 
 
 #### `enableEntityFrameworkCosmosDb`
@@ -251,12 +251,12 @@ Adds Cosmos DB as a database provider for Entity Framework Core.
 
 |                   | Item                                                                                                                                  | Description                                                                    |
 | ----------------- | ------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/${{+values.fileNamePrefix+}}.Infrastructure.csproj) | Microsoft.EntityFrameworkCore.Cosmos                                           |
-| **Global usings** | [GlobalUsings.cs](./template/src/${{+values.dirNamePrefix+}}/GlobalUsings.cs)                                                     | *global using Microsoft.EntityFrameworkCore.Cosmos;*                           |
-| **Configuration** | [appsettings.json](./template/src/${{+values.dirNamePrefix+}}/appsettings.json)                                                   | `"EntityFramework:CosmosDb:ConnectionString"`                                  |
+| **Packages**      | [`Funda.{_}`.csproj](./template/src/${{ values.dirNamePrefix }}.Infrastructure/${{ values.fileNamePrefix }}.Infrastructure.csproj) | Microsoft.EntityFrameworkCore.Cosmos                                           |
+| **Global usings** | [GlobalUsings.cs](./template/src/${{ values.dirNamePrefix }}/GlobalUsings.cs)                                                     | *global using Microsoft.EntityFrameworkCore.Cosmos;*                           |
+| **Configuration** | [appsettings.json](./template/src/${{ values.dirNamePrefix }}/appsettings.json)                                                   | `"EntityFramework:CosmosDb:ConnectionString"`                                  |
 |                   |                                                                                                                                       | `"EntityFramework:CosmosDb:DatabaseName"`                                      |
-| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs)       | `AddDbContext<IDbContext, CosmosDbContext>(options => options.UseCosmos(...))` |
-| **Directory**     | [Infrastructure/EntityFramework/CosmosDb](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/EntityFramework/CosmosDb/)    | Cosmos DB DbContext.                                                           |
+| **DI Setup**      | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs)       | `AddDbContext<IDbContext, CosmosDbContext>(options => options.UseCosmos(...))` |
+| **Directory**     | [Infrastructure/EntityFramework/CosmosDb](./template/src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/CosmosDb/)    | Cosmos DB DbContext.                                                           |
 
 #### `enableEntityFrameworkRepository`
 
@@ -264,8 +264,8 @@ Adds a sample repository based on [Entity Framework Core](https://docs.microsoft
 
 |              | Item                                                                                                                                                                                            | Description                                                                 |
 | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
-| **DI Setup** | [WebApplicationBuilderExtensions.cs](./template/src/${{+values.dirNamePrefix+}}/Startup/WebApplicationBuilderExtensions.cs)                                                                 | `AddScoped<IMeasurementRepository, EntityFrameworkMeasurementRepository>()` |
-| **File**     | [Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs](./template/src/${{+values.dirNamePrefix+}}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs) | Sample repository.                                                          |
+| **DI Setup** | [WebApplicationBuilderExtensions.cs](./template/src/${{ values.dirNamePrefix }}/Startup/WebApplicationBuilderExtensions.cs)                                                                 | `AddScoped<IMeasurementRepository, EntityFrameworkMeasurementRepository>()` |
+| **File**     | [Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs](./template/src/${{ values.dirNamePrefix }}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs) | Sample repository.                                                          |
 
 
 # Local Development
