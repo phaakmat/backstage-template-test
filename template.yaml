@@ -73,6 +73,7 @@ spec:
         - features.entityFrameworkRepository
       properties:
         features.cosmosDb:
+          title: Enable a Cosmos DB database
           type: string
           oneOf:
             - const: ""
@@ -96,7 +97,6 @@ spec:
             - const: "Entity Framework Core with CosmosDB"
             - const: "Entity Framework Core with SqlServer"
           description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
-          default: ""
 
       dependencies:
         features.cosmosDb:
