@@ -66,6 +66,7 @@ spec:
     - title: Storage
       description: Storage options
       ui:order:
+        - features.sqlServer
         - features.cosmosDb
         - features.cosmosDbRepository
         - features.entityFramework
@@ -118,7 +119,7 @@ spec:
             - const: ""
               title: "No"
             - const: "Yes"
-          description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+          description: "'Yes' includes package references and sample code for the Funda.Extensions.Messaging. Leave blank to omit these references and samples."
 
     # - title: Features
     #   description: Description of Features
