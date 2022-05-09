@@ -81,9 +81,11 @@ spec:
               title: CosmosDB
               type: string
               description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
-              enum:
-                - ''
-                - Yes
+              oneOf:
+                - const: ""
+                  title: "No"
+                - const: "Yes"
+                  title: "Yes"
             sqlServer:
               title: Add SQL Server
               type: boolean
