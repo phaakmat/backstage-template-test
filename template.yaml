@@ -52,7 +52,25 @@ spec:
           type: string
           default: phaakmat # fundarealestate # Can be changed to develop/test against dev/test repo
           ui:widget: hidden
+    - title: Cosmos DB
+      description: Description of Feature
+      properties:
+        cosmosDb:
+          type: string
+          oneOf:
+            - const: ""
+              title: "No"
+              - const: "Yes"
+                description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
+        dependencies:
+          cosmosDb:
+            properties:
+              cosmosDbRepository:
+                title: Add CosmosDB Sample Repository
+                type: boolean
+
     - title: Features
+      description: Description of Features
       properties:
         features:
           title: Select services
@@ -80,6 +98,10 @@ spec:
             cosmosDb:
               title: CosmosDB
               type: string
+              oneOf:
+                - const: ""
+                  title: "No"
+                - const: "Yes"
               description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
             sqlServer:
               title: Add SQL Server
