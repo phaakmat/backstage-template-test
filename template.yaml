@@ -73,7 +73,7 @@ spec:
         - features.entityFrameworkRepository
       properties:
         features.cosmosDb:
-          title: Enable a Cosmos DB database
+          title: Enable a CosmosDB data store
           type: string
           oneOf:
             - const: ""
@@ -114,78 +114,21 @@ spec:
       description: Messaging
       properties:
         features.fundaMessaging:
+          title: Enable Funda.Extensions.Messaging
           type: string
           oneOf:
             - const: ""
               title: "No"
             - const: "Yes"
-          description: "'Yes' includes package references and sample code for the Funda.Extensions.Messaging. Leave blank to omit these references and samples."
-
-    # - title: Features
-    #   description: Description of Features
-    #   properties:
-    #     features:
-    #       title: Select services
-    #       description: Select services description
-    #       ui:order:
-    #         - httpApi
-    #         - cosmosDb
-    #         - cosmosDbRepository
-    #         - sqlServer
-    #         - entityFramework
-    #         - entityFrameworkRepository
-    #         - fundaMessaging
-    #       properties:
-    #         httpApi:
-    #           title: HTTP API
-    #           type: string
-    #           enum:
-    #             - .NET 6 Minimal API Endpoints
-    #             - MVC Controllers
-    #           description: "'.NET 6 Minimal API Endpoints' provides a simpler, lightweight alternative to the tried and true 'MVC Controllers'."
-    #           default: .NET 6 Minimal API Endpoints
-    #         fundaMessaging:
-    #           title: Add Funda.Extensions.Messaging
-    #           type: boolean
-    #           description: "Whether to include Funda.Extensions.Messaging."
-    #         cosmosDb:
-    #           title: CosmosDB
-    #           type: string
-    #           oneOf:
-    #             - const: ""
-    #               title: "No"
-    #             - const: "Yes"
-    #           description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
-    #         sqlServer:
-    #           title: Add SQL Server
-    #           type: boolean
-    #           description: Whether to include SQL Server client.
-    #         entityFramework:
-    #           title: Entity Framework Core
-    #           type: string
-    #           oneOf:
-    #             - const: ""
-    #               title: "No"
-    #             - const: "Entity Framework Core"
-    #             - const: "Entity Framework Core with CosmosDB"
-    #             - const: "Entity Framework Core with SqlServer"
-    #           description: "'Entity Framework Core' includes package references and sample code. The 'with ...' options add a DbContext for that data store."
-    #           default: No
-    #       dependencies:
-    #         cosmosDb:
-    #           properties:
-    #             cosmosDbRepository:
-    #               title: Add CosmosDB Sample Repository
-    #               type: boolean
-    #         entityFramework:
-    #           properties:
-    #             entityFrameworkRepository:
-    #               title: Add Entity Framework Core Sample Repository Class
-    #               type: boolean
-
+          description: "'Yes' includes package references and sample code for the Funda.Extensions.Messaging client library, which helps with sending and receiving events through Azure Service Bus. Leave blank to omit these references and samples."
 
   # scaffolding steps
   steps:
+    - id: logdebug
+      action: debug:log
+      input:
+        message: ${{ parameters }}
+
     - id: fetch-base
       name: Fetch Template
       action: fetch:template
@@ -211,11 +154,6 @@ spec:
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ parameters.features.entityFrameworkRepository }}
           enableInMemoryRepository: true
-
-    - id: logdebug
-      action: debug:log
-      input:
-        message: ${{ parameters }}
 
     - id: remove-controllers
       name: Remove Controllers
