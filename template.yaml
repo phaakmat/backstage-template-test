@@ -58,8 +58,8 @@ spec:
           title: Select services
           properties:
             ui:order:
-              - httpApi
               - fundaMessaging
+              - httpApi
               - cosmosDb
               - cosmosDbRepository
               - sqlServer
