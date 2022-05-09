@@ -62,12 +62,12 @@ spec:
               title: "No"
             - const: "Yes"
               description: "'Yes' includes package references and sample code for the Cosmos DB client. Leave blank to omit these references and samples."
-        dependencies:
-          cosmosDb:
-            properties:
-              cosmosDbRepository:
-                title: Add CosmosDB Sample Repository
-                type: boolean
+      dependencies:
+        cosmosDb:
+          properties:
+            cosmosDbRepository:
+              title: Add CosmosDB Sample Repository
+              type: boolean
 
     - title: Features
       description: Description of Features
