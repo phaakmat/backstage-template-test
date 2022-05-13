@@ -23,7 +23,7 @@ public static class EndpointRouteBuilderExtensions
             .Produces(StatusCodes.Status200OK)
             .Produces(StatusCodes.Status204NoContent)
             .ProducesProblem(StatusCodes.Status400BadRequest);
-        
+
         return app;
     }
 }

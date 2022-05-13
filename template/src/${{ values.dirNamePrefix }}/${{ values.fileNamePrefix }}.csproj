@@ -28,13 +28,13 @@
 		<PackageReference Include="Funda.Extensions.Messaging.InMemory" Version="5.1.1" />
 		<PackageReference Include="Funda.Extensions.Messaging.DatadogTracing" Version="5.1.1" />
 		{%- endif %}
-		
+
 		{%- if values.enableControllers %}
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
 		{%- endif %}
-		
+
 		{%- if values.enableEntityFramework %}
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.4">
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

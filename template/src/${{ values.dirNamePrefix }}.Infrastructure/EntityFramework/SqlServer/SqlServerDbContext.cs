@@ -7,7 +7,7 @@ public class SqlServerDbContext : DbContext, IDbContext
     public SqlServerDbContext(DbContextOptions<SqlServerDbContext> options) : base(options)
     {
     }
-    
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<Measurement>()

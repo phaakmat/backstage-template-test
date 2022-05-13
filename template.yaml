@@ -2,8 +2,8 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: dotnet-feature-api-v1.0 # Remember to also change templateName
-  title: .NET 6.0 Feature API v1.0
-  description: Create a .NET 6.0 Feature API
+  title: .NET 6.0 > Feature Service API v1.0
+  description: Create a .NET 6.0 Feature Service API
   tags:
     - service
     - template
@@ -39,7 +39,7 @@ spec:
         owner:
           title: Owner
           type: string
-          description: Owner of the package
+          description: Owner of the service
           ui:field: OwnerPicker
           ui:widget: select
           ui:options:
@@ -49,7 +49,7 @@ spec:
           title: GitHub organization
           description: The organization / owner in GitHub
           type: string
-          default: fundarealestate # Can be changed to develop/test against dev/test repo
+          default: phaakmat # fundarealestate # Can be changed to develop/test against dev/test repo
           ui:widget: hidden
     - title: HTTP endpoints
       description: This template supports both the [Minimal API](https://www.google.com) .NET 6 Endpoints and the classic MVC Controllers.
@@ -123,11 +123,6 @@ spec:
 
   # scaffolding steps
   steps:
-    - id: logdebug
-      action: debug:log
-      input:
-        message: ${{ parameters | dump }}
-
     - id: fetch-base
       name: Fetch Template
       action: fetch:template
@@ -151,7 +146,7 @@ spec:
           enableEntityFramework: ${{ parameters.features.entityFramework != '' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
-          enableEntityFrameworkRepository: ${{ parameters.features.cosmosDb && parameters.features.entityFrameworkRepository }}
+          enableEntityFrameworkRepository: ${{ parameters.features.entityFramework and parameters.features.entityFrameworkRepository }}
           enableInMemoryRepository: ${{ (not parameters.features.entityFrameworkRepository) and (not parameters.features.cosmosDbRepository) }}
 
     - id: remove-controllers
@@ -194,21 +189,29 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
 
-    - id: remove-in-memory-repository
-      name: Remove In Memory repository
+    - id: remove-cosmosdb-repository
+      name: Remove CosmosDB Repository class
       action: fs:delete
-      if: ${{ parameters.features.entityFramework != 'No' }}
+      if: ${{ not (parameters.features.cosmosDb and parameters.features.cosmosDbRepository) }}
       input:
         files:
-          - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
+          - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb/CosmosDbRepository.cs
 
     - id: remove-ef
       name: Remove EF Core
       action: fs:delete
-      if: ${{ parameters.features.entityFramework == 'No' }}
+      if: ${{ not parameters.features.entityFramework }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework
+
+    - id: remove-ef-repository
+      name: Remove EF Core Repository Class
+      action: fs:delete
+      if: ${{ not (parameters.features.entityFramework and parameters.features.entityFrameworkRepository) }}
+      input:
+        files:
+          - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs
 
     - id: remove-ef-cosmos
       name: Remove EF Core CosmosDb
@@ -226,6 +229,14 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
 
+    - id: remove-in-memory-repository
+      name: Remove In Memory repository
+      action: fs:delete
+      if: ${{ not ((not parameters.features.entityFrameworkRepository) and (not parameters.features.cosmosDbRepository)) }}
+      input:
+        files:
+          - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
+
     - id: publish
       name: Create GitHub Repository
       action: publish:github
@@ -233,7 +244,7 @@ spec:
         allowedHosts: ['github.com']
         defaultBranch: main
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=Funda.${{ parameters.name }}'
+        repoUrl: 'github.com?owner=${{ parameters.owner }}&repo=Funda.${{ parameters.name }}'
 
     - id: azdevops
       name: Create Azure DevOps Pipeline
@@ -254,7 +265,7 @@ spec:
       action: publish:github:pull-request
       input:
         description: ${{ parameters.description }}
-        repoUrl: 'github.com?owner=${{ parameters.organization }}&repo=Funda.${{ parameters.name }}'
+        repoUrl: 'github.com?owner=${{ parameters.owner }}&repo=Funda.${{ parameters.name }}'
         branchName: catalog-info
         title: "Update catalog-info.yaml"
 
