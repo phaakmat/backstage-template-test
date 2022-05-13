@@ -170,7 +170,7 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ (parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)) }}
-          enableInMemoryRepository: >
+          enableInMemoryRepository: >-
             ${{
               (
                 not
@@ -266,7 +266,7 @@ spec:
       name: Log before remove In Mem
       action: debug:log
       input:
-        message: |
+        message: |-
           condEntityFramework: ${{ ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))) }}
           condCosmosDb: ${{ ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))) }}
 
@@ -274,7 +274,7 @@ spec:
       name: Log before remove In Mem2
       action: debug:log
       input:
-        message: >
+        message: >-
           ${{
             (not
               (
@@ -288,7 +288,7 @@ spec:
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
-      if: >
+      if: >-
         ${{
           (not
             (
