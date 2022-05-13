@@ -140,14 +140,14 @@ spec:
           applicationName: 'Funda.${{ parameters.name }}'
           enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
           enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
-          enableFundaMessaging: ${{ parameters.features.fundaMessaging != '' }}
-          enableCosmosDb: ${{ parameters.features.cosmosDb }}
-          enableCosmosDbRepository: ${{ parameters.features.cosmosDb && parameters.features.cosmosDbRepository }}
+          enableFundaMessaging: ${{ parameters.features.fundaMessaging | d(false, true) }}
+          enableCosmosDb: ${{ parameters.features.cosmosDb | d(false, true) }}
+          enableCosmosDbRepository: ${{ (parameters.features.cosmosDb | d(false, true)) and (parameters.features.cosmosDbRepository | d(false, true)) }}
           enableEntityFramework: ${{ parameters.features.entityFramework != '' }}
           enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
-          enableEntityFrameworkRepository: ${{ parameters.features.entityFramework and parameters.features.entityFrameworkRepository }}
-          enableInMemoryRepository: ${{ (not parameters.features.entityFrameworkRepository) and (not parameters.features.cosmosDbRepository) }}
+          enableEntityFrameworkRepository: ${{ (parameters.features.entityFramework | d(false, true)) and (parameters.features.entityFrameworkRepository | d(false, true)) }}
+          enableInMemoryRepository: ${{ (not (parameters.features.entityFrameworkRepository | d(false, true))) and (not (parameters.features.cosmosDbRepository | d(false, true)) ) }}
 
     - id: remove-controllers
       name: Remove Controllers
@@ -168,7 +168,7 @@ spec:
     - id: remove-funda-messaging
       name: Remove Funda.Messaging
       action: fs:delete
-      if: ${{ not parameters.features.fundaMessaging }}
+      if: ${{ not (parameters.features.fundaMessaging | d(false, true)) }}
       input:
         files:
           - src/Funda.${{ parameters.name }}/Messaging
@@ -176,7 +176,7 @@ spec:
     - id: setup-sqlserver
       name: Remove SQL Server
       action: fs:delete
-      if: ${{ not parameters.features.sqlServer }}
+      if: ${{ not (parameters.features.sqlServer | d(false, true)) }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/SqlServer
@@ -184,7 +184,7 @@ spec:
     - id: remove-cosmosdb
       name: Remove CosmosDB
       action: fs:delete
-      if: ${{ not parameters.features.cosmosDb }}
+      if: ${{ not (parameters.features.cosmosDb | d(false, true)) }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/CosmosDb
@@ -208,7 +208,7 @@ spec:
     - id: remove-ef-repository
       name: Remove EF Core Repository Class
       action: fs:delete
-      if: ${{ not (parameters.features.entityFramework and parameters.features.entityFrameworkRepository) }}
+      if: ${{ not ((parameters.features.entityFramework | d(false, true)) and (parameters.features.entityFrameworkRepository | d(false, true))) }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/EntityFrameworkMeasurementRepository.cs
@@ -232,7 +232,7 @@ spec:
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
-      if: ${{ not ((not parameters.features.entityFrameworkRepository) and (not parameters.features.cosmosDbRepository)) }}
+      if: ${{ not (not (parameters.features.entityFrameworkRepository | d(false, true))) and (not (parameters.features.cosmosDbRepository | d(false, true)) ) }}
       input:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/InMemory
