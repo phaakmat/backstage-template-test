@@ -123,6 +123,21 @@ spec:
 
   # scaffolding steps
   steps:
+    - id: debug:log
+      action: debug:log
+      input:
+        message: 
+          enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
+          enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
+          enableFundaMessaging: ${{ parameters.features.fundaMessaging | d(false, true) }}
+          enableCosmosDb: ${{ parameters.features.cosmosDb | d(false, true) }}
+          enableCosmosDbRepository: ${{ (parameters.features.cosmosDb | d(false, true)) and (parameters.features.cosmosDbRepository | d(false, true)) }}
+          enableEntityFramework: ${{ parameters.features.entityFramework != '' }}
+          enableEntityFrameworkCosmosDb: ${{ parameters.features.entityFramework == 'Entity Framework Core with CosmosDB' }}
+          enableEntityFrameworkSqlServer: ${{ parameters.features.entityFramework == 'Entity Framework Core with SqlServer' }}
+          enableEntityFrameworkRepository: ${{ (parameters.features.entityFramework | d(false, true)) and (parameters.features.entityFrameworkRepository | d(false, true)) }}
+          enableInMemoryRepository: ${{ (not (parameters.features.entityFrameworkRepository | d(false, true))) and (not (parameters.features.cosmosDbRepository | d(false, true)) ) }}
+
     - id: fetch-base
       name: Fetch Template
       action: fetch:template
