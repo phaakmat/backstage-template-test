@@ -128,7 +128,6 @@ spec:
       input:
         message: |
           ${{ parameters | dump }}
-          parameters.features: ${{ parameters["httpApi"] | dump }}
           enableControllers: ${{ parameters["httpApi"] == 'MVC Controllers' }}
           enableEndpoints: ${{ parameters.httpApi == '.NET 6 Minimal API Endpoints' }}
           enableFundaMessaging: ${{ parameters.fundaMessaging | d(false, true) }}
@@ -138,7 +137,14 @@ spec:
           enableEntityFrameworkCosmosDb: ${{ parameters.entityFramework == 'Entity Framework Core with CosmosDB' }}
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ (parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)) }}
-          enableInMemoryRepository: ${{ (not (parameters.entityFrameworkRepository | d(false, true))) and (not (parameters.cosmosDbRepository | d(false, true)) ) }}
+          enableInMemoryRepository: <
+            ${{ 
+              (not
+                ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)))
+                or
+                ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true)))
+              )
+            }}
 
     - id: fetch-base
       name: Fetch Template
