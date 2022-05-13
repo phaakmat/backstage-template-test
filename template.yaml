@@ -263,7 +263,7 @@ spec:
       name: Log before remove In Mem
       action: debug:log
       input:
-        message:
+        message: |
           condEntityFramework: ${{ ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))) }}
           condCosmosDb: ${{ ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))) }}
       
