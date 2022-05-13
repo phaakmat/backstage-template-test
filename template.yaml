@@ -128,7 +128,7 @@ spec:
       input:
         message: |
           ${{ parameters | dump }}
-          parameters.features.httpApi: ${{ parameters.features.httpApi }}
+          parameters.features: ${{ parameters.features | dump }}
           enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
           enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
           enableFundaMessaging: ${{ parameters.features.fundaMessaging | d(false, true) }}
