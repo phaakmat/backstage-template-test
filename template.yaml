@@ -128,8 +128,8 @@ spec:
       input:
         message: |
           ${{ parameters | dump }}
-          parameters.features: ${{ parameters.features | dump }}
-          enableControllers: ${{ parameters.features.httpApi == 'MVC Controllers' }}
+          parameters.features: ${{ parameters["features.httpApi"] | dump }}
+          enableControllers: ${{ parameters["features.httpApi"] == 'MVC Controllers' }}
           enableEndpoints: ${{ parameters.features.httpApi == '.NET 6 Minimal API Endpoints' }}
           enableFundaMessaging: ${{ parameters.features.fundaMessaging | d(false, true) }}
           enableCosmosDb: ${{ parameters.features.cosmosDb | d(false, true) }}
