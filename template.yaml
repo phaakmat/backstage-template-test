@@ -259,17 +259,20 @@ spec:
         files:
           - src/Funda.${{ parameters.name }}.Infrastructure/EntityFramework/SqlServer
 
+    - id: logme
+      name: Log before remove In Mem
+      input:
+        message:
+          
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
       if: <
-        ${{
-          (not
-            (not
-              ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)))
-              or
-              ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true)))
-            )
+        ${{ not 
+          (
+            ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)))
+            or
+            ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true)))
           )
         }}
       input:
