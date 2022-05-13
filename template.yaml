@@ -270,21 +270,6 @@ spec:
           condEntityFramework: ${{ ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))) }}
           condCosmosDb: ${{ ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))) }}
 
-    - id: logme2
-      name: Log before remove In Mem2
-      action: debug:log
-      input:
-        message: >-
-          ${{
-            (not
-              (
-                (not ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))))
-                and
-                (not ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))))
-              )
-            )
-          }}
-      
     - id: remove-in-memory-repository
       name: Remove In Memory repository
       action: fs:delete
