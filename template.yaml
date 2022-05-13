@@ -171,11 +171,14 @@ spec:
           enableEntityFrameworkSqlServer: ${{ parameters.entityFramework == 'Entity Framework Core with SqlServer' }}
           enableEntityFrameworkRepository: ${{ (parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)) }}
           enableInMemoryRepository: <
-            ${{ 
-              (not
-                ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)))
-                or
-                ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true)))
+            ${{
+              (
+                not
+                (
+                  (not ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))))
+                  and
+                  (not ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))))
+                )
               )
             }}
 
@@ -271,11 +274,11 @@ spec:
       name: Remove In Memory repository
       action: fs:delete
       if: <
-        ${{ not 
+        ${{ 
           (
-            ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true)))
-            or
-            ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true)))
+            (not ((parameters.entityFramework | d(false, true)) and (parameters.entityFrameworkRepository | d(false, true))))
+            and
+            (not ((parameters.cosmosDb | d(false, true)) and (parameters.cosmosDbRepository | d(false, true))))
           )
         }}
       input:
